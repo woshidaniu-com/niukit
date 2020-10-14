@@ -1,0 +1,39 @@
+.progress-demo h4 {
+	margin-bottom: 15px;
+	color:#666;
+}
+.progress-demo .progress-out {
+	margin-bottom: 30px;
+}
+
+.progress-demo .progress {
+	position: relative;	
+}
+
+.progress-demo .progress-bar {
+	position: absolute;	
+	z-index: 1;
+}
+
+.progress-demo .direction-left {
+	left: 0;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+}
+
+.progress-demo .direction-right {
+	right: 0;
+	border-top-left-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+
+.progress-demo .percent-show {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	color: #000;
+	text-align: center;
+	z-index: 2;
+}

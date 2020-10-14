@@ -1,0 +1,11 @@
+<web-fragment version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd">
+
+	<name>niukit_authz_cas321</name>
+	
+	<listener>
+		<listener-class>com.woshidaniu.authz.cas321.shiro.listener.ZFCas321SingleSignOutHttpSessionListener</listener-class>
+	</listener>
+	
+</web-fragment>

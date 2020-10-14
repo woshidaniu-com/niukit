@@ -1,0 +1,182 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.woshidaniu</groupId>
+		<artifactId>niukit-parent</artifactId>
+		<version>1.1.1</version>
+	</parent>
+	
+	<artifactId>niukit-safety</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis-ext</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-css</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.nekohtml</groupId>
+			<artifactId>nekohtml</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+		
+		<!-- ######################web安全组件###################### -->
+		
+		<!--
+			它是一个可确保用户输入的HTML/CSS符合应用规范的API。
+			换句话讲，这个API可以确保用户无法在HTML中提交恶意代码，这些恶意代码提交通常 被用于用户输入的个人资料、评论等会被服务端持久化的数据中。
+			对Web应用来讲，“恶意代码”通常是指Javascript。CSS样式在调用 Javascript引擎的时候也会被认为是恶意代码。
+			当然，通常一些“正常”的HTML和CSS也会被用于恶意的目的，所以我们也会对此予以处理
+		-->	
+		<dependency>
+			<groupId>org.owasp.antisamy</groupId>
+			<artifactId>antisamy</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.xmlgraphics</groupId>
+					<artifactId>batik-css</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.sourceforge.nekohtml</groupId>
+					<artifactId>nekohtml</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-codec</artifactId>
+					<groupId>commons-codec</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-httpclient</groupId>
+					<artifactId>commons-httpclient</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- <dependency>
+			<groupId>org.owasp</groupId>
+			<artifactId>csrfguard</artifactId>
+		</dependency> -->
+		<dependency>
+			<groupId>org.owasp.encoder</groupId>
+			<artifactId>encoder</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.owasp.encoder</groupId>
+			<artifactId>encoder-jsp</artifactId>
+		</dependency>
+		<!-- <dependency>
+			<groupId>org.owasp.esapi</groupId>
+			<artifactId>esapi</artifactId>
+		</dependency> -->
+		
+		<!-- ###################### Spring 4.x 核心框架  ###################### -->
+			
+		<!-- Bean支持，包括Groovy  -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>niukit-basicutils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>niukit-web</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<!-- <dependency>
+		    <groupId>com.github.jsqlparser</groupId>
+		    <artifactId>jsqlparser</artifactId>
+		</dependency>
+		
+		<dependency>
+		   	<groupId>gudusoft.gsqlparser</groupId>
+		  	<artifactId>gsqlparser</artifactId>
+		  	<version>current</version>
+		</dependency> -->
+				
+		<!-- https://mvnrepository.com/artifact/com.googlecode.owasp-java-html-sanitizer/owasp-java-html-sanitizer -->
+		<dependency>
+		    <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
+		    <artifactId>owasp-java-html-sanitizer</artifactId>
+		   <!--  <version>r239</version> -->
+		    <version>20170515.1</version>
+		</dependency>
+				
+		
+		
+	</dependencies>
+	
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+					<include>**/*.css</include>
+					<include>**/*.html</include>
+					<include>**/*.js</include>
+					<include>**/*.txt</include>
+					<include>**/*.png</include>
+					<include>**/*.html</include>
+					<include>**/*.json</include>
+					<include>**/*.template</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+					<include>**/*.css</include>
+					<include>**/*.html</include>
+					<include>**/*.js</include>
+					<include>**/*.txt</include>
+					<include>**/*.png</include>
+					<include>**/*.html</include>
+					<include>**/*.template</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+	</build>
+</project>

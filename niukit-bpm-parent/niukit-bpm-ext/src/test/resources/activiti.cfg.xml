@@ -1,0 +1,34 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
+
+    <property name="jdbcUrl" value="jdbc:oracle:thin:@10.71.19.135:1521:orcl" />
+    <property name="jdbcDriver" value="oracle.jdbc.driver.OracleDriver" />
+    <property name="jdbcUsername" value="niutal_VERSION" />
+    <property name="jdbcPassword" value="niutal_VERSION" />
+	<property name="databaseType" value="oracle"></property>
+	<property name="databaseSchema" value="niutal_VERSION"/>
+	<property name="databaseSchemaUpdate" value="false"></property>
+	
+	<property name="history" value="audit" />
+	<property name="dbIdentityUsed" value="false"></property>
+    <property name="jobExecutorActivate" value="false" />
+    <property name="asyncExecutorEnabled" value="false" />
+    <property name="asyncExecutorActivate" value="false" />
+    <property name="activityFontName" value="宋体"/>  
+    <property name="labelFontName" value="宋体"/> 
+    <property name="customFormTypes">
+    	<list>
+    		<bean name="textarea" class="org.activiti.engine.extend.form.TextareaFormType"></bean>
+    	</list>
+    </property>
+    <property name="customFormEngines">
+    	<list>
+    		<bean name="alpacaJSONFormEngine" class="org.activiti.engine.extend.form.AlpacaJSONFormEngine"></bean>
+    	</list>
+    </property>
+  </bean>
+
+</beans>

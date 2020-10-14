@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	
+	<!-- ########### Shiro集成 ########### -->
+	
+	<!-- 缓存管理器：使用Ehcache实现 -->
+    <bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManager" ref="ehCacheManager"></property>
+    </bean>
+	
+	<!-- 默认的登录认证Realm实现 -->
+	<bean id="ZFRealm" class="com.woshidaniu.shiro.realm.DefaultAccountRealm">
+		<!-- 认证账号信息提供实现：认证信息、角色信息、权限信息；业务系统需要自己实现该接口 -->
+		<property name="accountService" ref="defaultShiroService"/>
+		<!-- 凭证匹配器：该对象主要做密码校验 -->
+		<property name="credentialsMatcher">
+			<bean class="com.woshidaniu.shiro.authc.credential.DefaultCredentialsMatcher" />
+		</property>
+		<!-- Realm 执行监听：实现该接口可监听认证失败和成功的状态，从而做业务系统自己的事情，比如记录日志 -->
+		<property name="realmsListeners">
+			<list>
+				<bean class="com.woshidaniu.globalweb.shiro.DefaultRealmListener"/>
+			</list>
+		</property>
+		<!-- 缓存相关的配置：采用提供的默认配置即可 -->
+		<property name="cachingEnabled" value="true"/>
+        <property name="authenticationCachingEnabled" value="false"/>
+        <property name="authenticationCacheName" value="niutal_SHIRO"/>
+        <property name="authorizationCachingEnabled" value="true"/>
+        <property name="authorizationCacheName" value="niutal_SHIRO"/>
+	</bean>
+	
+	<!-- 默认的外部系统登录Realm实现 -->
+	
+<!-- 	<bean id="OutAccountRealm" class="com.woshidaniu.globalweb.shiro.ext.OutAccountLoginRealm"> -->
+<!-- 		<property name="shiroService" ref="outAccountShiroService" /> -->
+<!-- 		<property name="credentialsMatcher"> -->
+<!-- 			<bean id="allowAllcredentialsMatcher" class="org.apache.shiro.authc.credential.AllowAllCredentialsMatcher"></bean> -->
+<!-- 		</property> -->
+<!-- 		<property name="cachingEnabled" value="true"/> -->
+<!--         <property name="authenticationCachingEnabled" value="false"/> -->
+<!--         <property name="authenticationCacheName" value="niutal_SHIRO"/> -->
+<!--         <property name="authorizationCachingEnabled" value="true"/> -->
+<!--         <property name="authorizationCacheName" value="niutal_SHIRO"/> -->
+<!-- 	</bean> -->
+
+	<!-- Session 管理器:如果需要启用tomcat集群，会话管理必须交由tomcat -->
+	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.ServletContainerSessionManager" />
+	
+	<!-- 配置shiro securityManager -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realms">
+			<list>
+				<!-- <ref bean="OutAccountRealm"/> -->
+				<ref bean="ZFRealm"/>
+			</list>
+		</property>
+        <property name="sessionManager" ref="sessionManager"/>
+        <property name="cacheManager" ref="shiroCacheManager"/>
+	</bean>
+	
+	<!-- 默认的登录验证过滤器 -->
+	<bean id="ZFFormAuthenticationFilter" class="com.woshidaniu.globalweb.shiro.DefaultAuthenticationFilter">
+		<property name="validateCaptcha" value="false"></property>
+		<!-- 登录监听：实现该接口可监听账号登录失败和成功的状态，从而做业务系统自己的事情，比如记录日志 -->
+		<property name="loginListeners">
+			<list>
+				<bean class="com.woshidaniu.globalweb.shiro.ZFLoginListener"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="OutAccountAuthenticationFilter" class="com.woshidaniu.globalweb.shiro.ext.OutAccountAuthFilter" >
+		<property name="errorUrl" value="/403.zf"></property>
+	</bean>
+	
+	<!-- 默认的Session控制过滤器 ：只允许用户在一个地方登录 -->
+	<bean id="sessionControFilter" class="com.woshidaniu.globalweb.shiro.DefaultSessionControlFilter">
+		<property name="cacheManager" ref="shiroCacheManager"/>
+		<property name="sessionControlCacheName" value="niutal_SHIRO"></property>
+		<!-- 上次回话踢出成功后的重定向地址：直接进入登录页面 -->
+		<property name="successUrl" value="/xtgl/login/slogin.zf?kickout=1"></property>
+	</bean>
+	
+	<!-- 系统登录注销过滤器；默认：com.woshidaniu.shiro.filter.ZFLogoutFilter-->
+	<bean id="zflogoutFilter" class="com.woshidaniu.shiro.filter.ZFLogoutFilter">
+		<!-- 登录注销后的重定向地址：直接进入登录页面-->
+		<property name="redirectUrl" value="/xtgl/login/slogin.zf" />
+		<!-- 注销监听：实现该接口可监听账号注销失败和成功的状态，从而做业务系统自己的事情，比如记录日志 -->
+		<property name="logoutListeners">
+			<list>
+				<bean class="com.woshidaniu.globalweb.shiro.ZFLogoutListener"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 默认的Session过期过滤器 ：解决Ajax请求期间会话过期异常处理 -->
+	<bean id="sessionExpiredFilter" class="com.woshidaniu.shiro.filter.session.SessionExpiredFilter"></bean>
+	
+	<!-- 配置Shiro拦截器 -->
+	<bean id="shiroFilter" class="com.woshidaniu.shiro.spring.ZFShiroFilterFactoryBean">
+		<!-- securityManager -->
+		<property name="securityManager" ref="securityManager" />
+		<!-- 登录地址：会话不存在时访问的地址-->
+		<property name="loginUrl" value="/xtgl/login/slogin.zf" />
+		<!-- 系统主页：登录成功后跳转路径 -->
+		<property name="successUrl" value="/xtgl/index/initMenu.zf" />
+		<!-- 异常页面：无权限时的跳转路径 -->
+		<property name="unauthorizedUrl" value="/403.zf" />
+		<!-- 过滤器链：实现对路径规则的拦截过滤 -->
+		<property name="filters">
+			<util:map>
+				<entry key="authc" value-ref="ZFFormAuthenticationFilter" />
+				<entry key="outAuthc" value-ref="OutAccountAuthenticationFilter" />
+				<entry key="sessionControl" value-ref="sessionControFilter" />
+				<entry key="logout" value-ref="zflogoutFilter"></entry>
+				<entry key="sessionExpired" value-ref="sessionExpiredFilter"></entry>
+			</util:map>
+		</property>
+		<!-- 过滤链定义 -->
+		<property name="filterChainDefinitions">
+			<value>
+				/ = anon
+				/*favicon.ico = anon
+				/css/** = anon
+				/js/** = anon
+				/err/** = anon
+				/logo/** = anon
+				/download/** = anon
+				/kaptcha* = anon
+				/tjcx/login.zf* = outAuthc
+				/wjdc/login.zf* = outAuthc
+				/dr/login.zf* = outAuthc
+				/zxzx/web/** = anon
+				/pwdmgr/retake/** = anon
+				/pwdmgr/update/** = anon
+				/xtgl/login_code.html* = anon
+				/xtgl/login/getPublicKey.zf = anon
+				/xtgl/login/slogin.zf = authc
+				/druid/* = roles[admin]
+				/logout = logout
+				/** = sessionExpired,sessionControl,authc
+			</value>
+		</property>
+	</bean>
+	
+</beans>

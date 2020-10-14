@@ -1,0 +1,135 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>niukit-mq-parent</artifactId>
+		<groupId>com.woshidaniu</groupId>
+		<version>1.1.1</version>
+	</parent>
+	<artifactId>niukit-mq-notify</artifactId>
+	<packaging>jar</packaging>
+	
+	<build>
+		<plugins>
+			<!-- 编译插件：编译主代码至主输出目录 -->  
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<!-- 资源插件：复制主资源文件至主输出目录 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+			<!-- 单元测试插件 ：执行测试用例 --> 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+			<!-- jar包生成插件 ：创建项目jar包 -->
+			<plugin>  					 
+				<groupId>org.apache.maven.plugins</groupId>  
+				<artifactId>maven-jar-plugin</artifactId>  
+			</plugin> 
+			<!-- 源码插件:发布时自动将源码同时发布 -->				
+			<plugin>
+				 <groupId>org.apache.maven.plugins</groupId>
+				 <artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<!-- 文档插件:发布时自动生成文档 -->	
+			<plugin>  
+	            <groupId>org.apache.maven.plugins</groupId>  
+	            <artifactId>maven-javadoc-plugin</artifactId>  
+	        </plugin>
+			<!-- 安装插件：将项目输出构件安装到本地仓库 --> 
+			<plugin>  					 
+				<groupId>org.apache.maven.plugins</groupId>  
+				<artifactId>maven-install-plugin</artifactId>  
+			</plugin> 
+			<!-- 发布插件 ：将项目输出构件部署到远程仓库--> 
+			<plugin>  
+	            <groupId>org.apache.maven.plugins</groupId>  
+	            <artifactId>maven-deploy-plugin</artifactId>  
+	        </plugin>
+		</plugins>
+	</build>
+	
+	
+	<dependencies>
+		<!-- <dependency>
+			<groupId>org.tiogasolutions.notify</groupId>
+			<artifactId>tioga-notify-kernel</artifactId>
+			<version>1.2.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.tiogasolutions.notify</groupId>
+			<artifactId>tioga-notify-notifier</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.tiogasolutions.notify</groupId>
+			<artifactId>tioga-notify-pub</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.tiogasolutions.notify</groupId>
+			<artifactId>tioga-notify-test</artifactId>
+			<version>1.2.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.tiogasolutions.notify</groupId>
+			<artifactId>tioga-notify-jackson</artifactId>
+			<version>4.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.tiogasolutions.notify</groupId>
+			<artifactId>tioga-notify-processor-push</artifactId>
+			<version>1.2.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.tiogasolutions.notify</groupId>
+			<artifactId>tioga-notify-sender-couch</artifactId>
+			<version>2.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.tiogasolutions.notify</groupId>
+			<artifactId>tioga-notify-processor-logger</artifactId>
+			<version>1.2.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.tiogasolutions.notify</groupId>
+			<artifactId>tioga-notify-processor-slack</artifactId>
+			<version>1.2.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.tiogasolutions.notify</groupId>
+			<artifactId>tioga-notify-engine</artifactId>
+			<version>1.2.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.tiogasolutions.notify</groupId>
+			<artifactId>tioga-notify-processor-smtp</artifactId>
+			<version>1.2.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.tiogasolutions.notify</groupId>
+			<artifactId>tioga-notify-processor-swing</artifactId>
+			<version>1.2.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.tiogasolutions.notify</groupId>
+			<artifactId>tioga-notify-sender-http</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.tiogasolutions.notify</groupId>
+			<artifactId>tioga-notify-server-grizzly</artifactId>
+			<version>1.2.10</version>
+		</dependency> -->
+		<dependency>
+			<groupId>org.tiogasolutions.notify</groupId>
+			<artifactId>tioga-notify-client</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+	</dependencies>
+</project>

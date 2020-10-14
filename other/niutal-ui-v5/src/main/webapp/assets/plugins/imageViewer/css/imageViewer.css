@@ -1,0 +1,114 @@
+@charset "utf-8";
+
+.transition-common {
+    -webkit-transition: all 150ms linear;
+    -moz-transition: all 150ms linear;
+    -o-transition: all 150ms linear;
+    transition: all 150ms linear;
+}
+
+.table-pic-upload,
+.table-pic-upload * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.table-pic-upload {
+    width: 100%;
+    max-width: 100%;
+    background-color: transparent;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.table-pic-upload > tbody > tr > td,
+.table-pic-upload > tbody > tr > th {
+    border: 1px solid #ddd;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.table-pic-upload > tbody > tr > td.img-item,
+.table-pic-upload > tbody > tr > th.img-item {
+    padding: 0;
+}
+
+.table-pic-upload .type-desc {
+    width: 100px;
+}
+
+.table-pic-upload .img-list {
+    padding-bottom: 10px;
+    padding-right: 10px;
+}
+.table-pic-upload .img-list:after {
+    clear: both;
+    display: table;
+    content: " ";
+}
+
+.table-pic-upload .img-list > li {
+    float: left;
+    position: relative;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.table-pic-upload .img-list > li.upload_btn {
+    padding-right: 0;
+}
+
+.table-pic-upload .img-list > li.upload_btn > a {
+    border: 1px dashed #ddd;
+    font-size: 50px;
+    line-height: 80px;
+    text-align: center;
+    color: #888;
+    text-decoration: none;
+
+}
+
+.table-pic-upload .img-list > li.upload_btn > a:hover,
+.table-pic-upload .img-list > li.upload_btn > a:focus {
+    color: #555;
+}
+
+.table-pic-upload .img-list > li > img,
+.table-pic-upload .img-list > li > a {
+    display: block;
+    height: 80px;
+    width: 120px;
+}
+
+.table-pic-upload .img-list > li > .img-remove {
+    position: absolute;
+    display: none;
+    top: 2px;
+    left: auto;
+    right: -5px;
+    color: #fff;
+    background-color: #f55959;
+    padding: 5px;
+    height: 20px;
+    width: 20px;
+    line-height: 7px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 28px;
+}
+
+.table-pic-upload .img-list > li:hover > .img-remove,
+.table-pic-upload .img-list > li:focus > .img-remove {
+    display: block;
+}
+.table-pic-upload .img-list > li.upload_btn> .img-remove{
+    display: none;
+}
+
+.table-pic-upload .img-list > li > .img-remove:hover,
+.table-pic-upload .img-list > li > .img-remove:focus {
+    background-color: #f00;
+}
+

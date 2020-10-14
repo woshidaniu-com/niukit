@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.woshidaniu</groupId>
+		<artifactId>niukit-parent</artifactId>
+		<version>1.1.1</version>
+	</parent>
+	
+	<artifactId>niukit-ftpclient</artifactId>
+	<description>ftpclient相关工具包</description>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+		</dependency>
+		<!--
+			一个用于操作Internet基础协议（Finger，Whois，TFTP，Telnet，POP3，FTP，NNTP，以及SMTP）的底层API。
+			Net包不仅支持对各种低层次协议的访问，而且还提供了一个高层的抽象。 它使得开发者不再需要直接面对各种协议的Socket级的低层命令。
+		-->
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>niukit-basicutils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+</project>

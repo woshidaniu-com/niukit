@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	
+	<!-- pac4j的客户端对象工厂 -->
+	<bean id="pac4jClientsFactoryBean" class="com.woshidaniu.authz.pac4j.client.Pac4jClientsFactoryBean">
+		<!-- 客户端名称列表，用,分割 -->
+		<property name="clientNames" value="#{authzProperties['shiro.authz.pac4j.config.clientNames']}"></property>
+		<!-- 默认客户端名称，位于上面的列表内的 -->
+		<property name="defaultClientName" value="#{authzProperties['shiro.authz.pac4j.config.defaultClientName']}" />
+		<!-- 全局配置，回调地址 -->
+		<property name="callbackUrl" value="#{authzProperties['shiro.authz.pac4j.config.callbackUrl']}"></property>
+	</bean>
+	
+	<!-- pac4j的配置 -->
+	<bean id="pac4jConfig" class="org.pac4j.core.config.Config">
+		<property name="clients" ref="pac4jClientsFactoryBean" />
+	</bean>
+
+	<!-- pac4j的回调逻辑 -->
+	<bean id="pac4jShiroCallbackLogic" class="io.buji.pac4j.engine.ShiroCallbackLogic">
+	</bean>
+	
+	<!-- pac4j的登出逻辑 -->
+	<bean id="pac4jLogoutLogic" class="org.pac4j.core.engine.DefaultLogoutLogic">
+	</bean>
+
+	<!-- pac4j的回调过滤器 -->
+	<bean name="pac4jCallbackFilter" class="io.buji.pac4j.filter.CallbackFilter">
+		<property name="callbackLogic" ref="pac4jShiroCallbackLogic"></property>
+		<property name="config" ref="pac4jConfig" />
+	</bean>
+	
+	<!-- pac4j的登出过滤器 -->
+	<bean id="pac4jLogoutFilter" class="io.buji.pac4j.filter.LogoutFilter">
+		<property name="defaultUrl" value="#{authzProperties['shiro.authz.pac4j.config.logout.defaultUrl']}"></property>
+		<property name="logoutLogic" ref="pac4jLogoutLogic"/>
+		<property name="logoutUrlPattern" value="#{authzProperties['shiro.authz.pac4j.config.logout.logoutUrlPattern']}" />
+		<property name="localLogout" value="true" />
+		<property name="centralLogout" value="true" />
+		<property name="config" ref="pac4jConfig" />
+	</bean>
+	
+	<!-- pac4j的权限过滤器 -->
+	<bean id="pac4jSecurityFilter" class="io.buji.pac4j.filter.SecurityFilter">
+		<property name="config" ref="pac4jConfig" />
+		<property name="matchers" value=""></property>
+		<property name="clients" value="#{authzProperties['shiro.authz.pac4j.config.clientNames']}"></property>
+		<property name="authorizers" value=""></property>
+		<property name="multiProfile" value="false"></property>
+	</bean>
+
+	<!-- 默认的登录认证zfPac4jRealm实现 -->
+	<bean id="zfPac4jRealm" class="com.woshidaniu.authz.pac4j.ext.realm.ZFPac4jRealm">
+		<!-- 认证账号信息提供实现：认证信息、角色信息、权限信息；业务系统需要自己实现该接口 -->
+		<property name="accountService" ref="ssoAccountServiceImpl"/>
+		<!-- 凭证匹配器：该对象主要做密码校验 -->
+		<property name="credentialsMatcher">
+			<bean class="com.woshidaniu.shiro.authc.credential.SsoCredentialsMatcher" />
+		</property>
+		<!-- Realm 执行监听：实现该接口可监听认证失败和成功的状态，从而做业务系统自己的事情，比如记录日志 -->
+		<property name="realmsListeners">
+			<list>
+				<bean class="com.woshidaniu.globalweb.shiro.DefaultRealmListener"/>
+			</list>
+		</property>
+		<!-- 缓存相关的配置：采用提供的默认配置即可 -->
+		<property name="cachingEnabled" value="true"/>
+        <property name="authenticationCachingEnabled" value="false"/>
+        <property name="authenticationCacheName" value="niutal_SHIRO"/>
+        <property name="authorizationCachingEnabled" value="true"/>
+        <property name="authorizationCacheName" value="niutal_SHIRO"/>
+	</bean>
+
+</beans>

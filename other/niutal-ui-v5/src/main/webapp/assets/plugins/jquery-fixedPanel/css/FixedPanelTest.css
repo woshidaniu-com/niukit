@@ -1,0 +1,59 @@
+div, body, html {
+    font-family: verdana;
+    font-size: 14px;
+    background-color: #fff;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+
+.clear {
+    position:relative;
+    height: 1px;
+    width: 100%;
+    clear:both;
+    margin-bottom: -1px;
+}
+
+div#main_container {
+    position: relative;
+    width: 1000px;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+}
+
+div#header, div#footer, div#contents_container, div#button_bar  {
+    position: relative;
+    width: 100%;
+}
+
+div#header, div#footer, div#button_bar {
+    height: 30px;
+    background-color: #eee;
+    text-align: center;
+    padding: 10px 0px;
+}
+
+div#button_bar {
+    background-color: #fff;
+}
+
+div#contents, div#menu_container {
+    float: left;
+}
+
+div#contents {
+    width: 839px;
+    border-left: 1px solid #ccc;
+    padding: 5px;
+    padding-bottom: 0px;
+}
+
+div#menu_container {
+    width: 150px;
+}
+
+div#filler {
+    width:100%;
+    height: 1000px;
+}

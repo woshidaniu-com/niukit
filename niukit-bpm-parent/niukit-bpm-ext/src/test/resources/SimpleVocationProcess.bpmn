@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="请假模块">
+  <process id="SimpleVocationProcess" name="简单请假流程" isExecutable="true">
+    <documentation>简单请假申请处理流程</documentation>
+    <extensionElements>
+      <activiti:eventListener class="org.activiti.engine.extend.event.listener.DefaultActivitiEventListener"></activiti:eventListener>
+    </extensionElements>
+    <startEvent id="startevent" name="开始" activiti:initiator="_requester">
+      <documentation>请假流程开始节点</documentation>
+    </startEvent>
+    <userTask id="auditorTask_1" name="班主任审核" activiti:candidateGroups="3F1C85E202E23AA5E0538713470A1A26" activiti:category="_auditor">
+      <documentation>请假流程班主任审核环节</documentation>
+    </userTask>
+    <userTask id="auditorTask_2" name="学院审核" activiti:candidateGroups="40382E6A0C352C6BE0538713470A2864" activiti:category="_auditor">
+      <documentation>请假流程学院审核环节</documentation>
+    </userTask>
+    <sequenceFlow id="flow3" sourceRef="auditorTask_1" targetRef="auditorTask_2"></sequenceFlow>
+    <endEvent id="endevent" name="结束">
+      <documentation>请假流程结束节点</documentation>
+    </endEvent>
+    <sequenceFlow id="flow4" sourceRef="auditorTask_2" targetRef="endevent"></sequenceFlow>
+    <sequenceFlow id="flow5" sourceRef="startevent" targetRef="auditorTask_1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_SimpleVocationProcess">
+    <bpmndi:BPMNPlane bpmnElement="SimpleVocationProcess" id="BPMNPlane_SimpleVocationProcess">
+      <bpmndi:BPMNShape bpmnElement="startevent" id="BPMNShape_startevent">
+        <omgdc:Bounds height="35.0" width="35.0" x="169.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="auditorTask_1" id="BPMNShape_auditorTask_1">
+        <omgdc:Bounds height="55.0" width="105.0" x="260.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="auditorTask_2" id="BPMNShape_auditorTask_2">
+        <omgdc:Bounds height="55.0" width="105.0" x="440.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent" id="BPMNShape_endevent">
+        <omgdc:Bounds height="35.0" width="35.0" x="610.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="365.0" y="227.0"></omgdi:waypoint>
+        <omgdi:waypoint x="440.0" y="227.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="545.0" y="227.0"></omgdi:waypoint>
+        <omgdi:waypoint x="610.0" y="227.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="204.0" y="227.0"></omgdi:waypoint>
+        <omgdi:waypoint x="260.0" y="227.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

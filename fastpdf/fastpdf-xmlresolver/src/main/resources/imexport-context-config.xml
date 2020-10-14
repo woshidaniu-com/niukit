@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+	>
+	<description>ImExport组件Excel导入导出 spring配置信息</description>
+	
+	<!-- 核心配置  -->
+	<!-- 组件基础参数  -->
+	<import resource="/config/imexport-options-config.xml"/>
+	<!-- 表名对应的别名  -->
+	<import resource="/config/imexport-table-alias-config.xml"/>
+	<!-- 表名对应的描述  -->
+	<import resource="/config/imexport-table-comments-config.xml"/>
+	<!-- 表名对应的动态转换关系  -->
+	<import resource="/config/imexport-table-dynamic-config.xml"/>
+	<!-- 表名对应的列关系  -->
+	<import resource="/config/imexport-table-columns-map-config.xml"/>
+	<!-- 表名对应的列明细约束  -->
+	<import resource="/config/imexport-table-columns-map-list-config.xml"/>
+	<!-- 表名对应的特殊列转换SQL  -->
+	<import resource="/config/imexport-table-columns-transform-sql-list-config.xml"/>
+	<!-- 动态列对应的特殊列转换配置  -->
+	<import resource="/config/iimexport-table-columns-dynamic-config.xml"/>
+	
+	<!-- 自定义配置  -->
+	<import resource="/table-config/xxx-config.xml"/>
+	
+	<!-- data export action configuration -->
+	<bean id="commonDataExpAction" class="com.woshidaniu.action.common.CommonDataExpAction" scope="prototype" parent="abstractAction">
+		<property name="commonDataExpService" ref="commonDataExpService"/>
+	</bean>
+	
+	<!-- data export action configuration -->
+	<bean id="commonDataUpdateAction" class="com.woshidaniu.action.common.CommonDateUpdateAction" scope="prototype" parent="abstractAction">
+		<property name="commonDataExpService" ref="commonDataExpService"/>
+	</bean>
+	
+	<bean id="commonsQueryService" class="com.ant4j.imexport.service.support.CommonsQueryServiceImpl">
+		<property name="commonsQueryDao" ref=commonsQueryDao/>
+		<property name="table_name_map" ref="table_name_map"/>
+		<property name="table_columns_map" ref="table_columns_map" />
+		<property name="upload_method" ref="cos" />
+	</bean>
+	
+	<!-- data export service configuration -->
+	<bean id="commonDataExpService" class="com.woshidaniu.service.common.impl.CommonDataExpServiceImpl">
+		<property name="commonDataExpDao" ref="commonDataExpDao"/>
+		<property name="commonSqlDao" ref="commonSqlDao"/>
+		<property name="table_map" ref="tableMap" />
+		<property name="table_name_map" ref="table_name_map" />
+		<property name="table_name_list" ref="table_name_list" />
+		<property name="table_upd" ref="table_upd_map"/>
+		<property name="table_upd_view" ref="table_upd_map_view"/>
+		<property name="table_upd_primary_key" ref="table_upd_primary_key_list"/>
+		<property name="cj_cjd_list" ref="cj_cjd_list" />
+	</bean>
+	
+	<!-- data export dao configuration -->
+	<bean id="commonDataExpDao" class="com.ant4j.imexport.dao.support.CommonsQueryDaoImpl" init-method="initialize">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="dataType" ref="xml" />
+		<property name="table_map" ref="tableMap" />
+		<property name="table_name_map" ref="table_name_map" />
+		<property name="table_name_list" ref="table_name_list" />
+		<property name="table_upd" ref="table_upd_map"/>
+		<property name="table_upd_view" ref="table_upd_map_view"/>
+		<property name="table_upd_primary_key" ref="table_upd_primary_key_list"/>
+		<property name="columns" ref="columns_list"/>
+	</bean>
+	
+	
+	<!-- 数据导出加强版 -->
+	<bean id="commonDataExpProAction" class="com.woshidaniu.action.common.CommonDataExpProAction" scope="prototype">
+		<property name="service" ref="commonDataExpProService"/>
+	</bean>
+	
+	<!-- 数据导出加强版 -->
+	<bean id="commonDataExpProService" class="com.woshidaniu.service.common.impl.CommonDataExpProServiceImpl">
+		<property name="dao" ref="commonDataExpProDao"/>
+		<property name="column_map" ref="columnMap" />
+		<property name="sql_map" ref="sqlMap"></property>
+	</bean>
+	
+	<!-- 数据导出加强版 -->
+	<bean id="commonDataExpProDao" class="com.woshidaniu.dao.common.impl.CommonDataExpProDaoImpl" init-method="initialize">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	
+</beans>

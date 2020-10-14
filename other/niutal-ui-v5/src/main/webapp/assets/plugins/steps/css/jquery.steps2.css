@@ -1,0 +1,660 @@
+/*
+    Common 
+*/
+.wizard, .tabcontrol {
+	display: block;
+	width: 100%;
+	overflow: hidden;
+}
+
+.wizard a, .tabcontrol a {
+	outline: 0;
+}
+
+.wizard ul, .tabcontrol ul {
+	list-style: none !important;
+	padding: 0;
+	margin: 0;
+}
+
+.wizard ul>li, .tabcontrol ul>li {
+	display: block;
+	padding: 0;
+}
+
+/* Accessibility */
+.wizard>.steps .current-info, .tabcontrol>.steps .current-info {
+	position: absolute;
+	left: -999em;
+}
+
+.wizard>.content>.title, .tabcontrol>.content>.title {
+	position: absolute;
+	left: -999em;
+}
+
+/*
+    Steps
+*/
+
+/*
+    Wizard
+*/
+.wizard>.steps {
+	position: relative;
+	display: block;
+	width: 100%;
+}
+
+.wizard.vertical>.steps {
+	display: inline;
+	float: left;
+	width: 30%;
+}
+
+.wizard>.steps .number {
+	font-size: 1.429em;
+}
+
+.wizard>.steps>ul>li {
+	width: 25%;
+}
+
+.wizard>.steps>ul>li, .wizard>.actions>ul>li {
+	float: left;
+}
+
+.wizard.vertical>.steps>ul>li {
+	float: none;
+	width: 100%;
+}
+
+.wizard>.steps a, 
+.wizard>.steps a:hover, 
+.wizard>.steps a:active {
+	display: block;
+	width: auto;
+	padding: 1em 1em 1em 2em;
+	text-decoration: none;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 0;
+	position:relative;
+}
+
+.wizard>.steps a:before,
+.wizard>.steps a:hover:before, 
+.wizard>.steps a:active:before {
+	content: "";
+	right: -37px;
+	border: 1.6em solid transparent;
+	border-left: 15px solid #ccc;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+}
+
+.wizard>.steps a#example-advanced-form-t-2:before,
+.wizard>.steps a#example-advanced-form-t-2:hover:before, 
+.wizard>.steps a#example-advanced-form-t-2:active:before {
+	border-left: 15px solid #ddd;
+}
+.wizard>.steps a#example-advanced-form-t-3:before,
+.wizard>.steps a#example-advanced-form-t-3:hover:before, 
+.wizard>.steps a#example-advanced-form-t-3:active:before {
+	border-left: 15px solid #eee;
+}
+
+
+.wizard>.steps .current a, 
+.wizard>.steps .current a:hover,
+.wizard>.steps .current a:active {
+	background: #428bca;
+	color: #fff;
+	cursor: default;
+}
+
+.wizard > .steps .current a:before, 
+.wizard > .steps .current a:hover:before, 
+.wizard > .steps .current a:active:before{
+	content: "";
+	right: -37px;
+	border: 1.6em solid transparent;
+	border-left: 15px solid #428bca!important;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+}
+
+/* .wizard>.steps .done a, 
+.wizard>.steps .done a:hover, 
+.wizard>.steps .done a:active {
+	background: #3cb19c;
+	color: #fff;
+}
+
+.wizard > .steps .done a:before, 
+.wizard > .steps .done a:hover:before, 
+.wizard > .steps .done a:active:before{
+	content: "";
+	right: -37px;
+	border: 1.6em solid transparent;
+	border-left: 15px solid #79dcca;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+} */
+
+.wizard>.steps .success a, 
+.wizard>.steps .success a:hover, 
+.wizard>.steps .success a:active {
+	background:#79dcca;
+	color: #fff;
+}
+
+.wizard > .steps .success a:before, 
+.wizard > .steps .success a:hover:before, 
+.wizard > .steps .success a:active:before{
+	content: "";
+	right: -37px;
+	border: 1.6em solid transparent;
+	border-left: 15px solid #79dcca;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+}
+
+.wizard>.steps .success a#example-advanced-form-t-1, 
+.wizard>.steps .success a#example-advanced-form-t-1:hover, 
+.wizard>.steps .success a#example-advanced-form-t-1:active {
+	background: #4cc1ac;
+}
+.wizard>.steps .success a#example-advanced-form-t-1:before, 
+.wizard>.steps .success a#example-advanced-form-t-1:hover:before, 
+.wizard>.steps .success a#example-advanced-form-t-1:active:before {
+	border-left: 15px solid #4cc1ac;
+}
+.wizard>.steps .success a#example-advanced-form-t-2, 
+.wizard>.steps .success a#example-advanced-form-t-2:hover, 
+.wizard>.steps .success a#example-advanced-form-t-2:active {
+	background: #3cb19c;
+}
+.wizard>.steps .success a#example-advanced-form-t-2:before, 
+.wizard>.steps .success a#example-advanced-form-t-2:hover:before, 
+.wizard>.steps .success a#example-advanced-form-t-2:active:before {
+	border-left: 15px solid #3cb19c;
+}
+.wizard>.steps .success a#example-advanced-form-t-3, 
+.wizard>.steps .success a#example-advanced-form-t-3:hover, 
+.wizard>.steps .success a#example-advanced-form-t-3:active {
+	background: #389f8d;
+}
+.wizard>.steps .success a#example-advanced-form-t-3:before, 
+.wizard>.steps .success a#example-advanced-form-t-3:hover:before, 
+.wizard>.steps .success a#example-advanced-form-t-3:active:before {
+	border-left: 15px solid #389f8d;
+}
+.wizard>.steps .error a, .wizard>.steps .error a:hover, .wizard>.steps .error a:active {
+	background: #ff3111;
+	color: #fff;
+}
+.wizard>.steps .error a:before, 
+.wizard>.steps .error a:hover:before, 
+.wizard>.steps .error a:active:before {
+	content: "";
+	right: -37px;
+	border: 1.6em solid transparent;
+	border-left: 15px solid #ff3111!important;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+}
+
+
+.wizard>.steps .disabled a, 
+.wizard>.steps .disabled a:hover, 
+.wizard>.steps .disabled a:active {
+	background: #ccc;
+	color: #333;
+	cursor: default;
+}
+.wizard>.steps .disabled a#example-advanced-form-t-2, 
+.wizard>.steps .disabled a#example-advanced-form-t-2:hover, 
+.wizard>.steps .disabled a#example-advanced-form-t-2:active {
+	background:#ddd;
+}
+.wizard>.steps .disabled a#example-advanced-form-t-3, 
+.wizard>.steps .disabled a#example-advanced-form-t-3:hover, 
+.wizard>.steps .disabled a#example-advanced-form-t-3:active {
+	background:#eee;
+}
+
+/*
+    Content
+*/
+.wizard .content {
+	padding-top: 30px;
+}
+
+.wizard .content legend {
+	color: transparent;
+	display: none;
+}
+
+.wizard .content fieldset {
+	border: none;
+}
+
+.wizard .content label.error {
+	position: absolute;
+	width: auto;
+	top: 34px;
+	color: red;
+}
+
+.wizard .content .form-list-half {
+	line-height: 20px;
+}
+
+.wizard>.content {
+	display: block;
+	margin: 0.5em;
+	min-height: 25em;
+	overflow: hidden;
+	position: relative;
+	width: auto;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.wizard.vertical>.content {
+	display: inline;
+	float: left;
+	margin: 0 2.5% 0.5em 2.5%;
+	width: 65%;
+}
+
+.wizard>.content>.body {
+	float: left;
+	position: absolute;
+	width: 100%;
+	height: 95%;
+}
+
+.wizard>.content>.body ul {
+	list-style: disc !important;
+}
+
+.wizard>.content>.body ul>li {
+	display: list-item;
+}
+
+.wizard>.content>.body>iframe {
+	border: 0 none;
+	width: 100%;
+	height: 100%;
+}
+
+.wizard>.content>.body input {
+	display: block;
+}
+
+.wizard>.content>.body input[type="checkbox"] {
+	display: inline-block;
+}
+
+.wizard>.content>.body label {
+	display: inline-block;
+	margin-bottom: 0.5em;
+}
+/*
+    Actions
+*/
+.wizard>.actions {
+	position: relative;
+	display: block;
+	text-align: right;
+	width: 100%;
+}
+
+.wizard.vertical>.actions {
+	display: inline;
+	float: right;
+	margin: 0 2.5%;
+	width: 95%;
+}
+
+.wizard>.actions>ul {
+	display: inline-block;
+	text-align: right;
+}
+
+.wizard>.actions>ul>li {
+	margin: 0 0.5em;
+}
+
+.wizard.vertical>.actions>ul>li {
+	margin: 0 0 0 1em;
+}
+
+.wizard .actions ul li {
+	list-style: none;
+}
+
+.wizard .actions ul {
+	width: 30%;
+	margin: 0 auto;
+}
+
+.wizard .actions ul li {
+	float: left;
+	margin: 0 15px;
+}
+
+.wizard .actions ul li a {
+	padding: 1em 2.5em;
+	background: #428bca;
+	color: #fff;
+	font-weight: bold;
+}
+
+.wizard>.actions a, 
+.wizard>.actions a:hover, 
+.wizard>.actions a:active	{
+	background: #428bca;
+	color: #fff;
+	display: block;
+	padding: 1em 2.5em;
+	text-decoration: none;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 0;
+}
+
+.wizard>.actions .disabled a, 
+.wizard>.actions .disabled a:hover,
+.wizard>.actions .disabled a:active {
+	background: #eee;
+	color: #aaa;
+}
+
+.wizard>.loading {
+	
+}
+
+.wizard>.loading .spinner {
+	
+}
+
+/*
+    Tabcontrol
+*/
+.tabcontrol>.steps {
+	position: relative;
+	display: block;
+	width: 100%;
+}
+
+.tabcontrol>.steps>ul {
+	position: relative;
+	margin: 6px 0 0 0;
+	top: 1px;
+	z-index: 1;
+}
+
+.tabcontrol>.steps>ul>li {
+	float: left;
+	margin: 5px 2px 0 0;
+	padding: 1px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.tabcontrol>.steps>ul>li:hover {
+	background: #edecec;
+	border: 1px solid #bbb;
+	padding: 0;
+}
+
+.tabcontrol>.steps>ul>li.current {
+	background: #fff;
+	border: 1px solid #bbb;
+	border-bottom: 0 none;
+	padding: 0 0 1px 0;
+	margin-top: 0;
+}
+
+.tabcontrol>.steps>ul>li>a {
+	color: #5f5f5f;
+	display: inline-block;
+	border: 0 none;
+	margin: 0;
+	padding: 10px 30px;
+	text-decoration: none;
+}
+
+.tabcontrol>.steps>ul>li>a:hover {
+	text-decoration: none;
+}
+
+.tabcontrol>.steps>ul>li.current>a {
+	padding: 15px 30px 10px 30px;
+}
+
+.tabcontrol>.content {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	height: 35em;
+	overflow: hidden;
+	border-top: 1px solid #bbb;
+	padding-top: 20px;
+}
+
+.tabcontrol>.content>.body {
+	float: left;
+	position: absolute;
+	width: 95%;
+	height: 95%;
+	padding: 2.5%;
+}
+
+.tabcontrol>.content>.body ul {
+	list-style: disc !important;
+}
+
+.tabcontrol>.content>.body ul>li {
+	display: list-item;
+}
+
+/*
+    Radio
+*/
+.wizard .radio input[type="radio"], .radio-inline input[type="radio"] {
+	position: absolute;
+	margin-top: .25rem;
+	margin-left: -1.25rem;
+}
+
+.wizard .radio {
+	padding-left: 20px;
+}
+
+.wizard .radio:hover, 
+.wizard .radio:active {
+	color: #428bca;
+	font-weight: bold;
+}
+
+.wizard .radio label {
+	display: inline-block;
+	padding-left: 5px;
+	position: relative;
+}
+
+.wizard .radio label:hover, 
+.wizard .radio label:active {
+	color: #428bca;
+	font-weight: bold;
+}
+
+.wizard .radio label::before {
+	-o-transition: border 0.5s ease-in-out;
+	-webkit-transition: border 0.5s ease-in-out;
+	border-radius: 50%;
+	border: 2px solid rgba(43, 61, 81, 0.5);
+	content: "";
+	display: inline-block;
+	height: 17px;
+	left: 0;
+	margin-left: -20px;
+	outline: none !important;
+	position: absolute;
+	transition: border 0.5s ease-in-out;
+	width: 17px;
+	margin-top: 2px;
+}
+
+.wizard .radio label::after {
+	-moz-transition: -moz-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+	-ms-transform: scale(0, 0);
+	-o-transform: scale(0, 0);
+	-o-transition: -o-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+	-webkit-transform: scale(0, 0);
+	-webkit-transition: -webkit-transform 0.1s
+		cubic-bezier(0.8, -0.33, 0.2, 1.33);
+	background-color: #818a91;
+	border-radius: 50%;
+	content: " ";
+	display: inline-block;
+	height: 11px;
+	left: 3px;
+	margin-left: -20px;
+	position: absolute;
+	top: 5px;
+	transform: scale(0, 0);
+	transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+	width: 11px;
+}
+
+.wizard .radio input[type="radio"] {
+	cursor: pointer;
+	opacity: 0;
+	z-index: 1;
+	outline: none !important;
+}
+
+.wizard .radio input[type="radio"]:disabled+label {
+	opacity: 0.65;
+}
+
+.wizard .radio input[type="radio"]:focus+label::before {
+	outline-offset: -2px;
+	outline: 5px auto -webkit-focus-ring-color;
+	outline: thin dotted;
+}
+
+.wizard .radio input[type="radio"]:checked+label::after {
+	-ms-transform: scale(1, 1);
+	-o-transform: scale(1, 1);
+	-webkit-transform: scale(1, 1);
+	transform: scale(1, 1);
+}
+
+.wizard .radio input[type="radio"]:disabled+label::before {
+	cursor: not-allowed;
+}
+
+.wizard .radio-primary input[type="radio"]+label::after {
+	background-color: #039cfd;
+}
+
+.wizard .radio-primary input[type="radio"]:checked+label::before {
+	border-color: #039cfd;
+}
+
+.wizard .radio-primary input[type="radio"]:checked+label::after {
+	background-color: #039cfd;
+}
+
+.radio-custom, .checkbox-custom {
+	margin-left: 0 !important;
+}
+
+.wizard-app .wizard .content .radio label {
+	height: 45px;
+	line-height: 24px;
+}
+
+.wizard .radio-inline {
+	position: relative;
+	display: inline-block;
+	padding-left: 6.25rem;
+	margin-bottom: 0;
+	font-weight: normal;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.wizard .radio.radio-inline {
+	margin-top: 0;
+}
+
+.wizard .radio-inline+.radio-inline {
+	margin-left: 0 !important;
+}
+@media screen and (max-width: 1450px){
+	.wizard > .steps .current a:before, .wizard > .steps .current a:hover:before, .wizard > .steps .current a:active:before{right:-34px;}
+	.wizard>.steps a:before, .wizard>.steps a:hover:before, .wizard>.steps a:active:before{right:-34px;}
+	.wizard > .steps .success a:before, .wizard > .steps .success a:hover:before, .wizard > .steps .success a:active:before{right:-34px;}
+}
+
+@media screen and (max-width: 767px) {
+	.post {
+		padding: 0px;
+	}
+	.main-header h1, .main-header small {
+		display: block;
+	}
+	.wizard>.content>.body label {
+		text-align: center;
+	}
+	.wizard .actions ul {
+		width: auto;
+	}
+}
+
+@media screen and (max-width: 705px) {
+	.wizard>.steps ul li a {
+		min-height: 58px;
+	}
+}
+
+@media screen and (max-width: 530px) {
+	.wizard>.steps ul li a {
+		min-height: 72px;
+	}
+}
+
+@media screen and (max-width: 470px) {
+	.wizard>.steps ul li a {
+		min-height: 86px;
+	}
+}
+
+@media screen and (max-width: 415px) {
+	.wizard>.steps ul li a {
+		min-height: 128px;
+	}
+}
+ section .pwd-btn{
+	    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+

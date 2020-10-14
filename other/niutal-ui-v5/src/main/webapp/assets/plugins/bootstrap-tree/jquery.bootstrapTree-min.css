@@ -1,0 +1,146 @@
+.tree-responsive {
+	padding: 0;
+	overflow-x: auto;
+	background-color: #FFF;
+	border: 1px solid #999;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.tree-responsive .tree {
+	border: none;
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+.tree {
+	min-height: 100px;
+	background-color: #FFF;
+	border: 1px solid #999;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.tree li {
+	list-style-type: none !important;
+	margin: 0;
+	padding: 10px 5px 0 5px;
+	position: relative;
+}
+
+.tree li::before,.tree li::after {
+	content: '';
+	left: -20px;
+	position: absolute;
+	right: auto;
+}
+
+.tree li::before {
+	border-left: 1px solid #999;
+	bottom: 50px;
+	height: 100%;
+	top: 0;
+	width: 1px;
+}
+
+.tree li::after {
+	border-top: 1px solid #999;
+	height: 20px;
+	top: 25px;
+	width: 25px;
+}
+
+.tree li span {
+	display: inline-block;
+	padding: 3px 8px !important;
+	text-decoration: none;
+	font-size: 14px !important;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid #999;
+	border-radius: 5px;
+}
+
+.tree li span i[class *="btn_"],
+.tree li span i.glyphicon,
+.tree li span i[class^="icon-"],
+.tree li span i[class *=" icon-"] {
+	margin-right: 2px;
+}
+
+.tree .btn-group {
+	vertical-align: bottom !important;
+}
+
+.tree li.parent_li>span {
+	cursor: pointer;
+}
+
+.tree>ul>li::before,.tree>ul>li::after {
+	border: 0;
+}
+
+.tree li:last-child::before {
+	height: 30px;
+}
+
+.tree li.parent_li>span:hover,
+.tree li.parent_li>span:hover>ul li span {
+	background: #eee;
+	border: 1px solid #94a0b4;
+	color: #000;
+}
+
+.tree li.parent_li>span:hover,
+.tree li.parent_li>span:hover+ul li span {
+	color: #000;
+}
+
+.tree .btn-group-xs>.btn {
+	padding: 1px 5px !important ;
+	min-width : 25px;
+}
+
+.tree li.disabled,
+.tree li.disabled:hover,
+.tree li.disabled:focus,
+.tree li.disabled:active,
+.tree li[disabled],
+.tree li[disabled]:hover,
+.tree li[disabled]:focus,
+.tree li[disabled]:active{
+	cursor: default;
+	box-shadow: none;
+	cursor: not-allowed;
+	opacity: .65 !important;
+	-moz-opacity: .65 !important;
+	filter: alpha(opacity =   6.5) !important;
+	pointer-events: none;
+	background-color: #fff !important;
+	border-color: #ccc !important;
+}
+
+.tree li span.badge {
+    font-size: 12px  !important;
+    padding: 3px 7px  !important;
+    border-radius: 10px !important;
+}
+
+.tree span.btn-plus:hover {
+	cursor: pointer;
+	background: #eee;
+	border: 1px solid #94a0b4;
+	color: #000;
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	
+	   <!-- 默认的登录认证ZFTicketRealm实现 -->
+	<bean id="agentSsoRealm" class="com.woshidaniu.authz.agent.shiro.realm.AgentSsoRealm">
+		<!-- 认证账号信息提供实现：认证信息、角色信息、权限信息；业务系统需要自己实现该接口 -->
+		<property name="accountService" ref="ssoAccountServiceImpl"/>
+		<!-- 凭证匹配器：该对象主要做密码校验 -->
+		<property name="credentialsMatcher">
+			<bean class="org.apache.shiro.authc.credential.AllowAllCredentialsMatcher" />
+		</property>
+		<!-- Realm 执行监听：实现该接口可监听认证失败和成功的状态，从而做业务系统自己的事情，比如记录日志 -->
+		<property name="realmsListeners">
+			<list>
+				<bean class="com.woshidaniu.authz.ticket.shiro.realm.ZFTicketRealmListener"/>
+			</list>
+		</property>
+		<!-- 缓存相关的配置：采用提供的默认配置即可 -->
+		<property name="cachingEnabled" value="true"/>
+        <property name="authenticationCachingEnabled" value="false"/>
+        <property name="authenticationCacheName" value="niutal_SHIRO"/>
+        <property name="authorizationCachingEnabled" value="true"/>
+        <property name="authorizationCacheName" value="niutal_SHIRO"/>
+	</bean>
+	
+	<bean id="agentSsoShiroFilter" class="com.woshidaniu.authz.agent.shiro.filter.AgentSsoShiroFilter">
+		<property name="authServerUrl" value="#{authzProperties['shiro.authz.agent.authServerUrl']}"></property>
+		<property name="successUrl" value="#{authzProperties['shiro.authz.agent.successUrl']}"></property>
+	</bean>
+	
+</beans>

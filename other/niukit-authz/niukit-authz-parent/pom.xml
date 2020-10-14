@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.woshidaniu</groupId>
+		<artifactId>niukit-authz-dependencies</artifactId>
+		<version>1.0.1-SNAPSHOT</version>
+		<relativePath>../niukit-authz-dependencies</relativePath>
+	</parent>
+
+	<artifactId>niukit-authz-parent</artifactId>
+	<version>1.1.2-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>niukit-authz-ticket</module>
+		<module>niukit-authz-idstar</module>
+		<module>niukit-authz-thauthall</module>
+		<module>niukit-authz-zjucookie</module>
+		<module>niukit-authz-agent</module>
+		<module>niukit-authz-uaac</module>
+		<module>niukit-authz-ngdiot</module>
+		<module>niukit-authz-zfca</module>
+		<module>niukit-authz-idsplus</module>
+		<module>niukit-authz-cas</module>
+		<module>niukit-authz-cas321</module>
+		<!--
+		<module>niukit-authz-pac4j</module>
+		-->
+		<module>niukit-authz-local</module>
+		<module>niukit-authz-oauth2</module>
+	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>niukit-shiro</artifactId>
+			<version>${niukit.shiro.version}</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>${project.groupId}</groupId>
+					<artifactId>niukit-basicutils</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-fileupload</groupId>
+					<artifactId>commons-fileupload</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.oreilly</groupId>
+					<artifactId>cos</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.shiro</groupId>
+					<artifactId>shiro-ehcache</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.sf.ehcache</groupId>
+					<artifactId>ehcache</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.woshidaniu</groupId>
+					<artifactId>niucaclient</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>oro</groupId>
+					<artifactId>oro</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+</project>

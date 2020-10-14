@@ -1,0 +1,113 @@
+<!--
+	========== Defined Types =============================================
+-->
+<!ENTITY % Boolean "(true|false|yes|no)">
+<!ENTITY % ModeScope "(default|html)">
+<!ENTITY % PageSizeList "(LETTER|NOTE|LEGAL|TABLOID|EXECUTIVE|POSTCARD|A0|A2|A3|A4|A5|A6|A7|A8|A9|A10|B0|B1|B2|B3|B4|B5|B6|B7|B8|B9|B10|ARCH_E|ARCH_D|ARCH_C|ARCH_B|ARCH_A|FLSA|FLSE|HALFLETTER|_11X17|ID_1|ID_2|ID_3|LEDGER|CROWN_QUARTO|LARGE_CROWN_QUARTO|DEMY_QUARTO|ROYAL_QUARTO|CROWN_OCTAVO|LARGE_CROWN_OCTAVO|DEMY_OCTAVO|ROYAL_OCTAVO|SMALL_PAPERBACK|PENGUIN_SMALL_PAPERBACK|PENGUIN_LARGE_PAPERBACK)">
+<!--
+	========== Top Level Elements ========================================
+-->
+<!ELEMENT itext-config (description,style,link*,document+)>
+<!ATTLIST itext-config  namespace ID #REQUIRED>
+<!ELEMENT style (#PCDATA)>
+<!ELEMENT description (#PCDATA)>
+
+<!ELEMENT iterator (paragraph*,iterator*,table*,tbody*,tr*,th*,td*)>
+<!ATTLIST iterator value ID #REQUIRED>
+<!ATTLIST iterator status CDATA #IMPLIED>
+
+<!ELEMENT link EMPTY>
+<!ATTLIST link href ID #REQUIRED>
+
+<!ELEMENT br EMPTY>
+
+<!ELEMENT document (description?,author?,title?,subject?,keywords?,  paragraph?,iterator*,table*,css?)>
+<!ATTLIST document documentID ID #REQUIRED>
+<!ATTLIST document model %ModeScope; #REQUIRED>
+<!ATTLIST document pageSize %PageSizeList; #REQUIRED>
+<!ATTLIST document rotate %Boolean; #IMPLIED>
+<!ATTLIST document padding CDATA #IMPLIED>
+<!ELEMENT css (#PCDATA)>
+<!ELEMENT author (#PCDATA)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT subject (#PCDATA)>
+<!ELEMENT keywords (#PCDATA)>
+
+<!--加密标签,在文档需要加密时候，配置此标签，如果动态取账号密码，记得在程序的入口传递动态参数-->
+<!ELEMENT encrypt EMPTY>
+<!ATTLIST encrypt user CDATA #REQUIRED>
+<!ATTLIST encrypt password CDATA #IMPLIED>
+
+<!ELEMENT paragraph (#PCDATA)>
+<!ELEMENT line EMPTY>
+<!ATTLIST line height CDATA #REQUIRED>
+<!ATTLIST line width CDATA #IMPLIED>
+
+<!ELEMENT image EMPTY>
+<!ATTLIST image src CDATA #REQUIRED>
+<!ATTLIST image width CDATA #IMPLIED>
+<!ATTLIST image height CDATA #IMPLIED>
+<!ATTLIST image percent CDATA #IMPLIED>
+<!ATTLIST image rotation CDATA #IMPLIED>
+<!ATTLIST image bytes CDATA #IMPLIED>
+
+<!ELEMENT table (description?,caption?,iterator*,thead?,tbody*,tfoot?)>
+<!ATTLIST table align (left|center|right) #IMPLIED>
+<!ATTLIST table border CDATA #IMPLIED>
+<!ATTLIST table width CDATA #IMPLIED>
+<!ATTLIST table height CDATA #IMPLIED>
+<!ATTLIST table style CDATA #IMPLIED>
+
+<!ELEMENT caption (#PCDATA)>
+<!ATTLIST caption align (left|center|right) #IMPLIED>
+<!ATTLIST caption style CDATA #IMPLIED>
+
+<!ELEMENT thead (tr?)>
+<!ATTLIST thead align (left|center|right) #IMPLIED>
+<!ATTLIST thead style CDATA #IMPLIED>
+<!ATTLIST thead valign (top|middle|bottom|baseline) #IMPLIED>
+
+<!ELEMENT tbody (iterator*,tr?)>
+<!ATTLIST tbody align (left|center|right) #IMPLIED>
+<!ATTLIST tbody style CDATA #IMPLIED>
+<!ATTLIST tbody valign (top|middle|bottom|baseline) #IMPLIED>
+
+<!ELEMENT tfoot (tr?)>
+<!ATTLIST tfoot align (left|center|right) #IMPLIED>
+<!ATTLIST tfoot style CDATA #IMPLIED>
+<!ATTLIST tfoot valign (top|middle|bottom|baseline) #IMPLIED>
+
+<!ELEMENT tr (iterator*,th+,td+)>
+<!ATTLIST tr align (left|center|right) #IMPLIED>
+<!ATTLIST tr background CDATA #IMPLIED>
+<!ATTLIST tr bgcolor CDATA #IMPLIED>
+<!ATTLIST tr bordercolor CDATA #IMPLIED>
+<!ATTLIST tr height CDATA #IMPLIED>
+<!ATTLIST tr style CDATA #IMPLIED>
+<!ATTLIST tr valign (top|middle|bottom|baseline) #IMPLIED>
+
+<!ELEMENT th (iterator*,table*,image?|#PCDATA)>
+<!ATTLIST th align (left|center|right) #IMPLIED>
+<!ATTLIST th background CDATA #IMPLIED>
+<!ATTLIST th bgcolor CDATA #IMPLIED>
+<!ATTLIST th bordercolor CDATA #IMPLIED>
+<!ATTLIST th colspan CDATA #IMPLIED>
+<!ATTLIST th height CDATA #IMPLIED>
+<!ATTLIST th nowrap (true|false|yes|no) #IMPLIED>
+<!ATTLIST th rowspan CDATA #IMPLIED>
+<!ATTLIST th style CDATA #IMPLIED>
+<!ATTLIST th valign (top|middle|bottom|baseline) #IMPLIED>
+<!ATTLIST th width CDATA #IMPLIED>
+
+<!ELEMENT td (iterator*,table*,image?|#PCDATA)>
+<!ATTLIST td align (left|center|right) #IMPLIED>
+<!ATTLIST td background CDATA #IMPLIED>
+<!ATTLIST td bgcolor CDATA #IMPLIED>
+<!ATTLIST td bordercolor CDATA #IMPLIED>
+<!ATTLIST td colspan CDATA #IMPLIED>
+<!ATTLIST td height CDATA #IMPLIED>
+<!ATTLIST td nowrap (true|false|yes|no) #IMPLIED>
+<!ATTLIST td rowspan CDATA #IMPLIED>
+<!ATTLIST td style CDATA #IMPLIED>
+<!ATTLIST td valign (top|middle|bottom|baseline) #IMPLIED>
+<!ATTLIST td width CDATA #IMPLIED>

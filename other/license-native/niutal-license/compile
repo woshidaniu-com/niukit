@@ -1,0 +1,58 @@
+For MinGW GCC in Windows
+
+> set JAVA_HOME=C:\Program Files\Java\jdk1.7.0_{xx}
+      // Define and Set environment variable JAVA_HOME to JDK installed directory
+      // I recommend that you set JAVA_HOME permanently, via "Control Panel" 鈬� "System" 鈬� "Environment Variables"
+> echo %JAVA_HOME%
+      // In Windows, you can refer a environment variable by adding % prefix and suffix 
+> gcc -Wl,--add-stdcall-alias -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -shared -o hello.dll HelloJNI.c
+      // Compile HellJNI.c into shared library hello.dll
+
+The compiler options used are:
+
+    -Wl: The -Wl to pass linker option --add-stdcall-alias to prevent UnsatisfiedLinkError (symbols with a stdcall suffix (@nn) will be exported as-is and also with the suffix stripped). (Some people suggested to use -Wl,--kill-at.)
+    -I: for specifying the header files directories. In this case "jni.h" (in "<JAVA_HOME>\include") and "jni_md.h" (in "<JAVA_HOME>\include\win32"), where <JAVA_HOME> denotes the JDK installed directory. Enclosed the directory in double quotes if it contains spaces.
+    -shared: to generate share library.
+    -o: for setting the output filename "hello.dll".
+
+
+gcc -I /lib/java/jdk18/include/ -I /lib/java/jdk18/include/linux/ -fPIC -shared -o libniutal-license-32.so c_base64.c cipher.c cJSON.c com_woshidaniu_license_LicenseOps.c
+    
+    
+    
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32"  -m32 -O3 -Wall -c -fmessage-length=0 -o com_woshidaniu_license_LicenseOps.o "..\\com_woshidaniu_license_LicenseOps.c"
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m32 -O3 -Wall -c -fmessage-length=0 -o c_base64.o "..\\c_base64.c"
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m32 -O3 -Wall -c -fmessage-length=0 -o cJSON.o "..\\cJSON.c"
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m32 -O3 -Wall -c -fmessage-length=0 -o cipher.o "..\\cipher.c"
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m32 -Wl,--add-stdcall-alias -shared -o libniutal-license-win-32.dll cJSON.o c_base64.o cipher.o com_woshidaniu_license_LicenseOps.o
+
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m64 -O3 -Wall -c -fmessage-length=0 -o com_woshidaniu_license_LicenseOps.o "..\\com_woshidaniu_license_LicenseOps.c"
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m64 -O3 -Wall -c -fmessage-length=0 -o c_base64.o "..\\c_base64.c"
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m64 -O3 -Wall -c -fmessage-length=0 -o cJSON.o "..\\cJSON.c"
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m64 -O3 -Wall -c -fmessage-length=0 -o cipher.o "..\\cipher.c"
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m64 -Wl,--add-stdcall-alias -shared -o libniutal-license-win-64.dll cJSON.o c_base64.o cipher.o com_woshidaniu_license_LicenseOps.o
+
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m32 -O3 -Wall -c -fmessage-length=0 -o com_woshidaniu_license_admin_LicenseAdminOps.o "..\\com_woshidaniu_license_admin_LicenseAdminOps.c" 
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m32 -O3 -Wall -c -fmessage-length=0 -o c_base64.o "..\\c_base64.c"
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m32 -O3 -Wall -c -fmessage-length=0 -o cJSON.o "..\\cJSON.c" 
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m32 -O3 -Wall -c -fmessage-length=0 -o cipher.o "..\\cipher.c" 
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m32 -Wl,--add-stdcall-alias -shared -o libniutal-license-admin-win-32.dll cJSON.o c_base64.o cipher.o com_woshidaniu_license_admin_LicenseAdminOps.o 
+
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m64 -O3 -Wall -c -fmessage-length=0 -o com_woshidaniu_license_admin_LicenseAdminOps.o "..\\com_woshidaniu_license_admin_LicenseAdminOps.c" 
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m64 -O3 -Wall -c -fmessage-length=0 -o c_base64.o "..\\c_base64.c"
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m64 -O3 -Wall -c -fmessage-length=0 -o cJSON.o "..\\cJSON.c" 
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m64 -O3 -Wall -c -fmessage-length=0 -o cipher.o "..\\cipher.c" 
+gcc -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -m64 -Wl,--add-stdcall-alias -shared -o libniutal-license-admin-win-64.dll cJSON.o c_base64.o cipher.o com_woshidaniu_license_admin_LicenseAdminOps.o 
+
+
+#license-core:
+#32-bit
+gcc -I /usr/java/jdk1.8.0_91/include/ -I /usr/java/jdk1.8.0_91/include/linux/ -fPIC -shared -o ./output/libniutal-license-linux-32.so c_base64.c cipher.c cJSON.c com_woshidaniu_license_LicenseOps.c
+#64-bit
+gcc -I /usr/java/jdk1.8.0_91/include/ -I /usr/java/jdk1.8.0_91/include/linux/ -fPIC -shared -o ./output/libniutal-license-linux-64.so c_base64.c cipher.c cJSON.c com_woshidaniu_license_LicenseOps.c
+
+license-admin-core:
+#32-bit
+gcc -I /usr/java/jdk1.8.0_91/include/ -I /usr/java/jdk1.8.0_91/include/linux/ -fPIC -shared -o ./output/libniutal-license-admin-linux-32.so c_base64.c cipher.c cJSON.c com_woshidaniu_license_admin_LicenseAdminOps.c
+#64-bit
+gcc -I /usr/java/jdk1.8.0_91/include/ -I /usr/java/jdk1.8.0_91/include/linux/ -fPIC -shared -o ./output/libniutal-license-admin-linux-64.so c_base64.c cipher.c cJSON.c com_woshidaniu_license_admin_LicenseAdminOps.c

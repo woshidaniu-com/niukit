@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jquery.event.fix-min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<p>$.event.fix()保证函数返回的对象都是统一的,使用如下</p>
+		<script type="text/javascript">
+			var event = $.event.fix(e);
+			//此时event不论在何浏览器下都是统一的
+		</script>
+		<p>$.fn.pasteEvents(对粘贴事件进行监控),调用如下：</p>
+		<script type="text/javascript">
+			$("#element").on("postpaste", function() {
+				// do something 
+			}).pasteEvents();
+		</script>
+		<p>$.fn.triggerEvent对元素进行事件绑定</p>
+		<script type="text/javascript">
+			$("#element").on("postpaste", function() {
+				// do something 
+			}).triggerEvent();
+		</script>
+
+		<p>扩展元素在不解绑事件的情况下禁用click和dblclick</p>
+		<p>比如在禁用按钮不可点击采用如下设置 ：</p>
+		<p>$(btn).prop("disabled",true).addClass("disabled").data("disabled",false);</p>
+		<p>即便用户在页面对元素的disabled和样式进行了修改，事件依然不会被触发：</p>
+		<p>解除禁用：</p>
+		<p>$(btn).prop("disabled",false).removeClass("disabled").removeData("disabled");</p>
+	</body>
+
+</html>

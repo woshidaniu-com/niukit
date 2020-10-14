@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+	
+	<description>IMExport 组件初始化参数</description>
+	
+	<util:map id="options_map" map-class="java.util.HashMap" scope="session">
+		<!-- IMExport 组件运行参数数据来源方式 ,xml:所有的导入导出字段及SQL配置在xml文件;jdbc:所有的导入导出字段及SQL存储在数据库 -->
+		<entry key="dataType" value="xml"/>
+		<entry key="operate" value="import"/><!-- import:导入,export:导出 -->
+		<entry key="width" value="800px"/>
+		<entry key="height" value="455px"/>
+		<entry key="uploadURL" value="/AlanXUploadServlet"/>
+		<entry key="expressInstallURL" value="core/expressInstall.swf"/>
+		<entry key="alanxSwfURL" value="core/AlanX.swf"/>
+		<entry key="extensionName" value="*.*"/><!-- 扩展名 -->
+		<entry key="extensionDisp" value="AlanX上传组件"/>
+		<entry key="maxFileN" value="100"/>
+		<entry key="maxFileSize" value="1048576000"/>
+		<entry key="maxAllFileSize" value="10485760000"/>
+		<entry key="waitForProgress" value="false"/>
+		<entry key="operate" value="import"/>
+		<entry key="errorContinue" value="true"/>
+		<entry key="showLogoTxt" value="false"/>
+	</util:map>
+	
+</beans>

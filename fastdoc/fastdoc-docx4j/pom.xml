@@ -1,0 +1,171 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.woshidaniu</groupId>
+		<artifactId>fastdoc-parent</artifactId>
+		<version>1.1.1</version>
+	</parent>
+	
+	<artifactId>fastdoc-docx4j</artifactId>
+	<packaging>jar</packaging>
+	
+	<dependencies>
+		
+		
+		<dependency>
+		    <groupId>org.antlr</groupId>
+		    <artifactId>antlr</artifactId>
+		    <exclusions>
+		    	<exclusion>
+		    		<artifactId>antlr-runtime</artifactId>
+		    		<groupId>org.antlr</groupId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>org.antlr</groupId>
+		    <artifactId>antlr-runtime</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+		</dependency>
+		
+		
+		<!-- Docx4j : docx4j是一个用于创建和操作Microsoft Open XML (Word docx, Powerpoint pptx, 和 Excel xlsx)文件的Java类库。 -->
+		<!-- docx4j is a library which helps you to work with the Office Open XML file format as used in docx documents, pptx presentations, and xlsx spreadsheets. -->
+		<dependency>
+		    <groupId>org.docx4j</groupId>
+		    <artifactId>docx4j</artifactId>
+		    <exclusions>
+		    	<exclusion>
+		    		<artifactId>jcl-over-slf4j</artifactId>
+		    		<groupId>org.slf4j</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>slf4j-log4j12</artifactId>
+		    		<groupId>org.slf4j</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>log4j</artifactId>
+		    		<groupId>log4j</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>httpclient</artifactId>
+		    		<groupId>org.apache.httpcomponents</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>antlr</artifactId>
+		    		<groupId>antlr</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>jackson-databind</artifactId>
+		    		<groupId>com.fasterxml.jackson.core</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>jackson-core</artifactId>
+		    		<groupId>com.fasterxml.jackson.core</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>commons-codec</artifactId>
+		    		<groupId>commons-codec</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>commons-io</artifactId>
+		    		<groupId>commons-io</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>commons-lang3</artifactId>
+		    		<groupId>org.apache.commons</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>antlr-runtime</artifactId>
+		    		<groupId>org.antlr</groupId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+		<!-- docx4j-ImportXHTML converts XHTML to OpenXML WordML (docx) using docx4j  -->
+		<dependency>
+		    <groupId>org.docx4j</groupId>
+		    <artifactId>docx4j-ImportXHTML</artifactId>
+		    <exclusions>
+				<exclusion>
+		    		<artifactId>jcl-over-slf4j</artifactId>
+		    		<groupId>org.slf4j</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>slf4j-log4j12</artifactId>
+		    		<groupId>org.slf4j</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>log4j</artifactId>
+		    		<groupId>log4j</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>junit</artifactId>
+		    		<groupId>junit</groupId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+		<!-- Modified flyingsaucer XML/XHTML and CSS 2.1 renderer, to support docx (and eventually pptx) output  -->
+		<dependency>
+		    <groupId>org.docx4j</groupId>
+		    <artifactId>xhtmlrenderer</artifactId>
+		    <exclusions>
+		    	<exclusion>
+		    		<artifactId>itext</artifactId>
+		    		<groupId>com.lowagie</groupId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+		
+		<!-- docx4j扩展库
+		<dependency>
+		    <groupId>org.docx4j</groupId>
+		    <artifactId>docx4j-MOXy-JAXBContext</artifactId>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.docx4j</groupId>
+		    <artifactId>docx4j-export-fo</artifactId>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<scope>provided</scope>
+		</dependency>-->
+		
+		<!-- <dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>xml-apis</groupId>
+ 			<artifactId>xml-apis</artifactId>
+ 			<scope>provided</scope>
+		</dependency> 
+		 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>niukit-basicutils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+	
+</project>

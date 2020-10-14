@@ -1,0 +1,20 @@
+
+//导入
+function dataimp(tables, main_column, fn, unique_columns) {
+	//tables 需要导入的表名的数组
+	//main_column 主键字段名
+	//fn导入后要执行的函数
+	//unque_columns判断唯一的字段名数组
+	var url = 'dataImpSelectFile.action?firstLoad=true';
+	tables.each(function(item, index){
+		url += '&table=' + item;
+	});
+	if (unique_columns && unique_columns.length) {
+		unique_columns.each(function(item, index){
+			url += '&unique_columns=' + item;
+		});
+	}
+	url += '&main_column=' + main_column;
+	var value = open(url, "import_window", "height=800,width=500,menubar=1,resizable=1,toolbar=0,location=0");
+	fn.apply(this,[1]);
+}

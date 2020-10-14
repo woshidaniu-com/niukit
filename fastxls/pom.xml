@@ -1,0 +1,145 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.woshidaniu</groupId>
+		<artifactId>niukit-parent</artifactId>
+		<version>1.1.1</version>
+	</parent>
+
+	<artifactId>fastxls-parent</artifactId>
+	<packaging>pom</packaging>
+
+	<name>fastxls</name>
+	<description>
+		1、基于JXL的XLS读写实现
+		2、基于POI的XLS读写实现
+		3、基于JXLS的XLS写实现
+		4、基于Velocity、freemarker的XLS写实现
+	</description>
+
+	<modules>
+		<module>fastxls-core</module>
+		<module>fastxls-jexcel</module>
+		<module>fastxls-poi</module>
+		<module>fastxls-template</module>
+		<module>fastxls-jxls</module>
+		<module>fastxls-jxls1</module>
+		<module>fastxls-struts2</module>
+		<module>fastxls-webmvc</module>
+	</modules>
+	
+	<properties>
+		<poi.version>3.16</poi.version><!--3.10-FINAL,3.14 -->
+		<jxl.version>2.6.12</jxl.version>
+		<jxls1.version>1.0.6</jxls1.version>
+		<jxls.version>2.2.9</jxls.version>
+	</properties>
+	
+	<dependencyManagement>
+		<dependencies>
+			
+			<!-- ###################### Excel文档生成和解析工具包###################### -->
+			
+			<!--JXL -->
+			<dependency>
+				<groupId>net.sourceforge.jexcelapi</groupId>
+				<artifactId>jxl</artifactId>
+				<version>${jxl.version}</version>
+			</dependency>
+			
+			<!--POI -->
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml-schemas</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-scratchpad</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-excelant</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-examples</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-contrib</artifactId>
+				<version>3.7-beta3</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>openxml4j</artifactId>
+				<version>1.0-beta</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>ooxml-schemas</artifactId>
+				<version>1.1</version>
+			</dependency>
+			
+			<!--JXLS-1.x-->
+			<dependency>
+				<groupId>net.sf.jxls</groupId>
+				<artifactId>jxls-core</artifactId>
+				<version>${jxls1.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.jxls</groupId>
+				<artifactId>jxls-reader</artifactId>
+				<version>${jxls1.version}</version>
+			</dependency>
+			
+			<!--JXLS-2.x-->
+			<dependency>
+				<groupId>org.jxls</groupId>
+				<artifactId>jxls</artifactId>
+				<version>${jxls.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jxls</groupId>
+				<artifactId>jxls-reader</artifactId>
+				<version>2.0.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jxls</groupId>
+				<artifactId>jxls-jexcel</artifactId>
+				<version>1.0.5</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jxls</groupId>
+				<artifactId>jxls-poi</artifactId>
+				<version>1.0.8</version>
+			</dependency>
+			<dependency>
+				<groupId>fr.opensagres.xdocreport</groupId>
+				<artifactId>org.apache.poi.xwpf.converter.core</artifactId>
+				<version>1.0.6</version>
+			</dependency>
+			<dependency>
+				<groupId>fr.opensagres.xdocreport</groupId>
+				<artifactId>org.apache.poi.xwpf.converter.xhtml</artifactId>
+				<version>1.0.6</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+</project>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+	<description></description>
+	
+	<!-- query sql configuration -->
+	<util:map id="query_sql_map" map-class="java.util.HashMap" >
+		<!-- 组件中所需要的一些初始参数查询SQL -->
+		<entry key="options_sql" value="SELECT * FROM　IMEXPORT_OPTIONS"/>
+		<!-- 用于导入导出的表所属的组列表查询SQL -->
+		<entry key="table_group_list_sql" value="SELECT * FROM　ImExportGroups"/>
+		<!-- 用于导入导出的表或视图列表查询SQL -->
+		<entry key="table_list_sql" value="SELECT * FROM　ImExportTables"/>
+		<entry key="table_list_by_group_sql" value="SELECT * FROM　ImExportTables tb WHERE tb.table_group = ?"/>
+		<entry key="table_list_by_alias_sql" value="SELECT * FROM　ImExportTables tb WHERE tb.table_alias = ?"/>
+		<!-- 导入导出的表或视图对应的字段映射关系列表 查询SQL -->
+		<entry key="table_alias_column_list_sql" value="SELECT * FROM　ImExportTableColumns"/>
+		<!-- 要进行转换的字段列表查询SQL -->
+		<entry key="transform_table_list_sql" value="SELECT * FROM　ImExportTransformTables"/>
+		<entry key="transform_table_by_name_sql" value="SELECT * FROM　ImExportTransformTables t WHERE t.table_name = ?"/>
+		<!-- (导出查询源数据)涉及多用户间数据查询的查询SQL -->
+		<entry key="transform_column_list_sql" value="SELECT * FROM　ImExportTransformColumns"/>
+		<entry key="transform_column_by_name_sql" value="SELECT * FROM　ImExportTransformTables t WHERE t.column_name = ?"/>
+		<!-- 导出数据的Excel模板的查询SQL -->
+		<entry key="export_template_list_sql" value="SELECT * FROM　ImExportTemplates"/>
+		<entry key="export_template_by_name_sql" value="SELECT * FROM　ImExportTemplates t WHERE t.table_alias = ?"/>
+	</util:map>
+	
+</beans>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+	<description></description>
+	
+	<!-- table name configuration -->
+	<util:map id="table_comments_map" map-class="java.util.HashMap" >
+	    <entry key="sj_cxxxmkcb" value="创新型项目课程表"/>
+		<entry key="cj_djkscjb" value="等级考试成绩表"/>
+		<entry key="xt_zyfxdmb" value="专业方向代码表"></entry>
+	</util:map>
+	
+</beans>

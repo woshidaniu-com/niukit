@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.woshidaniu</groupId>
+		<artifactId>niukit-parent</artifactId>
+		<version>1.1.1</version>
+	</parent>
+
+	<artifactId>fastdoc-parent</artifactId>
+	<packaging>pom</packaging>
+
+	<name>fastdoc</name>
+	<description>基于velocity、freemarker、docx4j的实现的Office Word 文档快速输出工具</description>
+
+	<modules>
+		<module>fastdoc-core</module>
+		<module>fastdoc-docx4j</module>
+		<module>fastdoc-struts2</module>
+		<module>fastdoc-render</module>
+		<module>fastdoc-template</module>		
+		<module>fastdoc-webmvc</module>
+	</modules>
+	
+	<properties>
+		<docx4j.version>3.3.3</docx4j.version>
+		<poi.version>3.16</poi.version><!--3.10-FINAL,3.14 -->
+	</properties>
+	
+	<dependencyManagement>
+		<dependencies>
+			<!-- 
+				docx4j是一个开源的(Apache许可证v2)Java库，专门用来创建、编辑和保存Microsoft Open XML文档（包括Word docx, Powerpoint pptx和Excel xlsx）的Java类库。
+				docx4j最初是由Plutext Pty Ltd于2008年创建。
+				docx4j与微软的OpenXML SDK类似，但是是面向Java的。它使用JAXB在内存中创建Java对象。它的功能强大，对于支持的文档的格式，你可以用docx4j做出你想要的效果。它的功能有：
+				
+				1、 打开已存在的docx/pptx/xlsx(从文件系统, SMB/CIFS, 使用VFS从WebDAV等)
+				2、创建新的docx文档
+				3、用程序来处理docx文档
+				4、CustomXML绑定(使用OpenDoPE插件来处理重复绑定和条件绑定)
+				5、将文件保存成HTML或PDF
+				6、Diff/比较文档、段落
+				7、导入二进制文档(使用Apache POI的HWPF)
+				8、处理Word 2007的xmlPackage(pkg)格式
+				9、将docx保存成docx(压缩格式)或者JCR（未压缩格式）
+				10、字体支持（字体替换，使用文档中嵌入的任何字体）
+				
+				但首先你需要花时间理解JAXB和Open XML文件结构。你可以使用在线的webapp来查看docx/xlsx/pptx的文件结构，或者下载到本地的应用Word AddIn来查看docx的文件结构。
+				
+				http://www.docx4java.org/downloads.html
+			-->
+			
+			<!-- docx4j is a library which helps you to work with the Office Open XML file format as used in docx documents, pptx presentations, and xlsx spreadsheets. -->
+			<dependency>
+			    <groupId>org.docx4j</groupId>
+			    <artifactId>docx4j</artifactId>
+			    <version>${docx4j.version}</version>
+			</dependency>
+			<!-- Modified flyingsaucer XML/XHTML and CSS 2.1 renderer, to support docx (and eventually pptx) output  -->
+			<dependency>
+			    <groupId>org.docx4j</groupId>
+			    <artifactId>xhtmlrenderer</artifactId>
+			    <version>3.0.0</version>
+			</dependency>
+			<!-- docx4j-ImportXHTML converts XHTML to OpenXML WordML (docx) using docx4j  -->
+			<dependency>
+			    <groupId>org.docx4j</groupId>
+			    <artifactId>docx4j-ImportXHTML</artifactId>
+			    <version>3.3.1</version>
+			    <exclusions>
+					<exclusion>
+						<artifactId>slf4j-log4j12</artifactId>
+						<groupId>org.slf4j</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>log4j</artifactId>
+						<groupId>log4j</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<!-- jaxb.properties files specifying that docx4j should use the EclipseLink MOXy (JAXB) runtime  -->
+			<dependency>
+			    <groupId>org.docx4j</groupId>
+			    <artifactId>docx4j-MOXy-JAXBContext</artifactId>
+			    <version>3.3.2</version>
+			</dependency>
+			<!-- Export docx to PDF via XSL FO, using Apache FOP  -->
+			<dependency>
+			    <groupId>org.docx4j</groupId>
+			    <artifactId>docx4j-export-fo</artifactId>
+			    <version>3.3.1</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>eclipselink</artifactId>
+				<version>2.5.2</version>
+			</dependency>
+			
+			<!-- Spring Content Docx4j  -->
+			<dependency>
+			    <groupId>com.github.paulcwarren</groupId>
+			    <artifactId>spring-content-docx4j</artifactId>
+			    <version>0.0.3</version>
+			</dependency>
+			<!-- Jasper To Word Docx4J Implementation  -->
+			<dependency>
+			    <groupId>net.sf.jasper2docx</groupId>
+			    <artifactId>jasper2docx-docx4j</artifactId>
+			    <version>1.1.5</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+</project>

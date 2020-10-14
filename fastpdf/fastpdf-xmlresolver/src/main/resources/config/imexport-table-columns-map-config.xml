@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+	<description></description>
+	
+	<!-- 导入导出的表或视图对应的字段映射关系列表 ，key: 是页面传过来的别名,value-ref:指向其对应的字段集合-->
+	<!-- 
+	<util:map id="table_columns_map" map-class="java.util.HashMap" scope="session">
+		<entry key="table_alias" value-ref="table_alias_column_list"></entry>
+	</util:map> 
+	-->
+	
+	<!-- exp table configuration -->
+	<util:map id="table_columns_map" map-class="java.util.HashMap"  scope="session">
+		<entry key="view_tj_hx_xy_list" value-ref="by_tj_hx_xy_list"/>
+		<entry key="view_tj_hx_zy_list" value-ref="by_tj_hx_zy_list"/>
+		<entry key="view_tj_hx_bj_list" value-ref="by_tj_hx_bj_list"/>
+	</util:map>
+	
+	
+</beans>

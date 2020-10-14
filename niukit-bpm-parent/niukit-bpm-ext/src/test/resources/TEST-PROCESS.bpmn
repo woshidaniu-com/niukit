@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="test">
+  <process id="testWorkflow" name="testWorkflow" isExecutable="true">
+    <documentation>This is a test workflow</documentation>
+    <startEvent id="start" activiti:initiator="initiator"></startEvent>
+    <sequenceFlow id="sequenceFlow2" sourceRef="start" targetRef="userTask1"></sequenceFlow>
+    <userTask id="userTask1" name="审核1" default="sequenceFlow5" activiti:assignee="${initiator}" activiti:category="start">
+      <documentation>审核1节点</documentation>
+      <extensionElements>
+        <activiti:formProperty id="p_decision" name="p_decision" type="enum" required="true">
+          <activiti:value id="PASS" name="通过"></activiti:value>
+          <activiti:value id="NOPASS" name="不通过"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="p_decision_message" name="p_decision_message" type="string"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sequenceFlow1" sourceRef="userTask1" targetRef="end1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='NOPASS'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="end1"></endEvent>
+    <sequenceFlow id="sequenceFlow5" sourceRef="userTask1" targetRef="userTask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='PASS'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="userTask2" name="审核2" default="sequenceFlow9" activiti:assignee="${initiator}" activiti:category="userTask1">
+      <documentation>审核2节点</documentation>
+      <extensionElements>
+        <activiti:formProperty id="p_decision" name="p_decision" type="enum" required="true">
+          <activiti:value id="PASS" name="通过"></activiti:value>
+          <activiti:value id="BACK_BACK_userTask1" name="退回[审核1]"></activiti:value>
+          <activiti:value id="NOPASS" name="不通过"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="p_decision_message" name="p_decision_message" type="string"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sequenceFlow3" sourceRef="userTask2" targetRef="userTask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='BACK_userTask1'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceFlow4" sourceRef="userTask2" targetRef="end2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='NOPASS'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="end2"></endEvent>
+    <sequenceFlow id="sequenceFlow9" sourceRef="userTask2" targetRef="userTask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='PASS'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="userTask3" name="审核3" default="sequenceFlow14" activiti:assignee="${initiator}" activiti:category="userTask2">
+      <documentation>审核3节点</documentation>
+      <extensionElements>
+        <activiti:formProperty id="p_decision" name="p_decision" type="enum" required="true">
+          <activiti:value id="PASS" name="通过"></activiti:value>
+          <activiti:value id="BACK_BACK_userTask1" name="退回[审核1]"></activiti:value>
+          <activiti:value id="BACK_BACK_userTask2" name="退回[审核2]"></activiti:value>
+          <activiti:value id="NOPASS" name="不通过"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="p_decision_message" name="p_decision_message" type="string"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sequenceFlow7" sourceRef="userTask3" targetRef="userTask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='BACK_userTask2'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceFlow6" sourceRef="userTask3" targetRef="userTask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='BACK_userTask1'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceFlow8" sourceRef="userTask3" targetRef="end3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='NOPASS'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="end3"></endEvent>
+    <sequenceFlow id="sequenceFlow14" sourceRef="userTask3" targetRef="userTask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='PASS'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="userTask4" name="审核4" default="sequenceFlow20" activiti:assignee="${initiator}" activiti:category="userTask3">
+      <documentation>审核4节点</documentation>
+      <extensionElements>
+        <activiti:formProperty id="p_decision" name="p_decision" type="enum" required="true">
+          <activiti:value id="PASS" name="通过"></activiti:value>
+          <activiti:value id="BACK_BACK_userTask1" name="退回[审核1]"></activiti:value>
+          <activiti:value id="BACK_BACK_userTask2" name="退回[审核2]"></activiti:value>
+          <activiti:value id="BACK_BACK_userTask3" name="退回[审核3]"></activiti:value>
+          <activiti:value id="NOPASS" name="不通过"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="p_decision_message" name="p_decision_message" type="string"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sequenceFlow12" sourceRef="userTask4" targetRef="userTask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='BACK_userTask3'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceFlow11" sourceRef="userTask4" targetRef="userTask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='BACK_userTask2'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceFlow10" sourceRef="userTask4" targetRef="userTask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='BACK_userTask1'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceFlow13" sourceRef="userTask4" targetRef="end4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='NOPASS'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="end4"></endEvent>
+    <sequenceFlow id="sequenceFlow20" sourceRef="userTask4" targetRef="userTask5">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='PASS'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="userTask5" name="审核5" activiti:assignee="${initiator}" activiti:category="userTask4">
+      <documentation>审核5节点</documentation>
+      <extensionElements>
+        <activiti:formProperty id="p_decision" name="p_decision" type="enum" required="true">
+          <activiti:value id="PASS" name="通过"></activiti:value>
+          <activiti:value id="BACK_BACK_userTask1" name="退回[审核1]"></activiti:value>
+          <activiti:value id="BACK_BACK_userTask2" name="退回[审核2]"></activiti:value>
+          <activiti:value id="BACK_BACK_userTask3" name="退回[审核3]"></activiti:value>
+          <activiti:value id="BACK_BACK_userTask4" name="退回[审核4]"></activiti:value>
+          <activiti:value id="NOPASS" name="不通过"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="p_decision_message" name="p_decision_message" type="string"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sequenceFlow18" sourceRef="userTask5" targetRef="userTask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='BACK_userTask4'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceFlow17" sourceRef="userTask5" targetRef="userTask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='BACK_userTask3'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceFlow16" sourceRef="userTask5" targetRef="userTask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='BACK_userTask2'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceFlow15" sourceRef="userTask5" targetRef="userTask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='BACK_userTask1'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceFlow19" sourceRef="userTask5" targetRef="end5">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${p_decision=='NOPASS'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="end5"></endEvent>
+    <endEvent id="end"></endEvent>
+    <sequenceFlow id="sequenceFlow21" sourceRef="userTask5" targetRef="end"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_testWorkflow">
+    <bpmndi:BPMNPlane bpmnElement="testWorkflow" id="BPMNPlane_testWorkflow">
+      <bpmndi:BPMNShape bpmnElement="end5" id="BPMNShape_end5">
+        <omgdc:Bounds height="30.0" width="30.0" x="830.0" y="345.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end4" id="BPMNShape_end4">
+        <omgdc:Bounds height="30.0" width="30.0" x="715.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end3" id="BPMNShape_end3">
+        <omgdc:Bounds height="30.0" width="30.0" x="565.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+        <omgdc:Bounds height="30.0" width="30.0" x="0.0" y="323.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="userTask1" id="BPMNShape_userTask1">
+        <omgdc:Bounds height="60.0" width="100.0" x="80.0" y="308.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end2" id="BPMNShape_end2">
+        <omgdc:Bounds height="30.0" width="30.0" x="415.0" y="0.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end1" id="BPMNShape_end1">
+        <omgdc:Bounds height="30.0" width="30.0" x="265.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="userTask3" id="BPMNShape_userTask3">
+        <omgdc:Bounds height="60.0" width="100.0" x="380.0" y="330.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end" id="BPMNShape_end">
+        <omgdc:Bounds height="30.0" width="30.0" x="830.0" y="215.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="userTask2" id="BPMNShape_userTask2">
+        <omgdc:Bounds height="60.0" width="100.0" x="230.0" y="50.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="userTask5" id="BPMNShape_userTask5">
+        <omgdc:Bounds height="60.0" width="100.0" x="680.0" y="330.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="userTask4" id="BPMNShape_userTask4">
+        <omgdc:Bounds height="60.0" width="100.0" x="530.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow5" id="BPMNEdge_sequenceFlow5">
+        <omgdi:waypoint x="180.0" y="317.1666666666667"></omgdi:waypoint>
+        <omgdi:waypoint x="192.0" y="317.1666666666667"></omgdi:waypoint>
+        <omgdi:waypoint x="192.0" y="80.0"></omgdi:waypoint>
+        <omgdi:waypoint x="230.0" y="80.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow6" id="BPMNEdge_sequenceFlow6">
+        <omgdi:waypoint x="380.0" y="376.6666666666667"></omgdi:waypoint>
+        <omgdi:waypoint x="366.0" y="376.6666666666667"></omgdi:waypoint>
+        <omgdi:waypoint x="366.0" y="338.0"></omgdi:waypoint>
+        <omgdi:waypoint x="80.0" y="338.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow3" id="BPMNEdge_sequenceFlow3">
+        <omgdi:waypoint x="230.0" y="92.5"></omgdi:waypoint>
+        <omgdi:waypoint x="218.0" y="92.5"></omgdi:waypoint>
+        <omgdi:waypoint x="218.0" y="338.0"></omgdi:waypoint>
+        <omgdi:waypoint x="80.0" y="338.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow4" id="BPMNEdge_sequenceFlow4">
+        <omgdi:waypoint x="330.0" y="60.0"></omgdi:waypoint>
+        <omgdi:waypoint x="342.0" y="60.0"></omgdi:waypoint>
+        <omgdi:waypoint x="342.0" y="15.000000000000002"></omgdi:waypoint>
+        <omgdi:waypoint x="415.0" y="15.000000000000002"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow1" id="BPMNEdge_sequenceFlow1">
+        <omgdi:waypoint x="180.0" y="333.8333333333333"></omgdi:waypoint>
+        <omgdi:waypoint x="194.0" y="333.8333333333333"></omgdi:waypoint>
+        <omgdi:waypoint x="194.0" y="225.0"></omgdi:waypoint>
+        <omgdi:waypoint x="265.0" y="225.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow2" id="BPMNEdge_sequenceFlow2">
+        <omgdi:waypoint x="30.0" y="338.0"></omgdi:waypoint>
+        <omgdi:waypoint x="80.0" y="338.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow11" id="BPMNEdge_sequenceFlow11">
+        <omgdi:waypoint x="530.0" y="291.25"></omgdi:waypoint>
+        <omgdi:waypoint x="518.0" y="291.25"></omgdi:waypoint>
+        <omgdi:waypoint x="518.0" y="80.0"></omgdi:waypoint>
+        <omgdi:waypoint x="230.0" y="80.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow10" id="BPMNEdge_sequenceFlow10">
+        <omgdi:waypoint x="530.0" y="328.75"></omgdi:waypoint>
+        <omgdi:waypoint x="516.0" y="328.75"></omgdi:waypoint>
+        <omgdi:waypoint x="516.0" y="338.0"></omgdi:waypoint>
+        <omgdi:waypoint x="80.0" y="338.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow21" id="BPMNEdge_sequenceFlow21">
+        <omgdi:waypoint x="780.0" y="347.5"></omgdi:waypoint>
+        <omgdi:waypoint x="792.0" y="347.5"></omgdi:waypoint>
+        <omgdi:waypoint x="792.0" y="230.0"></omgdi:waypoint>
+        <omgdi:waypoint x="830.0" y="230.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow20" id="BPMNEdge_sequenceFlow20">
+        <omgdi:waypoint x="630.0" y="310.0"></omgdi:waypoint>
+        <omgdi:waypoint x="644.0" y="310.0"></omgdi:waypoint>
+        <omgdi:waypoint x="644.0" y="360.0"></omgdi:waypoint>
+        <omgdi:waypoint x="680.0" y="360.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow9" id="BPMNEdge_sequenceFlow9">
+        <omgdi:waypoint x="330.0" y="90.0"></omgdi:waypoint>
+        <omgdi:waypoint x="344.0" y="90.0"></omgdi:waypoint>
+        <omgdi:waypoint x="344.0" y="360.0"></omgdi:waypoint>
+        <omgdi:waypoint x="380.0" y="360.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow7" id="BPMNEdge_sequenceFlow7">
+        <omgdi:waypoint x="380.0" y="360.0"></omgdi:waypoint>
+        <omgdi:waypoint x="368.0" y="360.0"></omgdi:waypoint>
+        <omgdi:waypoint x="368.0" y="80.0"></omgdi:waypoint>
+        <omgdi:waypoint x="230.0" y="80.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow8" id="BPMNEdge_sequenceFlow8">
+        <omgdi:waypoint x="480.0" y="341.25"></omgdi:waypoint>
+        <omgdi:waypoint x="492.0" y="341.25"></omgdi:waypoint>
+        <omgdi:waypoint x="492.0" y="165.0"></omgdi:waypoint>
+        <omgdi:waypoint x="565.0" y="165.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow19" id="BPMNEdge_sequenceFlow19">
+        <omgdi:waypoint x="780.0" y="372.5"></omgdi:waypoint>
+        <omgdi:waypoint x="792.0" y="372.5"></omgdi:waypoint>
+        <omgdi:waypoint x="792.0" y="360.0"></omgdi:waypoint>
+        <omgdi:waypoint x="830.0" y="360.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow18" id="BPMNEdge_sequenceFlow18">
+        <omgdi:waypoint x="680.0" y="360.0"></omgdi:waypoint>
+        <omgdi:waypoint x="666.0" y="360.0"></omgdi:waypoint>
+        <omgdi:waypoint x="666.0" y="310.0"></omgdi:waypoint>
+        <omgdi:waypoint x="530.0" y="310.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow17" id="BPMNEdge_sequenceFlow17">
+        <omgdi:waypoint x="680.0" y="370.0"></omgdi:waypoint>
+        <omgdi:waypoint x="664.0" y="370.0"></omgdi:waypoint>
+        <omgdi:waypoint x="664.0" y="360.0"></omgdi:waypoint>
+        <omgdi:waypoint x="380.0" y="360.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow16" id="BPMNEdge_sequenceFlow16">
+        <omgdi:waypoint x="680.0" y="340.0"></omgdi:waypoint>
+        <omgdi:waypoint x="668.0" y="340.0"></omgdi:waypoint>
+        <omgdi:waypoint x="668.0" y="80.0"></omgdi:waypoint>
+        <omgdi:waypoint x="230.0" y="80.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow15" id="BPMNEdge_sequenceFlow15">
+        <omgdi:waypoint x="680.0" y="380.0"></omgdi:waypoint>
+        <omgdi:waypoint x="666.0" y="380.0"></omgdi:waypoint>
+        <omgdi:waypoint x="666.0" y="338.0"></omgdi:waypoint>
+        <omgdi:waypoint x="80.0" y="338.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow14" id="BPMNEdge_sequenceFlow14">
+        <omgdi:waypoint x="480.0" y="353.75"></omgdi:waypoint>
+        <omgdi:waypoint x="494.0" y="353.75"></omgdi:waypoint>
+        <omgdi:waypoint x="494.0" y="310.0"></omgdi:waypoint>
+        <omgdi:waypoint x="530.0" y="310.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow13" id="BPMNEdge_sequenceFlow13">
+        <omgdi:waypoint x="630.0" y="293.3333333333333"></omgdi:waypoint>
+        <omgdi:waypoint x="642.0" y="293.3333333333333"></omgdi:waypoint>
+        <omgdi:waypoint x="642.0" y="215.0"></omgdi:waypoint>
+        <omgdi:waypoint x="715.0" y="215.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow12" id="BPMNEdge_sequenceFlow12">
+        <omgdi:waypoint x="530.0" y="316.25"></omgdi:waypoint>
+        <omgdi:waypoint x="516.0" y="316.25"></omgdi:waypoint>
+        <omgdi:waypoint x="516.0" y="360.0"></omgdi:waypoint>
+        <omgdi:waypoint x="380.0" y="360.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

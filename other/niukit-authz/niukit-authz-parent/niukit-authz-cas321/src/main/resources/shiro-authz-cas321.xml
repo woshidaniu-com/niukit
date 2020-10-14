@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	
+	<!-- ########### CAS321认证集成 ########### -->
+	
+    <!-- zfCas321InternalRealm实现，验证ticket有效性和Assertion-->
+	<bean id="zfCas321Realm" class="com.woshidaniu.authz.cas321.shiro.realm.ZFCas321Realm">
+		<!-- 认证账号信息提供实现：认证信息、角色信息、权限信息；业务系统需要自己实现该接口 -->
+		<property name="accountService" ref="ssoAccountServiceImpl"/>
+		<!-- 凭证匹配器：该对象主要做密码校验 -->
+		<property name="credentialsMatcher">
+			<bean class="org.apache.shiro.authc.credential.AllowAllCredentialsMatcher" />
+		</property>
+		<!-- 缓存相关的配置：采用提供的默认配置即可 -->
+		<property name="cachingEnabled" value="true"/>
+        <property name="authenticationCachingEnabled" value="false"/>
+        <property name="authenticationCacheName" value="niutal_SHIRO"/>
+        <property name="authorizationCachingEnabled" value="true"/>
+        <property name="authorizationCacheName" value="niutal_SHIRO"/>
+	</bean>
+	
+	<!-- zfCas321ShiroFilter,shiro中的ticket验证拦截器 -->
+	<bean id="zfCas321Filter" class="com.woshidaniu.authz.cas321.shiro.filter.ZFCas321Filter">
+		<property name="successUrl" value="#{authzProperties['shiro.authz.cas321.successUrl']}"/>
+		<property name="failureUrl" value="#{authzProperties['shiro.authz.cas321.failureUrl']}"/>
+	</bean>
+	
+	<!-- zfCas321AuthenticationShiroFilter，验证是否在cas登录 -->
+	<bean id="zfCas321AuthenticationFilter" class="com.woshidaniu.authz.cas321.shiro.filter.ZFCas321AuthenticationFilter">
+		<property name="casServerLoginUrl" value="#{authzProperties['shiro.authz.cas321.casServerLoginUrl']}"></property>
+		<property name="serverName" value="#{authzProperties['shiro.authz.cas321.serverName']}"></property>
+		<property name="service" value="#{authzProperties['shiro.authz.cas321.service']}"></property>
+	</bean>
+	
+	<!-- zfCas321RequestWrapperShiroFilter，包装请求 -->
+	<bean id="zfCas321RequestWrapperFilter" class="com.woshidaniu.authz.cas321.shiro.filter.ZFCas321RequestWrapperFilter">
+	</bean>
+	
+	<!-- zfCas321TicketValidationShiroFilter验证是否ticket正确 -->
+	<bean id="zfCas321TicketValidationFilter" class="com.woshidaniu.authz.cas321.shiro.filter.ZFCas321TicketValidationFilter">
+		<property name="service" value="#{authzProperties['shiro.authz.cas321.service']}"></property>
+		<property name="serverName" value="#{authzProperties['shiro.authz.cas321.serverName']}"></property>
+		<property name="casServerUrlPrefix" value="#{authzProperties['shiro.authz.cas321.casServerUrlPrefix']}"></property>
+		<property name="acceptAnyProxy" value="#{authzProperties['shiro.authz.cas321.acceptAnyProxy']}"/>
+	</bean>
+	
+	<!-- zfCas321AssertionThreadLocalShiroFilter，在请求中包装已经登录用户 -->
+	<bean id="zfCas321AssertionThreadLocalFilter" class="com.woshidaniu.authz.cas321.shiro.filter.ZFCas321AssertionThreadLocalFilter">
+	</bean>
+	
+	<!-- zfCas321SingleSignOutShiroFilter，sso登录拦截器，会话监听创建和销毁，同步cas会话和本地应用创建的会话状态 -->
+	<bean id="zfCas321LogoutFilter" class="com.woshidaniu.authz.cas321.shiro.filter.ZFCas321LogoutFilter">
+	</bean>
+	
+	<bean id="zfCas321FremeworkLogoutFilter" class="com.woshidaniu.authz.cas321.shiro.filter.ZFCas321FremeworkLogoutFilter">
+		<property name="casServerLogoutUrl" value="#{authzProperties['shiro.authz.cas321.casServerLogoutUrl']}"></property>
+		<property name="service" value="#{authzProperties['shiro.authz.cas321.service']}"></property>
+	</bean>
+</beans>

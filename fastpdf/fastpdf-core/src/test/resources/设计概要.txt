@@ -1,0 +1,26 @@
+
+1.在web.xml添加以下配置，并将字体添加到fonts目录下
+
+<context-param>
+	<param-name>fonts</param-name>
+	<param-value>/WEB-INF/fonts/</param-value>
+</context-param>
+<listener>
+	<listener-class>com.ant4j.itext.document.font.LocalFontRegisterListener</listener-class>
+</listener>
+
+
+1.默认模式：
+ 
+解析xml配置-->根据配置生成doc
+
+
+自定义转换样式，手动的增加表格信息
+优点：代码简单，配置简单
+缺点：需注意列的对应
+
+2.复杂模式：模板技术+第三方开源工具
+      数据输出到模板如jsp，生成标准html后，保存到指定地址，通过第三方开源工具取得该地址的html文档转换成pdf文档
+优点：可生成复杂格式文档
+缺点：过程复杂了点，需注意样式的使用
+

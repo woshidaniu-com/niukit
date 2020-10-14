@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+	<!-- 该属性指定处理multipart/form-data的MIME类型（文件上传）请求的框架，该属性支持cos、pell和jakarta等属性值  -->
+   	<constant name="struts.multipart.parser" value="cos" />
+   	
+   	
+	<!-- # The default Style Path  -->
+	<constant name="struts.ui.stylePath" value="" />
+	<!-- #The default Report Path -->
+	<constant name="struts.ui.reportath" value="" />
+	<!-- #The default Html Store Path -->
+	<constant name="struts.ui.htmlDir" value="/WEB-INF/pages/dynamic" />
+	<!-- #The default Javascript Store Path  -->
+	<constant name="struts.ui.jsDir" value="/js/dynamic" />
+	<!-- The default UI Configuration Object ID -->
+   	<constant name="struts.ui.config" value="taglibConfig" />
+   	
+   	<bean type="org.apache.struts2.plus.views.jsp.TaglibConfig" class="org.apache.struts2.plus.views.jsp.StrutsTaglibConfig" name="taglibConfig" scope="prototype"/> 
+   	<bean type="org.apache.struts2.dispatcher.multipart.MultiPartRequest" class="org.apache.struts2.plus.dispatcher.multipart.CosMultiPartRequest" name="cos" scope="prototype"/> 
+	
+	<!-- package提供了将多个Action组织为一个模块的方式 ,
+        package的名字必须是唯一的 package可以扩展 当一个package扩展自;另一个package时该package会在本身配置的基础上加入扩展的package的配置 父package必须在子package前配置 
+        name：package名称
+        extends:继承的父package名称
+        abstract:设置package的属性为抽象的 抽象的package不能定义action 值true:false
+        namespace:定义package命名空间 该命名空间影响到url的地址，例如此命名空间为/test那么访问是的地址为http://localhost:8080/struts2/test/XX.action
+        
+        The content of element type "package" must match "(
+        result-types?,
+        interceptors?,
+        default-interceptor-ref?,
+        default-action-ref?,
+        default-class-ref?,
+        global-results?,
+        global-exception-mappings?,
+        action*)".
+     -->
+	<package name="niukit-default" extends="json-default" abstract="true">
+		
+		<!-- 自定义返回结果类型 -->
+		<result-types>
+    		<result-type name="ajax" class="org.apache.struts2.plus.dispatcher.result.types.ServletAjaxResult"/>
+			<result-type name="byte" class="org.apache.struts2.plus.dispatcher.result.types.ByteStreamResult"/>
+    		<result-type name="file" class="org.apache.struts2.plus.dispatcher.result.types.FileStreamResult"/>
+        </result-types>
+        
+		<interceptors>
+		
+			 <interceptor name="filteredFileUpload" class="com.opensymphony.xwork2.plus.interceptor.FilteredFileUploadInterceptor"/>
+			 
+			 <interceptor-stack name="defaultFixedStack">
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="scopedModelDriven"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="filteredFileUpload"/>   
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="datetime"/>
+                <interceptor-ref name="multiselect"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="actionMappingParams"/>
+                <interceptor-ref name="params"/>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="debugging"/>
+                <interceptor-ref name="deprecation"/>
+            </interceptor-stack>
+            
+		</interceptors>
+		
+		<global-results>
+			<result name="data" type="json">
+				<!-- excludeNullProperties 参数：表示是否去掉空值， 默认值是false，如果设置为true会自动将为空的值过滤，只输出不为空的值。-->
+				<param name="excludeNullProperties">true</param>
+				<!-- 表示是否忽略等级，也就是继承关系，比如：ProuctsAction继承于 BaseAction，那么
+					ProuctsAction中返回的 json 字符串默认是不会包含父类 BaseAction 的属性值，ignoreHierarchy 值默认为 true，
+					设置为 false 后会将父类和子类的属性一起返回-->
+				<param name="ignoreHierarchy" >false</param>
+				<param name="enableGZIP" >true</param> 
+                <param name="root">data</param>  
+         	</result>
+         	<result name="data-iefix" type="json">
+				<!-- 解决IE浏览器JSON结果数据提示异常: 用这种形式可以兼容低版本的ie 的submit提交表单并返回对应提示信息，用data的话，低版本ie会提示下载文件 -->
+				<param name="contentType">text/plain</param>    
+				<!-- excludeNullProperties 参数：表示是否去掉空值， 默认值是false，如果设置为true会自动将为空的值过滤，只输出不为空的值。-->
+				<param name="excludeNullProperties">true</param>
+				<!-- 表示是否忽略等级，也就是继承关系，比如：ProuctsAction继承于 BaseAction，那么
+					ProuctsAction中返回的 json 字符串默认是不会包含父类 BaseAction 的属性值，ignoreHierarchy 值默认为 true，
+					设置为 false 后会将父类和子类的属性一起返回-->
+				<param name="ignoreHierarchy" >false</param>
+				<param name="enableGZIP" >true</param> 
+                <param name="root">data</param>  
+         	</result> 
+			<result name="data2" type="json">  
+				<!-- excludeNullProperties 参数：表示是否去掉空值， 默认值是false，如果设置为true会自动将为空的值过滤，只输出不为空的值。-->
+				<param name="excludeNullProperties">true</param>
+				<!-- 表示是否忽略等级，也就是继承关系，比如：ProuctsAction继承于 BaseAction，那么
+					ProuctsAction中返回的 json 字符串默认是不会包含父类 BaseAction 的属性值，ignoreHierarchy 值默认为 true，
+					设置为 false 后会将父类和子类的属性一起返回-->
+				<param name="ignoreHierarchy" >false</param> 
+				
+                <param name="root">data</param>  
+         	</result> 
+         	<!-- ajax请求处理类型结果；分别为text,html,xml,json   -->
+         	<result name="text" type="ajax">
+				<param name="contentType">text/plain</param>
+				<param name="contentCharSet">utf-8</param>
+				<param name="contentName">text</param>
+			</result>
+			<result name="html" type="ajax">
+				<param name="contentName">html</param>
+			</result>
+			<result name="xml" type="ajax">
+				<param name="contentType">text/xml</param>
+				<param name="contentCharSet">utf-8</param>
+				<param name="contentName">xml</param>
+			</result>
+			<result name="json" type="ajax">
+				<param name="contentType">text/x-json</param>
+				<param name="contentCharSet">utf-8</param>
+				<param name="contentName">json</param>
+			</result>
+			<!-- 字节流类型结果；直接将byte[]返回客户端  -->
+			<result name="byte" type="byte">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">inputBytes</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+			</result>
+			<!-- 文件类型结果；使用cos直接返回文件  -->
+			<result name="file" type="file">
+				<param name="inputName">inputFile</param>
+				<param name="bufferSize">2048</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+			</result>
+			<!-- 临时文件结果，返回后自动删除文件 -->
+			<result name="file-tmp" type="file">
+				<param name="allowClear">true</param>
+				<param name="inputName">inputFile</param>
+				<param name="bufferSize">2048</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+			</result>
+			<result name="pdf" type="stream">
+				<param name="contentType">application/pdf</param>
+		        <param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">2048</param>
+			</result>
+			<result name="pdf-inline" type="stream">
+				<param name="contentType">application/pdf</param>
+		        <param name="inputName">inputStream</param>
+				<param name="contentDisposition">inline;filename="${fileName}"</param>
+				<param name="bufferSize">2048</param>
+			</result>
+			<result name="doc-attachment" type="stream">
+				<param name="contentType">application/msword</param>
+				<!-- 默认就是 inputStream，它将会指示 StreamResult 通过 inputName 属性值的 getter 方法， 比如这里就是 getInputStream() 来获取下载文件的内容，意味着你的 Action 要有这个方法 ；
+					如果action中用于读取下载文件内容的属性名是inputStream，那么可以省略这个参数
+				--> 
+		        <param name="inputName">inputStream</param>
+				<!-- 默认为 inline(在线打开)，设置为 attachment 将会告诉浏览器下载该文件，filename 指定下载文       
+				               件保有存时的文件名，若未指定将会是以浏览的页面名作为文件名，如以 download.action 作为文件名，       
+				               这里使用的是动态文件名，${fileName}, 它将通过 Action 的 getFileName() 获得文件名 
+				-->       
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<!-- 输出时缓冲区的大小 -->
+				<param name="bufferSize">2048</param>
+			</result>
+			<result name="doc-inline" type="stream">
+				<param name="contentType">application/msword</param>
+		        <param name="inputName">inputStream</param>
+				<param name="contentDisposition">inline;filename="${fileName}"</param>
+				<param name="bufferSize">2048</param>
+			</result>
+			<result name="excel" type="stream">
+		        <param name="inputName">inputStream</param>
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">2048</param>
+			</result>
+         	<result name="excel-inline" type="stream">
+		        <param name="inputName">inputStream</param>
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="contentDisposition">inline;filename="${fileName}"</param>
+				<param name="bufferSize">2048</param>
+			</result>
+			<result name="exportExcel" type="file">
+		        <param name="contentType">application/vnd.ms-excel</param>
+		        <param name="allowClear">true</param>
+				<param name="inputName">inputFile</param>
+				<param name="bufferSize">2048</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+		    </result>
+         	<result name="exportPdf" type="stream">
+		        <param name="contentType">application/pdf</param>
+		        <param name="inputName">inputStream</param>
+		        <param name="contentDisposition">attachment;filename="${fileName}"</param>
+		        <param name="bufferSize">2048</param>
+		    </result>
+		    <result name="zip" type="stream">
+		        <param name="inputName">inputStream</param>
+				<param name="contentType">application/zip</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">2048</param>
+			</result>
+		</global-results>
+
+	</package>
+	
+</struts>

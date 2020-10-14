@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	
+	<!-- ########### niukit-authz-zjucookie集成 ########### -->
+	
+	<!-- 登录认证zjuCookieSsoRealm实现 -->
+	<bean id="zjuCookieSsoRealm" class="com.woshidaniu.authz.zjucookie.shiro.realm.ZjuCookieSsoRealm">
+		<!-- 认证账号信息提供实现：认证信息、角色信息、权限信息；业务系统需要自己实现该接口 -->
+		<property name="accountService" ref="ssoAccountServiceImpl"/>
+		<!-- 凭证匹配器：该对象主要做密码校验 -->
+		<property name="credentialsMatcher">
+			<bean class="org.apache.shiro.authc.credential.AllowAllCredentialsMatcher" />
+		</property>
+		<!-- 缓存相关的配置：采用提供的默认配置即可 -->
+		<property name="cachingEnabled" value="true"/>
+        <property name="authenticationCachingEnabled" value="false"/>
+        <property name="authenticationCacheName" value="niutal_SHIRO"/>
+        <property name="authorizationCachingEnabled" value="true"/>
+        <property name="authorizationCacheName" value="niutal_SHIRO"/>
+	</bean>
+	
+	<!-- zjuCookie认证访问Sso平台Api -->
+	<bean id="cookieSsoApi" class="com.woshidaniu.authz.zjucookie.utils.impl.DefaultCookieSsoApi">
+		<property name="sessionURL" value="#{authzProperties['shiro.authz.zjucookie.sessionURL']}"></property>
+		<property name="userURL" value="#{authzProperties['shiro.authz.zjucookie.userURL']}"></property>		
+		<property name="appUid" value="#{authzProperties['shiro.authz.zjucookie.appUid']}"></property>
+		<property name="appPwd" value="#{authzProperties['shiro.authz.zjucookie.appPwd']}"></property>	
+	</bean>
+	
+	<!-- 
+	<bean id="cookieSsoApi" class="com.woshidaniu.authz.zjucookie.mock.MockUidEmptyCookieSsoApi">
+		<property name="mockUserName" value="admin" />
+		<property name="mockUid" value="admin" />
+		<property name="mockDeptNo" value="10000" />
+	</bean>
+	 
+	<bean id="cookieSsoApi" class="com.woshidaniu.authz.zjucookie.mock.MockUidNotEmptyCookieSsoApi">
+		<property name="mockUserName" value="admin" />
+		<property name="mockUid" value="admin" />
+		<property name="mockDeptNo" value="10000" />
+	</bean>
+	 -->
+	
+	<!-- zjuCookie认证过滤器 -->
+	<bean id="zjuCookieAuthcShiroFilter" class="com.woshidaniu.authz.zjucookie.shiro.filter.ZjuCookieAuthcShiroFilter">
+		<property name="name" value="zjuCookieAuthcShiroFilter"/>
+		<property name="loginUrl" value="#{authzProperties['shiro.authz.zjucookie.loginUrl']}" />
+		<property name="successUrl" value="#{authzProperties['shiro.authz.zjucookie.successUrl']}" />
+		<property name="cookieSsoApi" ref="cookieSsoApi"/>
+	</bean>
+	
+	<!-- zjuCookie认证注销登录过滤器 -->
+	<bean id="zjuCookieLogoutShiroFilter" class="com.woshidaniu.authz.zjucookie.shiro.filter.ZjuCookieLogoutShiroFilter">
+		<property name="name" value="zjuCookieLogoutShiroFilter" />
+		<property name="cookieSsoApi" ref="cookieSsoApi"/>
+	</bean>
+</beans>

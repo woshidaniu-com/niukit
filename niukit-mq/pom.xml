@@ -1,0 +1,143 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>		
+		<groupId>com.woshidaniu</groupId>
+		<artifactId>niukit-parent</artifactId>
+		<version>1.1.1</version>
+		<relativePath>../niukit-parent</relativePath>
+	</parent>
+	
+	<artifactId>niukit-mq-parent</artifactId>
+	<packaging>pom</packaging>
+
+	<name>niukit-mq</name>
+	<description>MQ扩展实现</description>
+	
+	<modules>
+		<module>niukit-mq-activemq</module>
+		<module>niukit-mq-metaq</module>
+		<module>niukit-mq-notify</module>
+		<module>niukit-mq-rabbitmq</module>
+		<module>niukit-mq-rocketmq</module>
+	</modules>
+	
+	<dependencyManagement>
+		<dependencies>
+		
+			<!-- ######################消息中间件 相关组件包 ###################### -->
+			
+			<!--ActiveMQ-->
+			<dependency>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-broker</artifactId>
+				<version>${activemq-broker.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-core</artifactId>
+				<version>${activemq-core.version}</version>
+			</dependency>
+			
+			<!--RabbitMQ-->
+			<dependency>
+				<groupId>com.rabbitmq</groupId>
+				<artifactId>amqp-client</artifactId>
+				<version>${rabbitmq.version}</version>
+			</dependency>
+			
+			<!--RocketMQ-->
+			<dependency>
+				<groupId>com.alibaba.rocketmq</groupId>
+				<artifactId>rocketmq-store</artifactId>
+				<version>${rocketmq.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.rocketmq</groupId>
+				<artifactId>rocketmq-srvutil</artifactId>
+				<version>${rocketmq.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.rocketmq</groupId>
+				<artifactId>rocketmq-broker</artifactId>
+				<version>${rocketmq.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.rocketmq</groupId>
+				<artifactId>rocketmq-research</artifactId>
+				<version>3.1.8</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.rocketmq</groupId>
+				<artifactId>rocketmq-namesrv</artifactId>
+				<version>${rocketmq.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.rocketmq</groupId>
+				<artifactId>rocketmq-filtersrv</artifactId>
+				<version>${rocketmq.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.rocketmq</groupId>
+				<artifactId>rocketmq-client</artifactId>
+				<version>${rocketmq-core.version}</version>
+			</dependency>
+			<!--<dependency>
+				<groupId>com.alibaba.rocketmq</groupId>
+				<artifactId>rocketmq-tools</artifactId>
+				<version>${rocketmq.version}</version>
+			</dependency>
+			-->
+			
+			<!--MetaQ-->
+			<dependency>
+				<groupId>com.taobao.metamorphosis</groupId>
+				<artifactId>metamorphosis-commons</artifactId>
+				<version>${metaq.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taobao.metamorphosis</groupId>
+				<artifactId>metamorphosis-server</artifactId>
+				<version>${metaq.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taobao.metamorphosis</groupId>
+				<artifactId>metamorphosis-client</artifactId>
+				<version>${metaq.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taobao.metamorphosis</groupId>
+				<artifactId>metamorphosis-tools</artifactId>
+				<version>${metaq.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taobao.metamorphosis</groupId>
+				<artifactId>metamorphosis-dashboard</artifactId>
+				<version>${metaq.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taobao.metamorphosis</groupId>
+				<artifactId>metamorphosis-server-wrapper</artifactId>
+				<version>${metaq.version}</version>
+			</dependency>		
+			<dependency>
+				<groupId>com.taobao.metamorphosis</groupId>
+				<artifactId>metamorphosis-storm-spout</artifactId>
+				<version>${metaq.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taobao.metamorphosis</groupId>
+				<artifactId>metamorphosis-client-extension</artifactId>
+				<version>${metaq.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taobao.metamorphosis</groupId>
+				<artifactId>storm-metamorphosis-spout</artifactId>
+				<version>${metaq.version}</version>
+			</dependency>
+			
+		</dependencies>
+	</dependencyManagement>
+	
+</project>

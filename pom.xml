@@ -1,0 +1,3391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.woshidaniu</groupId>
+	<artifactId>niukit-parent</artifactId>
+	<version>1.1.1</version>
+	<packaging>pom</packaging>
+
+	<name>niukit-parent</name>
+	<description>我是大牛快速开发工具集（A Toolkit For Fast Development By Woshidaniu ）</description>
+	<url>http://github.com/woshidaniu-com/niukit</url>
+
+	<modules>
+
+		<!-- 基础工具组件 -->
+		<module>niukit-basemodel</module>
+		<module>niukit-basicutils</module>
+		<module>niukit-configuration</module>
+		<module>niukit-disruptor</module>
+		<module>niukit-finereport</module>
+		<module>niukit-freemarker</module>
+		<module>niukit-ftpclient</module>
+		<module>niukit-httpclient</module>
+		<module>niukit-httputils</module>
+		<module>niukit-javamail</module>
+ 		<module>niukit-qrcode</module>
+		<module>niukit-regexp</module>
+		<module>niukit-rocketmq</module>
+		<module>niukit-safety</module>
+		<module>niukit-search-taglib</module>
+		<module>niukit-security</module>
+		<module>niukit-shiro</module>
+		<module>niukit-smbclient</module>
+		<module>niukit-smsclient</module>
+		<module>niukit-snmpclient</module>
+		<module>niukit-spring</module>
+		<module>niukit-struts2</module>
+		<module>niukit-taglibs</module>
+		<module>niukit-web</module>
+		<module>niukit-web-ext</module>
+		<module>niukit-xmlhub</module>
+		<module>niukit-yuicompressor</module>
+		<module>niukit-socket</module>
+
+		<!-- 基于Activiti工作流的二次开发组件 -->
+		<module>niukit-bpm-parent</module>
+		<!-- 第三方缓存接口对接和扩展实现组件 -->
+		<module>niukit-cache</module>
+		<!-- 数据库辅助工具，支持Mysql，Oracle -->
+		<module>niukit-db</module>
+		<!-- WebService统一接口实现和扩展 -->
+		<module>niukit-ws</module>
+		<!-- 第三方消息队列统一接口与扩展 ：预留结构 <module>niukit-mq</module> -->
+		<!-- ORM/持久层框架扩展 -->
+		<module>niukit-orm</module>
+
+		<module>fastdoc</module>
+<!--&lt;!&ndash;		基于XML的Word文档快速生成组件&ndash;&gt;-->
+		<module>fastpdf</module>
+<!--&lt;!&ndash;		基于itext的PDF快速生成组件&ndash;&gt;-->
+		<module>fastxls</module>
+<!--		基于XML的Excel快速生成组件-->
+		
+		 <module>niukit-cloud</module>
+		<module>niukit-metrics</module>
+		<module>niukit-qa</module>
+		<module>niucaclient</module>
+
+		<!-- 		<module>niukit-migration</module>-->
+	</modules>
+
+	<!-- 组织信息 -->
+	<organization>
+		<name>woshidaniu</name>
+		<url>http://www.woshidaniu.com</url>
+	</organization>
+
+	<!-- 开发者信息 -->
+	<developers>
+
+		<developer>
+			<id>kangzhidong</id>
+			<name>康智冬</name>
+			<email>worldkzd@gmail</email>
+		</developer>
+
+	</developers>
+	
+	<!-- 配置部署的远程仓库:让Maven知道当我要发布release版本或者snapshot版本是需要发布到哪个地址 -->
+	<distributionManagement>
+<!--		<repository>-->
+<!--			<id>Releases</id>-->
+<!--			<name>Nexus Release Repository</name>-->
+<!--			<url>http://10.71.19.153:8081/nexus/content/repositories/releases/</url>-->
+<!--		</repository>-->
+<!--		<snapshotRepository>-->
+<!--			<id>Snapshots</id>-->
+<!--			<name>Nexus Snapshot Repository</name>-->
+<!--			<url>http://10.71.19.153:8081/nexus/content/repositories/snapshots/</url>-->
+<!--			&lt;!&ndash; 表示是否为Snapshot版本分配一个包含时间戳的构建号 &ndash;&gt;-->
+<!--			<uniqueVersion>true</uniqueVersion>-->
+<!--		</snapshotRepository>-->
+	</distributionManagement>
+
+	<!-- SCM配置: maven-release 版本升级需要 -->
+	<scm>
+
+	</scm>
+	
+	<build>
+		<filters>
+			<!-- 过滤文件,通常是一个属性文件（名值对的形式） <filter>src/main/webapp/META-INF/auto-config.properties</filter> -->
+			<!-- <filter>${user.home}/antx.properties</filter> -->
+		</filters>
+		<pluginManagement>
+			<plugins>
+				<!-- 编译插件：编译主代码至主输出目录 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.5.1</version>
+					<!-- 设置源文件编码方式 -->
+					<configuration>
+						<defaultLibBundleDir>lib</defaultLibBundleDir>
+						<!-- 源代码编译版本 -->
+						<source>1.6</source>
+						<!-- 目标平台编译版本 -->
+						<target>1.6</target>
+						<!-- 字符集编码 -->
+						<encoding>${project.build.sourceEncoding}</encoding>
+						<!-- -->
+						<maxmem>512M</maxmem>
+					</configuration>
+				</plugin>
+				<!-- 资源插件：复制主资源文件至主输出目录 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.0.1</version>
+					<!-- 解决资源文件的编码问题 -->
+					<configuration>
+						<!-- 字符集编码 -->
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+					<!-- 复制测试资源文件至测试输出目录复制resources到classess -->
+					<executions>
+						<execution>
+							<id>copy-resources</id>
+							<phase>validate</phase>
+							<goals>
+								<goal>copy-resources</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${basedir}/target/classes</outputDirectory>
+								<resources>
+									<resource>
+										<directory>src/main/resources</directory>
+										<!-- <filtering>true</filtering> -->
+									</resource>
+								</resources>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- 单元测试插件 ：执行测试用例 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.19.1</version>
+					<configuration>
+						<!-- 跳过单元测试 -->
+						<skip>true</skip>
+						<skipTests>true</skipTests>
+						<!-- forkMode 可设置值有 “never”， “once”， “always” 和 “pertest”。 pretest： 
+							每一个测试创建一个新进程，为每个测试创建新的JVM是单独测试的最彻底方式，但也是最慢的，不适合hudson上持续回归。 once：在一个进程中进行所有测试。once为默认设置，在Hudson上持续回归时建议使用默认设置。 
+							always：在一个进程中并行的运行脚本，Junit4.7以上版本才可以使用，surefire的版本要在2.6以上提供这个功能，其中 threadCount：执行时，指定可分配的线程数量。只和参数parallel配合使用有效。默认：5。 -->
+						<forkMode>once</forkMode>
+						<argLine>-Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m
+							-Dfile.encoding=UTF-8</argLine>
+						<additionalClasspathElements>
+							<additionalClasspathElement>${basedir}/target/test-classes</additionalClasspathElement>
+						</additionalClasspathElements>
+						<includes>
+							<include>**/*Test.java</include>
+						</includes>
+						<excludes>
+							<exclude>**/TestBean.java</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
+				<!-- jar包生成插件 ：创建项目jar包 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.0.2</version>
+					<configuration>
+						<encoding>${project.build.sourceEncoding}</encoding>
+						<skipIfEmpty>false</skipIfEmpty>
+						<archive>
+							<!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 <manifest> <addClasspath>true</addClasspath> 
+								<classpathPrefix>lib/</classpathPrefix> <mainClass>.....Main</mainClass> 
+								</manifest> -->
+							<manifest>
+								<addClasspath>true</addClasspath>
+							</manifest>
+						</archive>
+					</configuration>
+					<executions>
+						<!-- 增加关于接口打包的配置：配置后会在原有打包的基础上多打包一个api包 <execution> <id>package-api</id> 
+							<goals> <goal>jar</goal> </goals> <phase>package</phase> <configuration> 
+							<classifier>api</classifier> <includes> <include>**/interface/**</include> 
+							</includes> </configuration> </execution> -->
+						<!-- <execution> <id>package-all</id> <goals> <goal>jar</goal> </goals> 
+							<phase>package</phase> <configuration> <classifier>all</classifier> <includes> 
+							<include>**</include> </includes> </configuration> </execution> -->
+					</executions>
+				</plugin>
+				<!-- jar包生成插件 ：使用模块自身代码和依赖jar包打包最终的jar -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-shade-plugin</artifactId>
+					<version>2.4.3</version>
+					<executions>
+						<execution>
+							<phase>package</phase>
+							<goals>
+								<goal>shade</goal>
+							</goals>
+							<configuration>
+								<createSourcesJar>true</createSourcesJar>
+								<shadeSourcesContent>true</shadeSourcesContent>
+								<shadeTestJar>false</shadeTestJar>
+								<createDependencyReducedPom>false</createDependencyReducedPom>
+								<dependencyReducedPomLocation>${basedir}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
+								<!-- <shadedArtifactAttached>false</shadedArtifactAttached> <shadedArtifactId>${project.artifactId}</shadedArtifactId> 
+									<shadedClassifierName>all</shadedClassifierName> -->
+								<filters>
+									<filter>
+										<artifact>*:*</artifact>
+										<excludes>
+											<exclude>META-INF/*.SF</exclude>
+											<exclude>META-INF/*.DSA</exclude>
+											<exclude>META-INF/*.RSA</exclude>
+										</excludes>
+									</filter>
+								</filters>
+								<artifactSet>
+									<excludes>
+										<exclude>junit:junit</exclude>
+										<exclude>org.slf4j:slf4j-api:jar:</exclude>
+										<exclude>javax.servlet:javax.servlet-api:jar:</exclude>
+									</excludes>
+								</artifactSet>
+								<transformers>
+									<!-- 程序入口类 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"> 
+										<mainClass>com.woshidaniu.examples.Main</mainClass> </transformer> -->
+									<!-- 下面这段配置意思是把spring.handlers和spring.schemas文件以append方式加入到构建的jar包中，这样就不会出现xsd找不到的情况。 
+										<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer"> 
+										<resource>META-INF/spring.handlers</resource> </transformer> <transformer 
+										implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer"> 
+										<resource>META-INF/spring.schemas</resource> </transformer> -->
+								</transformers>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- assembly插件打包成jar包 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.4.1</version>
+					<configuration>
+						<finalName>${project.artifactId}</finalName>
+						<descriptors>
+							<descriptor>${basedir}/src/main/resources/assembly.xml</descriptor>
+						</descriptors>
+						<descriptorRefs>
+							<!-- jar-with-dependencies是assembly 预先写好的一个，组装描述引用（assembly descriptor）; 
+								我们可以自定义一个描述 -->
+							<!-- <descriptorRef>jar-with-dependencies</descriptorRef> -->
+							<descriptorRef>jar-with-dependencies</descriptorRef>
+						</descriptorRefs>
+						<!-- MainClass in mainfest make a executable jar <archive> <manifest> 
+							<mainClass>xxx.xxx</mainClass> </manifest> </archive> -->
+					</configuration>
+					<executions>
+						<execution>
+							<id>make-assembly</id>
+							<!-- bind to the packaging phase -->
+							<phase>package</phase>
+							<goals>
+								<goal>single</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- 安装插件：将项目输出构件安装到本地仓库 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>2.5.2</version>
+				</plugin>
+				<!-- 发布插件 ：将项目输出构件部署到远程仓库 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.8.2</version>
+				</plugin>
+				<!-- versions 插件: 自动进行工程版本升级 -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>versions-maven-plugin</artifactId>
+					<version>2.3</version>
+				</plugin>
+				<!-- release插件: 自动进行工程版本升级 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.5.3</version>
+				</plugin>
+				<!-- 签名插件 ：自动完成GPG签名 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>1.6</version>
+					<executions>
+						<execution>
+							<id>sign-artifacts</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>sign</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- 源码插件:发布时自动将源码同时发布 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>3.0.1</version>
+					<!-- 打包source文件为jar文件 -->
+					<configuration>
+						<testFailureIgnore>true</testFailureIgnore>
+						<!-- 打包源码一起发布到maven仓库中 -->
+						<attach>true</attach>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<phase>package</phase>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- 文档插件:发布时自动生成文档 : http://codepub.cn/2016/10/18/Java-8-configure-maven-java-doc-plugin/ -->
+				<!-- <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.10.4</version>
+					<configuration>
+						<aggregate>true</aggregate>
+						<argLine>-Dfile.encoding=UTF-8</argLine>
+						<charset>${project.build.sourceEncoding}</charset>
+						<encoding>${project.build.sourceEncoding}</encoding>
+						<docencoding>${project.build.sourceEncoding}</docencoding>
+					</configuration>
+					<executions>
+						<execution>
+							<id>attach-javadocs</id>
+							<phase>package</phase>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin> -->
+				<!-- 依赖配置生成插件 ：自动复制maven依赖包到lib目录 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>2.10</version>
+					<!-- 拷贝依赖的jar包到lib目录 -->
+					<executions>
+						<execution>
+							<id>copy-dependencies</id>
+							<phase>compile</phase>
+							<goals>
+								<goal>copy-dependencies</goal>
+							</goals>
+							<configuration>
+								<!-- <outputDirectory>${basedir}/src/main/webapp/WEB-INF/lib</outputDirectory> -->
+								<!-- ${project.build.directory}为Maven内置变量，缺省为target <outputDirectory>${project.build.directory}/lib</outputDirectory> -->
+								<!-- 表示是否不包含间接依赖的包 -->
+								<excludeTransitive>false</excludeTransitive>
+								<!-- 表示复制的jar文件去掉版本信息 -->
+								<stripVersion>true</stripVersion>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- war 包生成插件 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.6</version>
+					<configuration>
+						<!-- 包含空目录 -->
+						<includeEmptyDirectories>true</includeEmptyDirectories>
+						<!-- 是否将webapp下的逻辑代码打包成jar文件，使用此可选配置参数可将已编译的类归档到一个jar文件。 并且classes 
+							目录将被从Web应用程序排除在外，主要表现是classes目录的编译的类不会再war包中。 -->
+						<archiveClasses>false</archiveClasses>
+						<!-- 是否 classes目录内容（也就是WEB-INF/classes目录下的内容）可以作为一个额外的依赖附着到项目中。 打包时将war项目中相关的类文件打成独立jar包；好处是：只修改class时，可以只更新jar -->
+						<attachClasses>true</attachClasses>
+						<!--独立jar包后缀名称 -->
+						<classesClassifier>api</classesClassifier>
+						<!-- 设置无web.xml时不报错 -->
+						<failOnMissingWebXml>false</failOnMissingWebXml>
+						<!-- 必须指定,否则默认会变成在target/war/work 导致被打包进war文件,指定后为target/work -->
+						<workDirectory>${project.build.directory}/work</workDirectory>
+						<!-- 指定webapp所在目录 -->
+						<warSourceDirectory>${basedir}/src/main/webapp</warSourceDirectory>
+						<!-- 表示在打war包拷贝位于warSourceDirectory目录中的内容时要过滤的目录或文件 <warSourceExcludes>WEB-INF/classes/**,META-INF/**</warSourceExcludes> -->
+
+						<!-- 表示在打war包时过滤位于src/main/resources目录中指定的目录或文件 <packagingExcludes>*.*</packagingExcludes> -->
+
+						<!-- 配置将资源文件打到classes目录下的相关信息 -->
+						<webResources>
+							<resource>
+								<!-- 元配置文件的目录，相对于pom.xml文件的路径 -->
+								<directory>src/main/resources</directory>
+								<!-- 是否过滤文件，也就是是否启动auto-config的功能 -->
+								<filtering>true</filtering>
+								<!-- 目标路径 -->
+								<targetPath>WEB-INF/classes</targetPath>
+							</resource>
+						</webResources>
+					</configuration>
+				</plugin>
+				<!-- war包依赖传递拷贝插件 ： 插件可以将从依赖的WAR中传递的依赖都打包到当前的WAR -->
+				<plugin>
+					<groupId>org.appfuse</groupId>
+					<artifactId>maven-warpath-plugin</artifactId>
+					<version>2.0.2</version>
+					<extensions>true</extensions>
+					<configuration>
+						<!--<workDirectory>${basedir}/target/warpath</workDirectory> <warpathExcludes>**/logback-test.xml</warpathExcludes> -->
+						<!-- below WEB-INF/classes -->
+						<warpathExcludes>WEB-INF/classes,**/logback-test.xml</warpathExcludes>
+					</configuration>
+				</plugin>
+				<!-- ant脚步执行插件 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>1.8</version>
+					<executions>
+						<execution>
+							<id>copy-war</id>
+							<phase>package</phase>
+							<configuration>
+								<tasks>
+									<delete
+										dir="${TOMCAT_HOME}/webapps/${project.artifactId}-${project.version}" />
+									<copy todir="${TOMCAT_HOME}/webapps">
+										<fileset dir="target">
+											<include name="*.war" />
+										</fileset>
+									</copy>
+								</tasks>
+							</configuration>
+							<goals>
+								<goal>run</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!--远程部署web工程 -->
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat6-maven-plugin</artifactId>
+					<version>2.2</version>
+					<configuration>
+						<url>http://localhost:8080/manager/html</url>
+						<server>tomcat</server>
+						<warFile>${project.build.directory}/${project.build.finalName}.${project.packaging}</warFile>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>2.2</version>
+					<configuration>
+						<url>http://localhost:8080/manager/html</url>
+						<server>tomcat</server>
+						<warFile>${project.build.directory}/${project.build.finalName}.${project.packaging}</warFile>
+					</configuration>
+				</plugin>
+				<!-- web运行插件 -->
+				<plugin>
+					<groupId>org.mortbay.jetty</groupId>
+					<artifactId>maven-jetty-plugin</artifactId>
+					<version>6.1.10</version>
+					<configuration>
+						<webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>
+						<scanIntervalSeconds>0</scanIntervalSeconds>
+						<contextPath>/</contextPath>
+						<reload>manual</reload>
+						<webDefaultXml>src/main/resources/jetty/webdefault.xml</webDefaultXml>
+						<connectors>
+							<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+								<port>8088</port>
+							</connector>
+						</connectors>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<!-- 编译插件：编译主代码至主输出目录 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<!-- 资源插件：复制主资源文件至主输出目录 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+			<!-- 单元测试插件 ：执行测试用例 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+			<!-- jar包生成插件 ：创建项目jar包 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
+			<!-- 源码插件:发布时自动将源码同时发布 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<!-- 文档插件:发布时自动生成文档 -->
+			<!-- <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin> -->
+			<!-- 安装插件：将项目输出构件安装到本地仓库 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+			</plugin>
+			<!-- 发布插件 ：将项目输出构件部署到远程仓库 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+			</plugin>
+			<!-- 依赖配置生成插件 <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-dependency-plugin</artifactId> 
+				</plugin> -->
+			<!-- war 包生成插件 <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-war-plugin</artifactId> 
+				</plugin> -->
+			<!-- ant脚步执行插件 <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-antrun-plugin</artifactId> 
+				</plugin> -->
+			<!--远程部署web工程 <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>tomcat-maven-plugin</artifactId> 
+				</plugin> -->
+			<!-- web运行插件 <plugin> <groupId>org.mortbay.jetty</groupId> <artifactId>maven-jetty-plugin</artifactId> 
+				</plugin> -->
+		</plugins>
+	</build>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<activiti.version>5.21.0</activiti.version>
+		<activemq-broker.version>5.13.0</activemq-broker.version>
+		<activemq-core.version>5.7.0</activemq-core.version>
+		<ant.version>1.8.2</ant.version>
+		<antlr.version>3.5.2</antlr.version>
+		<alibaba-druid.version>1.0.31</alibaba-druid.version>
+		<alibaba-fastjson.version>1.2.58</alibaba-fastjson.version>
+		<asm3.version>3.3.1</asm3.version>
+		<asm5.version>5.2</asm5.version>
+		<aspectj.version>1.8.9</aspectj.version>
+		<batik.version>1.8</batik.version>
+		<bcprov.version>1.54</bcprov.version>
+		<c3p0.version>0.9.1.2</c3p0.version>
+		<cas-server.version>4.2.0</cas-server.version>
+		<cas-client.version>3.4.1</cas-client.version>
+		<cglib.version>3.2.4</cglib.version>
+		<cos.version>20021105</cos.version>
+		<commons-attributes.version>2.2</commons-attributes.version>
+		<commons-beanutils.version>1.8.3</commons-beanutils.version>
+		<commons-chain.version>1.2</commons-chain.version>
+		<commons-codec.version>1.10</commons-codec.version>
+		<commons-collections.version>3.2.1</commons-collections.version>
+		<commons-collections4.version>4.1</commons-collections4.version>
+		<commons-compress.version>1.9</commons-compress.version>
+		<commons-compiler.version>2.6.1</commons-compiler.version>
+		<commons-configuration.version>1.10</commons-configuration.version>
+		<commons-configuration2.version>2.0</commons-configuration2.version>
+		<commons-csv.version>1.1</commons-csv.version>
+		<commons-daemon.version>1.0.15</commons-daemon.version>
+		<commons-dbcp.version>1.4</commons-dbcp.version>
+		<commons-dbcp2.version>2.1.1</commons-dbcp2.version>
+		<commons-dbutils.version>1.5</commons-dbutils.version>
+		<commons-digester.version>2.1</commons-digester.version>
+		<commons-digester3.version>3.2</commons-digester3.version>
+		<commons-email.version>1.4</commons-email.version>
+		<commons-exec.version>1.3</commons-exec.version>
+		<commons-fileupload.version>1.3.3</commons-fileupload.version>
+		<commons-httpclient.version>3.1</commons-httpclient.version>
+		<commons-io.version>2.5</commons-io.version>
+		<commons-jexl.version>2.1.1</commons-jexl.version>
+		<commons-lang.version>2.6</commons-lang.version>
+		<commons-lang3.version>3.5</commons-lang3.version>
+		<commons-logging.version>1.2</commons-logging.version>
+		<commons-math.version>2.2</commons-math.version>
+		<commons-math3.version>3.5</commons-math3.version>
+		<commons-net.version>3.4</commons-net.version>
+		<commons-pool.version>1.5.7</commons-pool.version>
+		<commons-pool2.version>2.4.2</commons-pool2.version>
+		<commons-validator.version>1.4.1</commons-validator.version>
+		<commons-vfs2.version>2.2</commons-vfs2.version>
+		<contiperf.version>2.3.4</contiperf.version>
+		<cssparser.version>0.9.18</cssparser.version>
+		<cxf.version>3.1.10</cxf.version>
+		<cvs.version>2.0</cvs.version>
+		<dbunit.version>2.5.1</dbunit.version>
+		<dom4j.version>1.6.1</dom4j.version>
+		<dozer.version>5.5.1</dozer.version>
+		<dwr.version>2.0.11-RELEASE</dwr.version>
+		<disruptor.version>3.3.6</disruptor.version>
+		<ehcache.version>2.10.6</ehcache.version>
+		<ehcache3.version>3.3.1</ehcache3.version>
+		<ezmorph.version>1.0.6</ezmorph.version>
+		<fineReport.version>8.0</fineReport.version>
+		<flyway.version>4.0</flyway.version>
+		<freemarker.version>2.3.23</freemarker.version>
+		<fastdfs-client.version>5.0.4</fastdfs-client.version>
+		<google-zxing.version>2.3.0</google-zxing.version>
+		<gson.version>2.2.1</gson.version>
+		<guava.version>19.0</guava.version>
+		<guice.version>4.0</guice.version>
+		<httpunit.version>1.7.2</httpunit.version>
+		<hibernate.version>5.0.6.Final</hibernate.version>
+		<hadoop.version>2.4.0</hadoop.version>
+		<hadoop-core.version>1.2.1</hadoop-core.version>
+		<hadoop-streaming.version>1.0.0</hadoop-streaming.version>
+		<hadoop-tools.version>1.2.1</hadoop-tools.version>
+		<hadoop-libthrift.version>0.5.0</hadoop-libthrift.version>
+		<hadoop-zookeeper.version>3.3.1</hadoop-zookeeper.version>
+		<htmlparser.version>1.4</htmlparser.version>
+		<hsqldb.version>2.3.3</hsqldb.version>
+		<httpasyncclient.version>4.1.1</httpasyncclient.version>
+		<httpcore.version>4.4.4</httpcore.version>
+		<httpcomponents.version>4.5.1</httpcomponents.version>
+		<httpclient.version>4.5.2</httpclient.version>
+		<httpmime.version>4.5.2</httpmime.version>
+		<ibatis-core.version>3.0</ibatis-core.version>
+		<ibatis-sqlmap.version>2.3.0</ibatis-sqlmap.version>
+		<jackson-annotations.version>2.9.0</jackson-annotations.version>
+		<jackson-core.version>2.9.9</jackson-core.version>
+		<jackson-databind.version>2.9.9.2</jackson-databind.version>
+		<java.cas.client.version>3.4.0</java.cas.client.version>
+		<jakarta-regexp.version>1.4</jakarta-regexp.version>
+		<jaxen.version>1.1.1</jaxen.version>
+		<janino.version>2.6.1</janino.version>
+		<javassist.version>3.21.0-GA</javassist.version>
+		<javax.activation.version>1.1.1</javax.activation.version>
+		<javax.mail-api.version>1.5.6</javax.mail-api.version>
+		<javax.el.version>2.1.0</javax.el.version>
+		<javax.jsp-api.version>2.3.1</javax.jsp-api.version>
+		<javax.jstl-api.version>1.2.1</javax.jstl-api.version>
+		<javax.jstl-impl.version>1.2.5</javax.jstl-impl.version>
+		<javax.persistence-api.version>1.0.2</javax.persistence-api.version>
+		<javax.portlet-api.version>3.0.0</javax.portlet-api.version>
+		<javax.servlet-api.version>3.0.1</javax.servlet-api.version>
+		<javax.websocket-api.version>1.1</javax.websocket-api.version>
+		<jaxb.version>2.2.11</jaxb.version>
+		<jasperreports.version>6.2.0</jasperreports.version>
+		<jdom.version>2.0.2</jdom.version>
+		<jbpm.version>6.2.0.Final</jbpm.version>
+		<jboss.version>1.0.1-SP3</jboss.version>
+		<jedis.version>2.8.0</jedis.version>
+		<jjwt.version>0.7.0</jjwt.version>
+		<jmock.version>2.6.0</jmock.version>
+		<jsf.version>2.0.2-b10</jsf.version>
+		<jsonlib.version>2.4</jsonlib.version>
+		<json-simple.version>1.1.1</json-simple.version>
+		<jsoup.version>1.10.2</jsoup.version>
+		<jgroups.version>3.6.10.Final</jgroups.version>
+		<jstl-api.version>1.2</jstl-api.version>
+		<jstl.version>1.1.2</jstl.version>
+		<junit.version>4.12</junit.version>
+		<jug.version>2.0.0</jug.version>
+		<kie.version>6.2.0.Final</kie.version>
+		<knowledge.version>6.2.0.Final</knowledge.version>
+		<lettuce.version>2.3.3</lettuce.version>
+		<log4j.version>1.2.17</log4j.version>
+		<log4j2.version>2.3</log4j2.version><!-- 2.4.x~2.7.x(JDK 1.7), 2.3.x(JDK 
+			1.6) -->
+		<logback.version>1.1.3</logback.version>
+		<lucene.version>5.4.0</lucene.version>
+		<oro.version>2.0.8</oro.version>
+		<oracle-10g-driver.version>10.2.0.5</oracle-10g-driver.version>
+		<oracle-11g-driver.version>11.2.0.4</oracle-11g-driver.version>
+		<oracle-12c-driver.version>12.1.0.2</oracle-12c-driver.version>
+		<ognl.version>3.1.12</ognl.version>
+		<openejb.version>5.0-1</openejb.version>
+		<openjpa.version>2.4.1</openjpa.version>
+		<perf4j.version>0.9.16</perf4j.version>
+		<owasp-antisamy.version>1.5.5</owasp-antisamy.version>
+		<owasp-csrfguard.version>3.0.0</owasp-csrfguard.version>
+		<owasp-esapi.version>2.1.0</owasp-esapi.version>
+		<owasp-encode.version>1.2</owasp-encode.version>
+		<owasp-encode.jsp.version>1.2</owasp-encode.jsp.version>
+
+		<persistence-api.version>1.0.2</persistence-api.version>
+		<phloc-commons.version>4.4.4</phloc-commons.version>
+		<phloc-html.version>4.4.2</phloc-html.version>
+		<phloc-css.version>3.8.0</phloc-css.version>
+		<phloc-json.version>3.0.3</phloc-json.version>
+		<pinyin4j.version>2.5.0</pinyin4j.version>
+
+		<portlet.version>2.0</portlet.version>
+		<proxool.version>0.9.1</proxool.version>
+		<png-encoder.version>1.5</png-encoder.version>
+		<quartz.version>2.2.3</quartz.version>
+		<rabbitmq.version>3.6.0</rabbitmq.version>
+		<redisson.version>2.2.9</redisson.version>
+		<rocketmq.version>4.1.0-incubating</rocketmq.version>
+		<servlet-api.version>3.0.1</servlet-api.version>
+		<slf4j.version>1.7.19</slf4j.version>
+		<stax2-api.version>3.1.1</stax2-api.version>
+		<sitemesh.version>3.0.1</sitemesh.version>
+		<sitemesh3.version>3.0.1</sitemesh3.version>
+		<struts1.version>1.2.9</struts1.version>
+		<struts2.version>2.3.35</struts2.version> <!-- 2.3.x（JDK 1.6），2.5.x（JDK 1.7 ） -->
+		<struts2-annotations.version>1.0.6</struts2-annotations.version>
+		<simple-xml.version>2.7.1</simple-xml.version>
+		<sigar.version>1.6.5.132-6</sigar.version><!-- 1.6.4，1.6.5.132-6 -->
+		<smslib.version>3.5.4</smslib.version>
+		<snmp4j.version>2.5.2</snmp4j.version>
+		<shiro.version>1.2.6</shiro.version>
+		<spring.version>4.3.6.RELEASE</spring.version><!-- 4.3.x（JDK 1.7 ）、4.1.x（JDK 
+			1.6）、4.0.x（JDK 1.6） -->
+		<spring-support.version>2.0.8</spring-support.version>
+		<spring-osgi.version>1.2.1</spring-osgi.version>
+		<spring-security.version>4.0.4.RELEASE</spring-security.version>
+		<spring-security-oauth.version>2.0.9.RELEASE</spring-security-oauth.version>
+		<spring-security-web.version>2.0.4</spring-security-web.version>
+		<spring-webflow.version>1.0.6</spring-webflow.version>
+		<swingc.version>1.0.0</swingc.version>
+		<smallsql.version>0.21</smallsql.version>
+		<metaq.version>1.4.6.2</metaq.version>
+		<metrics.version>3.2.2</metrics.version>
+		<mybatis.version>3.4.2</mybatis.version>
+		<mybatis-spring.version>1.3.1</mybatis-spring.version>
+		<mybatis-docbook.version>1.0.0</mybatis-docbook.version>
+		<mybatis-ehcache.version>1.1.0</mybatis-ehcache.version>
+		<mybatis-freemarker.version>1.1.2</mybatis-freemarker.version>
+		<mybatis-oscache.version>1.0.2</mybatis-oscache.version>
+		<mybatis-redis.version>1.0.0-beta2</mybatis-redis.version>
+		<mybatis-hazelcast.version>1.1.1</mybatis-hazelcast.version>
+		<mybatis-ignite.version>1.0.3</mybatis-ignite.version>
+		<mybatis-memcached.version>1.0.0</mybatis-memcached.version>
+		<mybatis-migrations.version>3.2.1</mybatis-migrations.version>
+		<mybatis-guice.version>3.9</mybatis-guice.version>
+		<mybatis-generator.version>1.3.5</mybatis-generator.version>
+		<mybatis-velocity.version>1.3</mybatis-velocity.version>
+		<neethi.version>3.0.3</neethi.version>
+		<nekohtml.version>1.9.22</nekohtml.version>
+		<velocity.version>1.7</velocity.version>
+		<velocity-tools.version>2.0</velocity-tools.version>
+		<woodstox-core-asl.version>4.4.1</woodstox-core-asl.version>
+		<wsdl4j.version>1.6.3</wsdl4j.version>
+		<xmlbeans.version>2.6.0</xmlbeans.version>
+		<xerces.version>2.11.0</xerces.version>
+		<xmemcached.version>2.0.0</xmemcached.version>
+		<xmlschema-core.version>2.0.2</xmlschema-core.version>
+		<xstream.version>1.4.11</xstream.version>
+		<xml-apis.version>1.3.04</xml-apis.version>
+		<zip64file.version>1.02</zip64file.version>
+		<zip4j.version>1.3.2</zip4j.version>
+		<mina-core.version>2.0.9</mina-core.version>
+		<feed4junit.version>1.2.0</feed4junit.version>
+		<hamcrest.version>1.3</hamcrest.version>
+		<jsonpath.version>2.2.0</jsonpath.version>
+
+		<niucaclient.version>6.0</niucaclient.version>
+		<terracotta-toolkit-runtime.version>4.3.2</terracotta-toolkit-runtime.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- ######################测试工具包###################### -->
+
+			<!--junit : Junit测试是程序员测试，即白盒测试 -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+			</dependency>
+			<!--dbunit ：dbunit是一个基于junit扩展的数据库测试框架 -->
+			<dependency>
+				<groupId>org.dbunit</groupId>
+				<artifactId>dbunit</artifactId>
+				<version>${dbunit.version}</version>
+			</dependency>
+			<!-- httpunit：HttpUnit是SourceForge下面的一个开源项目，它是基于JUnit的一个测试框架，主要关注于测试Web应用； 
+				解决使用JUnit框架无法对远程Web内容进行测试的弊端 -->
+			<dependency>
+				<groupId>org.httpunit</groupId>
+				<artifactId>httpunit</artifactId>
+				<version>${httpunit.version}</version>
+			</dependency>
+			<!--jmock：JMock是一个使用模拟对象机制测试Java代码的开发包 -->
+			<dependency>
+				<groupId>org.jmock</groupId>
+				<artifactId>jmock-junit4</artifactId>
+				<version>${jmock.version}</version>
+			</dependency>
+			<!-- ContiPerf是一个轻量级的测试工具，基于JUnit 4 开发，可用于效率测试等。 -->
+			<dependency>
+				<groupId>org.databene</groupId>
+				<artifactId>contiperf</artifactId>
+				<version>${contiperf.version}</version>
+			</dependency>
+			<!-- Perf4J 是一个新的开放源码的性能记录，监测和分析库，主要用于企业Java应用程序。 -->
+			<dependency>
+				<groupId>org.perf4j</groupId>
+				<artifactId>perf4j</artifactId>
+				<version>${perf4j.version}</version>
+			</dependency>
+
+			<!-- ######################JSON数据处理工具包###################### -->
+
+			<!-- fastjson 是一个性能很好的 Java 语言实现的 JSON 解析器和生成器，来自阿里巴巴的工程师开发。 主要特点： 快速FAST 
+				(比其它任何基于Java的解析器和生成器更快，包括jackson） 强大（支持普通JDK类包括任意Java Bean Class、Collection、Map、Date或enum） 
+				零依赖（没有依赖其它任何类库除了JDK） -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${alibaba-fastjson.version}</version>
+			</dependency>
+			<!--json-lib是一个Java类库,提供将Java对象,包括beans,maps,collections,javaarrays和xml等转换成JSON,或者反向转换的功能 -->
+			<dependency>
+				<groupId>net.sf.json-lib</groupId>
+				<artifactId>json-lib</artifactId>
+				<version>${jsonlib.version}</version>
+				<classifier>jdk15</classifier>
+			</dependency>
+			<!-- Simple JSON是Google开发的Java JSON解析框架,基于Apache协议。 -->
+			<dependency>
+				<groupId>com.googlecode.json-simple</groupId>
+				<artifactId>json-simple</artifactId>
+				<version>${json-simple.version}</version>
+			</dependency>
+			<!-- Gson 是 Google 提供的用来在 Java 对象和 JSON 数据之间进行映射的 Java 类库。可以将一个 JSON 字符串转成一个 
+				Java 对象,或者反过来 -->
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>${gson.version}</version>
+			</dependency>
+
+			<!-- ###################### Java 内部实现 ###################### -->
+
+			<dependency>
+				<groupId>com.sun</groupId>
+				<artifactId>tools</artifactId>
+				<version>1.5.0</version>
+			</dependency>
+
+			<!-- ###################### Java Mail 组件 ###################### -->
+
+			<!-- The JavaBeans(TM) Activation Framework is used by the JavaMail(TM) 
+				API to manage MIME data -->
+			<dependency>
+				<groupId>javax.activation</groupId>
+				<artifactId>activation</artifactId>
+				<version>${javax.activation.version}</version>
+			</dependency>
+			<!-- JavaMail API -->
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>javax.mail-api</artifactId>
+				<version>${javax.mail-api.version}</version>
+			</dependency>
+			<!-- JavaMail API (sun) 注意： 有的jar没有包含sun的实现，只包含了api，这类jar名称通常为javax.mail-api-x.x.x.jar，在使用smtp协议发邮件过程中会报错： 
+				另一种jar是包含了sun的实现的，名称通常为javax.mail-x.x.x.jar，使用smtp协议发邮件正常！ -->
+			<dependency>
+				<groupId>com.sun.mail</groupId>
+				<artifactId>javax.mail</artifactId>
+				<version>${javax.mail-api.version}</version>
+			</dependency>
+
+
+			<!-- ###################### Java Web API ###################### -->
+
+			<!-- The Java Portlet API version 3.0 developed by the Java Community 
+				Process JSR-362 Expert Group. -->
+			<dependency>
+				<groupId>javax.portlet</groupId>
+				<artifactId>portlet-api</artifactId>
+				<version>${javax.portlet-api.version}</version>
+			</dependency>
+			<!-- Java Servlet API -->
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>${javax.servlet-api.version}</version>
+			</dependency>
+			<!-- JavaServer Pages(TM) API -->
+			<dependency>
+				<groupId>javax.servlet.jsp</groupId>
+				<artifactId>javax.servlet.jsp-api</artifactId>
+				<version>${javax.jsp-api.version}</version>
+			</dependency>
+			<!-- JavaServer Pages(TM) Standard Tag Library API -->
+			<!-- JSTL（JSP Standard Tag Library，JSP标准标签库) 是一个不断完善的开放源代码的JSP标签库，是由apache的jakarta小组来维护的。 -->
+			<dependency>
+				<groupId>javax.servlet.jsp.jstl</groupId>
+				<artifactId>javax.servlet.jsp.jstl-api</artifactId>
+				<version>${javax.jstl-api.version}</version>
+			</dependency>
+			<!-- An implementation of the JSP Standard Tag Library (JSTL). -->
+			<!-- Taglibs是为JSP定制标签库和相关的项目提供的一个开源仓库，如TagLibraryValidator类，和对页面生成工具的扩展来支持标签 
+				库。 -->
+			<dependency>
+				<groupId>org.apache.taglibs</groupId>
+				<artifactId>taglibs-standard-impl</artifactId>
+				<version>${javax.jstl-impl.version}</version>
+			</dependency>
+			<!-- Expression Language 3.0 API -->
+			<dependency>
+				<groupId>javax.el</groupId>
+				<artifactId>javax.el-api</artifactId>
+				<version>${javax.el.version}</version>
+			</dependency>
+			<!-- Java Persistence API -->
+			<dependency>
+				<groupId>javax.persistence</groupId>
+				<artifactId>persistence-api</artifactId>
+				<version>${javax.persistence-api.version}</version>
+			</dependency>
+			<!-- JSR 356: Java API for WebSocket -->
+			<dependency>
+				<groupId>javax.websocket</groupId>
+				<artifactId>javax.websocket-api</artifactId>
+				<version>${javax.websocket-api.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.websocket</groupId>
+				<artifactId>javax.websocket-client-api</artifactId>
+				<version>${javax.websocket-api.version}</version>
+			</dependency>
+
+
+			<!-- ######################XML校验工具###################### -->
+
+			<!-- Sun Multi Schema XML Validator Isorelax -->
+			<dependency>
+				<groupId>com.sun.xml.bind.jaxb</groupId>
+				<artifactId>isorelax</artifactId>
+				<version>20090621</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.relaxng</groupId>
+				<artifactId>relaxngDatatype</artifactId>
+				<version>2011.1</version>
+			</dependency>
+			<!-- Sun Multi Schema XML Validator -->
+			<dependency>
+				<groupId>net.java.dev.msv</groupId>
+				<artifactId>msv-core</artifactId>
+				<version>2013.6.1</version>
+			</dependency>
+			<!-- XML Schema datatypes library -->
+			<dependency>
+				<groupId>net.java.dev.msv</groupId>
+				<artifactId>xsdlib</artifactId>
+				<version>2013.6.1</version>
+			</dependency>
+			<!-- SAX-like API for parsing XML DTDs. -->
+			<dependency>
+				<groupId>com.sun.xml.dtd-parser</groupId>
+				<artifactId>dtd-parser</artifactId>
+				<version>1.2</version>
+			</dependency>
+
+			<!-- ######################XML解析转换工具包###################### -->
+
+			<!-- Dom4j是一个Java的XML API，类似于jdom，用来读写XML文件的工具包。 -->
+			<dependency>
+				<groupId>dom4j</groupId>
+				<artifactId>dom4j</artifactId>
+				<version>${dom4j.version}</version>
+			</dependency>
+			<!--JDOM是一种使用 XML（标准通用标记语言下的一个子集） 的独特 Java 工具包，。它的设计包含 Java 语言的语法乃至语义。 -->
+			<dependency>
+				<groupId>org.jdom</groupId>
+				<artifactId>jdom</artifactId>
+				<version>${jdom.version}</version>
+			</dependency>
+			<!-- XStream是 thoughtworks开发的开源框架，用于实现XML数据于Java对象、Json数据的转换 -->
+			<dependency>
+				<groupId>com.thoughtworks.xstream</groupId>
+				<artifactId>xstream</artifactId>
+				<version>${xstream.version}</version>
+			</dependency>
+			<!-- Simple 是一个 Java 框架，用于简化序列化和反序列化 XML 的过程。使用 Simple，开发人员可以简化（名字由此而来）将简单老 
+				Java 对象（POJO）转换成 XML 文档的过程 — 即所谓的序列化（serialization）过程。Simple 也可促进相反的过程：开发人员可以将 
+				XML 文档转换成 POJO — 即所谓的反序列化（deserialization）过程。 -->
+			<dependency>
+				<groupId>org.simpleframework</groupId>
+				<artifactId>simple-xml</artifactId>
+				<version>${simple-xml.version}</version>
+			</dependency>
+			<!-- Jaxen是一个Java编写的开源的XPath库。这是适应多种不同的对象模型，包括DOM，XOM，dom4j和JDOM。 也可以作为适配器，转换Java字节代码或XML的Java 
+				bean为xml，从而使您可以使用XPath查询这些树了。 -->
+			<dependency>
+				<groupId>jaxen</groupId>
+				<artifactId>jaxen</artifactId>
+				<version>${jaxen.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>jaxen</groupId>
+						<artifactId>jaxen</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>jdom</groupId>
+						<artifactId>jdom</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>xml-apis</groupId>
+						<artifactId>xml-apis</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<!-- JAXB能够使用Jackson对JAXB注解的支持实现(jackson-module-jaxb-annotations)，既方便生成XML，也方便生成JSON， 
+				这样一来可以更好的标志可以转换为JSON对象的JAVA类。JAXB允许JAVA人员将JAVA类映射为XML表示方式，常用的注解包括：@XmlRootElement,@XmlElement等等。 -->
+			<dependency>
+				<groupId>com.sun.xml.bind</groupId>
+				<artifactId>jaxb-core</artifactId>
+				<version>${jaxb.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.xml.bind</groupId>
+				<artifactId>jaxb-impl</artifactId>
+				<version>${jaxb.version}</version>
+			</dependency>
+			<!-- XMLBeans是一个XML-Java绑定工具，利用它可以很方便地解析XML文档。 -->
+			<dependency>
+				<groupId>org.apache.xmlbeans</groupId>
+				<artifactId>xmlbeans</artifactId>
+				<version>${xmlbeans.version}</version>
+			</dependency>
+			<!-- Xerces是一个开放源代码的XML语法分析器。从JDK1.5以后，Xerces就成了JDK的XML默认实现 -->
+			<dependency>
+				<groupId>xerces</groupId>
+				<artifactId>xercesImpl</artifactId>
+				<version>${xerces.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>xml-resolver</groupId>
+				<artifactId>xml-resolver</artifactId>
+				<version>1.2</version>
+			</dependency>
+			<!-- Serializer to write out XML, HTML etc. as a stream of characters 
+				from an input DOM or from input SAX events. -->
+			<dependency>
+				<groupId>xalan</groupId>
+				<artifactId>serializer</artifactId>
+				<version>2.7.2</version>
+			</dependency>
+			<!-- XML Pull Parsing API -->
+			<dependency>
+				<groupId>xmlpull</groupId>
+				<artifactId>xmlpull</artifactId>
+				<version>1.1.3.4d_b4_min</version>
+			</dependency>
+			<!-- Xml Apis -->
+			<dependency>
+				<groupId>xml-apis</groupId>
+				<artifactId>xml-apis</artifactId>
+				<version>${xml-apis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>xml-apis</groupId>
+				<artifactId>xml-apis-ext</artifactId>
+				<version>${xml-apis.version}</version>
+			</dependency>
+
+			<!-- ######################Java对象操作工具包###################### -->
+
+			<!-- ASM 是一个 Java 字节码操纵框架。它可以直接以二进制形式动态地生成 stub 类或其他代理类，或者在装载时动态地修改类。 
+				ASM 提供类似于 BCEL 和 SERP 之类的工具包的功能，但是被设计得更小巧、更快速，这使它适用于实时代码插装。 -->
+			<dependency>
+				<groupId>org.ow2.asm</groupId>
+				<artifactId>asm</artifactId>
+				<version>${asm5.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ow2.asm</groupId>
+				<artifactId>asm-commons</artifactId>
+				<version>${asm5.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ow2.asm</groupId>
+				<artifactId>asm-tree</artifactId>
+				<version>${asm5.version}</version>
+			</dependency>
+			<!-- ASM 是一个 Java 字节码操纵框架。它可以直接以二进制形式动态地生成 stub 类或其他代理类，或者在装载时动态地修改类。 
+				ASM 提供类似于 BCEL 和 SERP 之类的工具包的功能，但是被设计得更小巧、更快速，这使它适用于实时代码插装。 org.ow2.asm <dependency> 
+				<groupId>asm</groupId> <artifactId>asm</artifactId> <version>${asm3.version}</version> 
+				</dependency> <dependency> <groupId>asm</groupId> <artifactId>asm-commons</artifactId> 
+				<version>${asm3.version}</version> </dependency> <dependency> <groupId>asm</groupId> 
+				<artifactId>asm-tree</artifactId> <version>${asm3.version}</version> </dependency> -->
+			<!--Javassist是一个开源的分析、编辑和创建Java字节码的类库。struts2 依赖此jar -->
+			<dependency>
+				<groupId>org.javassist</groupId>
+				<artifactId>javassist</artifactId>
+				<version>${javassist.version}</version>
+			</dependency>
+
+			<!-- ######################日志组件工具包###################### -->
+
+			<!-- Jakarta Commons Logging (JCL) 提供的是一个日志 (Log) 接口 (interface) ，同时兼顾轻量级和不依赖于具体的日志实现工具 
+				。 它提供给中间件 / 日志工具开发者一个简单的日志操作抽象，允许程序开发人员使用不同的具体日志实现工具。用户被假定已熟悉某种日志实现工具的更高级别的细节。 
+				JCL 提供的接口，对其它一些日志工具，包括 Log4J, Avalon LogKit, and JDK 1.4 等，进行了简单的包装，此接口更接近于 
+				Log4J 和 LogKit 的实现。 -->
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>${commons-logging.version}</version>
+			</dependency>
+			<!-- SLF4J，即简单日志门面（Simple Logging Facade for Java），不是具体的日志解决方案，它只服务于各种各样 
+				的日志系统。按照官方的说法，SLF4J是一个用于日志系统的简单Facade，允许最终用户在部署其应用时使用其所希望的日志系统。 -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<!-- logback的前世今生: slf4j由log4j作者Ceki开发，逐步取代apahce commons logging。 logback由log4j作者Ceki开发，逐步取代log4j。 
+				slf4j等于commons-logging，是各种日志实现的通用入口，会根据classpath中存在下面哪一个Jar来决定具体的日志实现库。 logback相比较log4j的优势 
+				slf4j支持参数化的logger.error("帐号ID：{}不存在", userId); 告别了if(logger.isDebugEnable()) 
+				时代。 另外logback的整体性能比log4j也较佳，hibernate等项目已经采用了slf4j。 -->
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-core</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+			<!--Log4j 2 包含了基于LMAX 分离库的下一代的异步日志系统，在多线程环境下，异步日志系统比 Log4j 1.x 和Logback 
+				提高了10倍性能提升（吞吐量和延迟率 ） -->
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-api</artifactId>
+				<version>${log4j2.version}</version>
+			</dependency>
+
+
+			<!-- ######################基础常用工具包###################### -->
+
+			<!-- 常用功能包括类型转换和动态bean的创建 -->
+			<dependency>
+				<groupId>commons-attributes</groupId>
+				<artifactId>commons-attributes-api</artifactId>
+				<version>${commons-attributes.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-attributes</groupId>
+				<artifactId>commons-attributes-compiler</artifactId>
+				<version>${commons-attributes.version}</version>
+			</dependency>
+			<!-- 常用功能包括类型转换和动态bean的创建 -->
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>${commons-beanutils.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-chain</groupId>
+				<artifactId>commons-chain</artifactId>
+				<version>${commons-chain.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>${commons-codec.version}</version>
+			</dependency>
+			<!-- bcprov-jdk15on 与 bcprov-ext-jdk15on 区别在于1.4版本之后，bcprov-jdk15on-152中移除了一些加密算法，bcprov-ext-jdk15on-152中依然保留。 -->
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcprov-jdk15on</artifactId>
+				<version>${bcprov.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcprov-ext-jdk15on</artifactId>
+				<version>${bcprov.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcpkix-jdk15on</artifactId>
+				<version>${bcprov.version}</version>
+			</dependency>
+			<!-- 一个各种集合类和集合工具类的封装 -->
+			<dependency>
+				<groupId>commons-collections</groupId>
+				<artifactId>commons-collections</artifactId>
+				<version>${commons-collections.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-collections4</artifactId>
+				<version>${commons-collections4.version}</version>
+			</dependency>
+			<!-- Commons-Configuration 工具可以从 *Properties文件 *XML文件 *JNDI *JDBC 数据源 
+				*System properties *Applet parameters *Servlet parameters等来读取相应的信息 -->
+			<dependency>
+				<groupId>commons-configuration</groupId>
+				<artifactId>commons-configuration</artifactId>
+				<version>${commons-configuration.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-configuration2</artifactId>
+				<version>${commons-configuration2.version}</version>
+			</dependency>
+			<!-- 创建类似unix守护线程的java代码，可以安全地执行一些后台操作，线程不被某个应用程序控制，而是由操作系统控制 类似windows的service， 
+				可以设置一个服务依赖于另一个服务，一个服务关闭前必须先执行另一个服务。 -->
+			<dependency>
+				<groupId>commons-daemon</groupId>
+				<artifactId>commons-daemon</artifactId>
+				<version>${commons-daemon.version}</version>
+			</dependency>
+			<!--一个JDBC的工具类，比如可以将ResultSets生成javabean -->
+			<dependency>
+				<groupId>commons-dbutils</groupId>
+				<artifactId>commons-dbutils</artifactId>
+				<version>${commons-dbutils.version}</version>
+			</dependency>
+			<!-- jxpath定义了一个简单的XPath表达式语言的解析器.JXPath应用XPath表达式来操纵各种类型的对象包括:JavaBeans,Maps,Servlet 
+				contexts,DOM等. -->
+			<dependency>
+				<groupId>commons-jxpath</groupId>
+				<artifactId>commons-jxpath</artifactId>
+				<version>1.3</version>
+			</dependency>
+			<!-- Commons-Discovery 提供工具来定位资源 (包括类) ，通过使用各种模式来映射服务/引用名称和资源名称。 -->
+			<dependency>
+				<groupId>commons-discovery</groupId>
+				<artifactId>commons-discovery</artifactId>
+				<version>0.5</version>
+			</dependency>
+			<!-- Digester 是一个基于规则的XML文档解析库,主要用于XML到Java对象的映射。Struts就是用Digester来处理XML配置文件的。而且Digester还包含一个写好的RSS解析器。 -->
+			<dependency>
+				<groupId>commons-digester</groupId>
+				<artifactId>commons-digester</artifactId>
+				<version>${commons-digester.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-digester3</artifactId>
+				<version>${commons-digester3.version}</version>
+			</dependency>
+			<!-- apache 上传组件 -->
+			<dependency>
+				<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<version>${commons-fileupload.version}</version>
+			</dependency>
+			<!-- O'Reilly公司的Java HTTP文件上传组件，简单实用，做的非常好。 -->
+			<dependency>
+				<groupId>com.oreilly</groupId>
+				<artifactId>cos</artifactId>
+				<version>${cos.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-httpclient</groupId>
+				<artifactId>commons-httpclient</artifactId>
+				<version>${commons-httpclient.version}</version>
+			</dependency>
+			<!-- Socket 通讯工具包 -->
+			<dependency>
+				<groupId>org.apache.mina</groupId>
+				<artifactId>mina-core</artifactId>
+				<version>${mina-core.version}</version>
+			</dependency>
+
+			<!-- Commons项目中用来处理IO的一些工具类包 -->
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons-io.version}</version>
+			</dependency>
+			<!-- Commons项目中用来处理Java基本对象方法的工具类包， 可以简化很多平时经常要用到的写法， 例如判断字符串是否为空等等 -->
+			<dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>${commons-lang.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${commons-lang3.version}</version>
+			</dependency>
+			<!-- 一个用于操作Internet基础协议（Finger，Whois，TFTP，Telnet，POP3，FTP，NNTP，以及SMTP）的底层API。 
+				Net包不仅支持对各种低层次协议的访问，而且还提供了一个高层的抽象。 它使得开发者不再需要直接面对各种协议的Socket级的低层命令。 -->
+			<dependency>
+				<groupId>commons-net</groupId>
+				<artifactId>commons-net</artifactId>
+				<version>${commons-net.version}</version>
+			</dependency>
+			<!--Commons-Pool 提供了通用对象池接口，一个用于创建模块化对象池的工具包，以及通常的对象池实现 -->
+			<dependency>
+				<groupId>commons-pool</groupId>
+				<artifactId>commons-pool</artifactId>
+				<version>${commons-pool.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-pool2</artifactId>
+				<version>${commons-pool2.version}</version>
+			</dependency>
+			<!-- Commons-validator提供了一个简单的，可扩展的框架来在一个XML文件中定义校验器 (校验方法)和校验规则。支持校验规则的和错误消息的国际化。 -->
+			<dependency>
+				<groupId>commons-validator</groupId>
+				<artifactId>commons-validator</artifactId>
+				<version>${commons-validator.version}</version>
+			</dependency>
+
+			<!-- org.apache.commons -->
+			<!--Commons Compress 用以实现将文件压缩或解压成 tar、zip、bzip2 等格式 -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-compress</artifactId>
+				<version>${commons-compress.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.janino</groupId>
+				<artifactId>commons-compiler</artifactId>
+				<version>${commons-compiler.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-csv</artifactId>
+				<version>${commons-csv.version}</version>
+			</dependency>
+
+			<!-- Apache Commons Exec 是 Apache 上的一个 Java 项目，提供一些常用的方法用来执行外部进程 -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-exec</artifactId>
+				<version>${commons-exec.version}</version>
+			</dependency>
+			<!-- Commons-Email的目的是提供一组用于发送Email的API,它基于Java Mail API基础之上并进行了简化。 它提供的主要Java类有：SimpleEmail：这个类用于发送简单的文本类型email。MultiPartEmail：这个类允许发送文本消息并附带附件。 
+				HtmlEmail：用于发送Html格式的附件并支持内含图片。 EmailAttachment：这是一个简单的容器类用于简化附件的处理。 -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-email</artifactId>
+				<version>${commons-email.version}</version>
+			</dependency>
+			<!--Math 是一个轻量的，自包含的数学和统计组件，解决了许多非常通用但没有及时出现在Java标准语言中的实践问题. -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-math</artifactId>
+				<version>${commons-math.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-math3</artifactId>
+				<version>${commons-math3.version}</version>
+			</dependency>
+			<!-- commons-jexl 是一个表达式语言，通过借鉴来自于Velocity的经验扩展了JSTL定义的表达式语言。 -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-jexl</artifactId>
+				<version>${commons-jexl.version}</version>
+			</dependency>
+			<!-- VFS为访问各种不同的文件系统提供了单一的应用程序编程接口（API），大大的简化了应用程序本身代码的复杂度。 目前VFS支持FTP、Local 
+				Files 、HTTP/HTTPS、SFTP、Temporary Files、Zip、Jar/Tar（uncompressed、tgz or tbz2）、gzip/bzip2、res、ram 
+				所有这些文件系统中的文件被封装成了FileObject这个类，文件的读写操作都通过此类来完成。文件的路径采用了URL的方式。 -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-vfs2</artifactId>
+				<version>${commons-vfs2.version}</version>
+			</dependency>
+
+			<!-- ###################### 应用开发工具 ###################### -->
+
+			<!-- ZXing是一个开放源码的，用Java实现的多种格式的1D/2D条码图像处理库，它包含了联系到其他语言的端口。 Zxing可以实现使用手机的内置的摄像头完成条形码的扫描及解码。该项目可实现的条形码编码和解码。 -->
+			<dependency>
+				<groupId>com.google.zxing</groupId>
+				<artifactId>core</artifactId>
+				<version>${google-zxing.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.zxing</groupId>
+				<artifactId>javase</artifactId>
+				<version>${google-zxing.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.zxing</groupId>
+				<artifactId>android-core</artifactId>
+				<version>${google-zxing.version}</version>
+			</dependency>
+			<!-- PNG Encoder 是一个 Java 类，用来将图像保存为 PNG 格式，该项目只包含两个 java 文件 -->
+			<dependency>
+				<groupId>com.keypoint</groupId>
+				<artifactId>png-encoder</artifactId>
+				<version>${png-encoder.version}</version>
+			</dependency>
+			<!--pinyin4j 中文拼音处理组件 -->
+			<dependency>
+				<groupId>net.sourceforge</groupId>
+				<artifactId>pinyin4j</artifactId>
+				<version>${pinyin4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson-core.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${jackson-annotations.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson-databind.version}</version>
+			</dependency>
+
+			<!--Regexp是一个100 纯java正则式处理包，是Jonathan Locke捐给Apache软件基金会的。 -->
+			<dependency>
+				<groupId>jakarta-regexp</groupId>
+				<artifactId>jakarta-regexp</artifactId>
+				<version>${jakarta-regexp.version}</version>
+			</dependency>
+			<!-- Jakarta-ORO 是一个Java工具包用来在 Java 类中进行文本处理的功能，提供兼容 Perl5 的正则表达式、类 AWK 
+				的正则表达式等。 -->
+			<dependency>
+				<groupId>oro</groupId>
+				<artifactId>oro</artifactId>
+				<version>${oro.version}</version>
+			</dependency>
+			<!-- Java UML Generator 是用于从Java类文件自动生成UML类图的工具。最初设计为一个命令行工具，将.class/.jar文件转换到.emf/.eps文件，现在它提供了一个可视化环境。 -->
+			<dependency>
+				<groupId>org.safehaus.jug</groupId>
+				<artifactId>jug</artifactId>
+				<version>${jug.version}</version>
+			</dependency>
+			<!-- SMSLib是一个由很多程序员共同开发的，用于支持GSM猫或者手机发送短信的开源项目。也同样支持一些短信运营商。SMSLib -->
+			<dependency>
+				<groupId>org.smslib</groupId>
+				<artifactId>smslib</artifactId>
+				<version>${smslib.version}</version>
+			</dependency>
+			<!--zip压缩工具包 -->
+			<dependency>
+				<groupId>net.sourceforge.zip64file</groupId>
+				<artifactId>zip64file</artifactId>
+				<version>${zip64file.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.lingala.zip4j</groupId>
+				<artifactId>zip4j</artifactId>
+				<version>${zip4j.version}</version>
+			</dependency>
+			<!-- OpenJPA 是 Apache 组织提供的开源项目，它实现了 EJB 3.0 中的 JPA 标准，为开发者提供功能强大、使用简单的持久化数据管理框架 -->
+			<dependency>
+				<groupId>org.apache.openjpa</groupId>
+				<artifactId>openjpa</artifactId>
+				<version>${openjpa.version}</version>
+			</dependency>
+			<!-- OpenEJB是一个嵌入式、轻量级EJB3.0实现的服务器。既可以作为单独运行，也可以嵌入到Tomcat、JUnit、Eclipse、Intellij、Maven、Ant和其它任何IDE与应用程序中。 
+				OpenEJB 被用于Apple的WebObjects与Apache的Geronimo应用服务器中。 -->
+			<dependency>
+				<groupId>org.apache.openejb</groupId>
+				<artifactId>javaee-api</artifactId>
+				<version>${openejb.version}</version>
+			</dependency>
+			<!-- OGNL是Object-Graph Navigation Language的缩写，它是一种功能强大的表达式语言，通过它简单一致的表达式语法，可以存取对象的任意属性， 
+				调用对象的方法，遍历整个对象的结构图，实现字段类型转化等功能。它使用相同的表达式去存取对象的属性。 -->
+			<dependency>
+				<groupId>ognl</groupId>
+				<artifactId>ognl</artifactId>
+				<version>${ognl.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>javassist</groupId>
+						<artifactId>javassist</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>ognl</groupId>
+						<artifactId>ognl</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<!-- Quartz是OpenSymphony开源组织在Job scheduling领域又一个开源项目，它可以与J2EE与J2SE应用程序相结合也可以单独使用。 
+				Quartz可以用来创建简单或为运行十个，百个，甚至是好几万个Jobs这样复杂的程序。Jobs可以做成标准的Java组件或 EJBs。 -->
+			<dependency>
+				<groupId>org.quartz-scheduler</groupId>
+				<artifactId>quartz</artifactId>
+				<version>${quartz.version}</version>
+			</dependency>
+
+			<!-- ###################### 词法分析、HTML、CSS 解析工具包###################### -->
+
+			<!-- ANTLR(ANother Tool for Language Recognition)它是Java开发的词法分析工具，它可以接受词文法语言描述, 
+				并能产生识别这些语言的语句的程序。作为翻译程序的一部分,你可以使用简单的操 作符和动作来参数化你的文法， 使之告诉ANTLR怎样去创建抽象语法树(AST)和怎样产生输出。ANTLR知道怎样去生成识别程序，语言包括 
+				Java，C++，C#. Hibernate就是采用ANTLR来编译HQL查询语言的。 -->
+			<dependency>
+				<groupId>org.antlr</groupId>
+				<artifactId>antlr</artifactId>
+				<version>${antlr.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.antlr</groupId>
+				<artifactId>antlr-runtime</artifactId>
+				<version>${antlr.version}</version>
+			</dependency>
+			<!-- jsoup 是一款Java的HTML解析器，可直接解析某个URL地址、HTML文本内容。 它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。 -->
+			<dependency>
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+				<version>${jsoup.version}</version>
+			</dependency>
+			<!-- css 解析工具包 -->
+			<dependency>
+				<groupId>net.sourceforge.cssparser</groupId>
+				<artifactId>cssparser</artifactId>
+				<version>${cssparser.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>nu.validator.htmlparser</groupId>
+				<artifactId>htmlparser</artifactId>
+				<version>${htmlparser.version}</version>
+			</dependency>
+			<!-- html的css解析 -->
+			<dependency>
+				<groupId>com.phloc</groupId>
+				<artifactId>phloc-commons</artifactId>
+				<version>${phloc-commons.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.phloc</groupId>
+				<artifactId>phloc-html</artifactId>
+				<version>${phloc-html.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.phloc</groupId>
+				<artifactId>phloc-json</artifactId>
+				<version>${phloc-json.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.phloc</groupId>
+				<artifactId>phloc-css</artifactId>
+				<version>${phloc-css.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.phloc</groupId>
+				<artifactId>phloc-schematron</artifactId>
+				<version>2.7.1</version>
+			</dependency>
+
+
+			<!-- ###################### 对象转换工具包 ###################### -->
+
+			<!-- dozer是一种JavaBean的映射工具，类似于apache的BeanUtils。但是dozer更强大，它可以灵活的处理复杂类型之间的映射。 
+				不但可以进行简单的属性映射、复杂的类型映射、双向映射、递归映射等，并且可以通过XML配置文件进行灵活的配置。 -->
+			<dependency>
+				<groupId>net.sf.dozer</groupId>
+				<artifactId>dozer</artifactId>
+				<version>${dozer.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.dozer</groupId>
+				<artifactId>dozer-spring</artifactId>
+				<version>${dozer.version}</version>
+			</dependency>
+			<!-- EZMorph是一个简单的java类库用于将一种对象转换成另外一种对象。EZMorph原先是Json-lib项目中的转换器。EZMorph支持原始数据类型（Primitive）， 
+				对象（Object），多维数组转换与DynaBeans的转换。兼容JDK1.3.1，整个类库大小只有76K左右。 在Java EE开发常用的struts2中，json的处理便使用了EZMorph库。 -->
+			<dependency>
+				<groupId>net.sf.ezmorph</groupId>
+				<artifactId>ezmorph</artifactId>
+				<version>${ezmorph.version}</version>
+			</dependency>
+
+			<!-- ###################### Http框架###################### -->
+
+			<!-- httpasyncclient -->
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpasyncclient</artifactId>
+				<version>${httpasyncclient.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpasyncclient-osgi</artifactId>
+				<version>${httpasyncclient.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpasyncclient-cache</artifactId>
+				<version>${httpasyncclient.version}</version>
+			</dependency>
+			<!-- httpcore -->
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpcore</artifactId>
+				<version>${httpcore.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpcore-ab</artifactId>
+				<version>${httpcore.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpcore-nio</artifactId>
+				<version>${httpcore.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpcore-osgi</artifactId>
+				<version>${httpcore.version}</version>
+			</dependency>
+			<!-- httpclient -->
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>${httpclient.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient-cache</artifactId>
+				<version>${httpclient.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>fluent-hc</artifactId>
+				<version>${httpclient.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient-osgi</artifactId>
+				<version>${httpclient.version}</version>
+			</dependency>
+			<!-- httpcomponents -->
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpcomponents-core</artifactId>
+				<version>${httpcomponents.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpcomponents-asyncclient</artifactId>
+				<version>${httpcomponents.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpcomponents-client</artifactId>
+				<version>${httpcomponents.version}</version>
+			</dependency>
+			<!-- httpmime -->
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpmime</artifactId>
+				<version>${httpmime.version}</version>
+			</dependency>
+
+			<!-- ###################### 图表报表框架 ###################### -->
+
+			<!-- JFreeChart是JAVA平台上的一个开放的图表绘制类库。它完全使用JAVA语言编写，是为applications, applets, 
+				servlets 以及JSP等使用所设计。 JFreeChart可生成饼图（pie charts）、柱状图（bar charts）、散点图（scatter 
+				plots）、时序图（time series）、甘特图（Gantt charts） 等等多种图表，并且可以产生PNG和JPEG格式的输出，还可以与PDF和EXCEL关联。 -->
+			<!-- jfree begain -->
+			<dependency>
+				<groupId>org.jfree</groupId>
+				<artifactId>jfreechart</artifactId>
+				<version>1.0.19</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jfree</groupId>
+				<artifactId>jcommon</artifactId>
+				<version>1.0.23</version>
+			</dependency>
+			<!-- <dependency> <groupId>jfree</groupId> <artifactId>jfreereport</artifactId> 
+				<version>0.8.6</version> </dependency> <dependency> <groupId>jfree</groupId> 
+				<artifactId>jfreechart-experimental</artifactId> <version>1.0.8a</version> 
+				</dependency> <dependency> <groupId>jfree</groupId> <artifactId>jfreechart-swt</artifactId> 
+				<version>1.0.9</version> </dependency> <dependency> <groupId>jfree</groupId> 
+				<artifactId>jfreereport-ext</artifactId> <version>0.8.6</version> </dependency> -->
+			<!-- jfree end -->
+			<!-- JasperReports是一个基于Java的开源报表工具，它可以在Java环境下像其它IDE报表工具一样来制作报表。 JasperReports 
+				支持PDF、HTML、XLS、CSV和XML文件输出格式。JasperReports是当前Java开发者最常用的报表工具。 -->
+			<dependency>
+				<groupId>net.sf.jasperreports</groupId>
+				<artifactId>jasperreports</artifactId>
+				<version>${jasperreports.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.jasperreports</groupId>
+				<artifactId>jasperreports-fonts</artifactId>
+				<version>${jasperreports.version}</version>
+			</dependency>
+
+			<!-- FineReport报表软件是一款纯Java编写的、集数据展示(报表)和数据录入(表单)功能于一身的企业级web报表工具， 它“专业、简捷、灵活”的特点和无码理念，仅需简单的拖拽操作便可以设计复杂的中国式报表，搭建数据决策分析系统。 -->
+			<dependency>
+				<groupId>com.fr</groupId>
+				<artifactId>fr-core</artifactId>
+				<version>${fineReport.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fr</groupId>
+				<artifactId>fr-chart</artifactId>
+				<version>${fineReport.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fr</groupId>
+				<artifactId>fr-performance</artifactId>
+				<version>${fineReport.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fr</groupId>
+				<artifactId>fr-platform</artifactId>
+				<version>${fineReport.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fr</groupId>
+				<artifactId>fr-report</artifactId>
+				<version>${fineReport.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fr</groupId>
+				<artifactId>fr-third</artifactId>
+				<version>${fineReport.version}</version>
+			</dependency>
+
+			<!-- ###################### 模板框架 ###################### -->
+
+			<!-- Velocity是一个基于java的模板引擎（template engine）。 它允许任何人仅仅简单的使用模板语言（template 
+				language）来引用由java代码定义的对象。 当Velocity应用于web开发时，界面设计人员可以和java程序开发人员同步开发一个遵循MVC架构的web站点， 
+				也就是说，页面设计人员可以只关注页面的显示效果，而由java程序开发人员关注业务逻辑编码。 Velocity将java代码从web页面中分离出来，这样为web站点的长期维护提供了便利， 
+				同时也为我们在JSP和PHP之外又提供了一种可选的方案。 Velocity的能力远不止web站点开发这个领域， 例如，它可以从模板（template）产生SQL和PostScript、XML，它也可以被当作一个独立工具来产生源代码和报告， 
+				或者作为其他系统的集成组件使用。Velocity也可以为Turbine web开发架构提供模板服务（template service）。 Velocity+Turbine提供一个模板服务的方式允许一个web应用以一个真正的MVC模型进行开发。 -->
+			<dependency>
+				<groupId>org.apache.velocity</groupId>
+				<artifactId>velocity</artifactId>
+				<version>${velocity.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.velocity</groupId>
+				<artifactId>velocity-tools</artifactId>
+				<version>${velocity-tools.version}</version>
+			</dependency>
+			<!-- FreeMarker是一个用Java语言编写的模板引擎，它基于模板来生成文本输出 -->
+			<dependency>
+				<groupId>org.freemarker</groupId>
+				<artifactId>freemarker</artifactId>
+				<version>${freemarker.version}</version>
+			</dependency>
+
+			<!-- ###################### Struts1.x 核心框架 ###################### -->
+
+			<dependency>
+				<groupId>struts</groupId>
+				<artifactId>struts</artifactId>
+				<version>${struts1.version}</version>
+			</dependency>
+
+			<!-- ###################### Struts 2.x 核心框架 ###################### -->
+
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-core</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts-annotations</artifactId>
+				<version>${struts2-annotations.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts.xwork</groupId>
+				<artifactId>xwork-core</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<!--struts2-plugins -->
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-spring-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-json-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-junit-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-convention-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-config-browser-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-tiles-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-dwr-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-osgi-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-portlet-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-sitemesh-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-jsf-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-struts1-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-rest-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-dojo-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-codebehind-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-jasperreports-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-embeddedjsp-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-pell-multipart-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-sitegraph-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-jfreechart-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-plexus-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-oval-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-osgi-admin-bundle</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-javatemplates-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-testng-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-gxp-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-tiles3-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-cdi-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-portlet-tiles-plugin</artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.struts</groupId>
+				<artifactId>struts2-continuations-plugin </artifactId>
+				<version>${struts2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>classworlds</groupId>
+				<artifactId>classworlds</artifactId>
+				<version>1.1</version>
+			</dependency>
+
+			<!-- ###################### WEB 功能扩展工具包###################### -->
+
+			<!-- SiteMesh 是一个网页布局和修饰的框架，利用它可以将网页的内容和页面结构分离，以达到页面结构共享的目的 -->
+			<dependency>
+				<groupId>opensymphony</groupId>
+				<artifactId>sitemesh</artifactId>
+				<version>${sitemesh.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.sitemesh</groupId>
+				<artifactId>sitemesh</artifactId>
+				<version>${sitemesh3.version}</version>
+			</dependency>
+			<!-- DWR（Direct Web Remoting）是一个用于改善web页面与Java类交互的远程服务器端Ajax开源框架，可以帮助开发人员开发包含AJAX技术的网站。 
+				它可以允许在浏览器里的代码使用运行在WEB服务器上的JAVA函数，就像它就在浏览器里一样 -->
+			<dependency>
+				<groupId>org.directwebremoting</groupId>
+				<artifactId>dwr</artifactId>
+				<version>${dwr.version}</version>
+			</dependency>
+
+			<!-- ###################### AOP工具包 ###################### -->
+
+			<!-- AOP Alliance(http://aopalliance.sourceforge.net/) 是个联合的开源协作组织， 在多个项目间进行协作以期提供一套标准的AOP 
+				Java接口（interface）。 Spring AOP就是基于AOP Alliance标准API实现的。如果你打算使用Spring的AOP或基于AOP的任何特性， 
+				只需这个JAR文件。 -->
+			<dependency>
+				<groupId>aopalliance</groupId>
+				<artifactId>aopalliance</artifactId>
+				<version>1.0</version>
+			</dependency>
+			<!-- aspectj -->
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
+				<version>${aspectj.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>${aspectj.version}</version>
+			</dependency>
+			<!-- CGLIB是一个强大的高性能的代码生成包。它广泛的被许多AOP的框架使用，例如Spring AOP和dynaop，为他们提供方法的interception（拦截）。 
+				最流行的OR Mapping工具hibernate也使用CGLIB来代理单端single-ended(多对一和一对一)关联（对集合的延迟抓取，是采用其他机制实现的）。 -->
+			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib-nodep</artifactId>
+				<version>${cglib.version}</version>
+			</dependency>
+
+			<!-- ###################### Guice 4.x ###################### -->
+
+			<!-- Guice是Google开发的一个轻量级，基于Java5（主要运用泛型与注释特性）的依赖注入框架(IOC)。 Guice非常小而且快。Guice是类型安全的， 
+				它能够对构造函数，属性，方法（包含任意个参数的任意方法，而不仅仅是setter方法）进行注入 -->
+			<dependency>
+				<groupId>com.google.inject</groupId>
+				<artifactId>guice</artifactId>
+				<version>${guice.version}</version>
+			</dependency>
+
+			<!-- ###################### Spring 4.x 核心框架 ###################### -->
+
+			<!-- 基于代理的AOP支持 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- 基于AspectJ的切面 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aspects</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- Bean支持，包括Groovy -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- 应用程序的运行时环境，包括调度和远程处理的抽象 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- 用于把常用的第三方 类库集成到Spring的应用环境中的支持类 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- 被大多数其他Spring模块使用的核心工具类 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- Spring的表达式语言（SpEL） -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-expression</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- 用于JVM启动引导的监测代理 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-instrument</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- 用于Tomcat的监测代理 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-instrument-tomcat</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- JDBC支持包，包括DataSource安装和JDBC访问支持 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- JMS支持包，包括发送和接收JMS消息的辅助器 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jms</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- 支持消息传递的架构和协议 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-messaging</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- 对象/关系映射，包括对JPA和hibernate的支持 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- 对象/XML的映射 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-oxm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- 支持单元测试和集成测试的Spring组件 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- 事务的基础架构，包括对DAO支持和JCA集成 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- Web支持包，包括客户端和web的远程访问 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- REST的web服务和用于web应用程序的mvc实现 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- 用于Portlet环境的MVC实现 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc-portlet</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- WebSocket和SockJS的实现，包括对STOMP支持 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-websocket</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-asm</artifactId>
+				<version>3.1.4.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jca</artifactId>
+				<version>${spring-support.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdo</artifactId>
+				<version>${spring-support.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jmx</artifactId>
+				<version>${spring-support.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jpa</artifactId>
+				<version>${spring-support.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-support</artifactId>
+				<version>${spring-support.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webflow</artifactId>
+				<version>${spring-webflow.version}</version>
+			</dependency>
+			<!-- spring end -->
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-commons</artifactId>
+				<version>1.11.4.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-commons-core</artifactId>
+				<version>1.4.1.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-mongodb</artifactId>
+				<version>1.8.4.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-jpa</artifactId>
+				<version>1.9.4.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-hadoop</artifactId>
+				<version>2.3.0.RELEASE</version>
+				<!-- <version>2.3.0.RELEASE-hadoop26</version> -->
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-redis</artifactId>
+				<version>1.6.2.RELEASE</version>
+			</dependency>
+
+			<!-- ###################### Ibatis 2.3.x 核心框架 ###################### -->
+
+			<dependency>
+				<groupId>org.apache.ibatis</groupId>
+				<artifactId>ibatis-core</artifactId>
+				<version>${ibatis-core.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.ibatis</groupId>
+				<artifactId>ibatis-sqlmap</artifactId>
+				<version>${ibatis-sqlmap.version}</version>
+			</dependency>
+
+			<!-- ###################### Mybatis 3.4.x ###################### -->
+
+			<!-- MyBatis是一个支持普通SQL查询，存储过程和高级映射的优秀持久层框架。MyBatis消除了几乎所有的JDBC代码和参数的手工设置 
+				以及对结果集的检索封装。MyBatis可以使用简单的XML或注解用于配置和原始映射，将接口和Java的POJO（Plain Old Java Objects， 
+				普通的Java对象）映射成数据库中的记录。 -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>${mybatis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-spring</artifactId>
+				<version>${mybatis-spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-guice</artifactId>
+				<version>${mybatis-guice.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-docbook</artifactId>
+				<version>${mybatis-docbook.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-migrations</artifactId>
+				<version>${mybatis-migrations.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-core</artifactId>
+				<version>${mybatis-generator.version}</version>
+			</dependency>
+			<!-- mybatis scripting -->
+			<dependency>
+				<groupId>org.mybatis.scripting</groupId>
+				<artifactId>mybatis-freemarker</artifactId>
+				<version>${mybatis-freemarker.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis.scripting</groupId>
+				<artifactId>mybatis-velocity</artifactId>
+				<version>${mybatis-velocity.version}</version>
+			</dependency>
+			<!-- mybatis caches -->
+			<dependency>
+				<groupId>org.mybatis.caches</groupId>
+				<artifactId>mybatis-ehcache</artifactId>
+				<version>${mybatis-ehcache.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis.caches</groupId>
+				<artifactId>mybatis-oscache</artifactId>
+				<version>${mybatis-oscache.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis.caches</groupId>
+				<artifactId>mybatis-hazelcast</artifactId>
+				<version>${mybatis-hazelcast.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis.caches</groupId>
+				<artifactId>mybatis-redis</artifactId>
+				<version>${mybatis-redis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis.caches</groupId>
+				<artifactId>mybatis-memcached</artifactId>
+				<version>${mybatis-memcached.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis.caches</groupId>
+				<artifactId>mybatis-ignite</artifactId>
+				<version>${mybatis-ignite.version}</version>
+			</dependency>
+
+			<!-- ###################### Hibernate 5.x ###################### -->
+
+			<!-- Hibernate是一种Java语言下的对象关系映射解决方案。 它是使用GNU宽通用公共许可证发行的自由、开源的软件。 它为面向对象的领域模型到传统的关系型数据库的映射，提供了一个使用方便的框架。 -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-ehcache</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-oscache</artifactId>
+				<version>3.6.10.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-c3p0</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-proxool</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-osgi</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+
+			<!-- ###################### 连接池组包 ###################### -->
+
+			<!-- DBCP （Database Connection Pool）是一个依赖Jakarta commons-pool对象池机制的数据库连接池，Tomcat的数据源使用的就是DBCP。 -->
+			<dependency>
+				<groupId>commons-dbcp</groupId>
+				<artifactId>commons-dbcp</artifactId>
+				<version>${commons-dbcp.version}</version>
+			</dependency>
+			<!-- DBCP 2.x 基于 Commons Pool 2 并且提升了性能和 JMX 的支持，同时还有一些新特性。如果你要升级到这个版本必须注意的时包名已经有所改动。DBCP 
+				2.x 不兼容 1.x，一些配置项也做了改动。 -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-dbcp2</artifactId>
+				<version>${commons-dbcp2.version}</version>
+			</dependency>
+
+			<!-- c3p0 连接池组件 -->
+			<dependency>
+				<groupId>c3p0</groupId>
+				<artifactId>c3p0</artifactId>
+				<version>${c3p0.version}</version>
+			</dependency>
+			<!-- Druid是阿里巴巴开源平台上的一个项目，整个项目由数据库连接池、插件框架和SQL解析器组成。 该项目主要是为了扩展JDBC的一些限制，可以让程序 
+				员实现一些特殊的需求，比如向密钥服务请求凭证、 统计SQL信息、SQL性能收集、SQL注入检查、SQL翻译等，程序员可以通过定制来实现自己需要的功 
+				能 -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>${alibaba-druid.version}</version>
+			</dependency>
+			<!-- Proxool是一种Java数据库连接池技术。sourceforge下的一个开源项目,这个项目提供一个健壮、易用的连接池，最为关键的是这个连接池提供监控的功能，方便易用，便于发现连接泄漏的情况。 -->
+			<dependency>
+				<groupId>com.cloudhopper.proxool</groupId>
+				<artifactId>proxool</artifactId>
+				<version>${proxool.version}</version>
+			</dependency>
+
+			<!-- ###################### 微型数据库 ###################### -->
+
+			<!-- smallsql -->
+			<dependency>
+				<groupId>craky</groupId>
+				<artifactId>smallsql</artifactId>
+				<version>${smallsql.version}</version>
+			</dependency>
+			<!-- hsqldb begain -->
+			<dependency>
+				<groupId>org.hsqldb</groupId>
+				<artifactId>hsqldb</artifactId>
+				<version>${hsqldb.version}</version>
+			</dependency>
+			<!-- hsqldb end -->
+
+			<!-- ###################### 缓存框架 ###################### -->
+
+
+			<!-- Guava工程包含了若干被Google的 Java项目广泛依赖 的核心库，例如：集合 [collections] 、缓存 [caching] 
+				、原生类型支持 [primitives support] 、 并发库 [concurrency libraries] 、通用注解 [common 
+				annotations] 、字符串处理 [string processing] 、I/O 等等。 -->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+
+			<!-- OSCache标记库由OpenSymphony设计，它是一种开创性的JSP定制标记应用，提供了在现有JSP页面之内实现快速内存缓冲的功能。 
+				OSCache是个一个广泛采用的高性能的J2EE缓存框架，OSCache能用于任何Java应用程序的普通的缓存解决方案。 -->
+			<dependency>
+				<groupId>opensymphony</groupId>
+				<artifactId>oscache</artifactId>
+				<version>2.4.1</version>
+			</dependency>
+
+			<!-- EhCache 是一个纯Java的进程内缓存框架，具有快速、精干等特点，是Hibernate中默认的CacheProvider。Ehcache是一种广泛使用的开 
+				源Java分布式缓存。 主要面向通用缓存,Java EE和轻量级容器。它具有内存和磁盘存储，缓存加载器,缓存扩展，缓存异常处理程序，一个gzip缓存servlet过滤器，支持REST和SOAP 
+				api等特点。 优点： 1. 快速 2. 简单 3. 多种缓存策略 4. 缓存数据有两级：内存和磁盘，因此无需担心容量问题 5. 缓存数据会在虚拟机重启的过程中写入磁盘 
+				6. 可以通过RMI、可插入API等方式进行分布式缓存 7. 具有缓存和缓存管理器的侦听接口 8. 支持多缓存管理器实例，以及一个实例的多个缓存区域 
+				9. 提供Hibernate的缓存实现 缺点： 1. 使用磁盘Cache的时候非常占用磁盘空间：这是因为DiskCache的算法简单，该算法简单也导致Cache的效率非常高。它只是对元素直接追加存储。因此搜索元素的时候非常的快。如果使用DiskCache的，在很频繁的应用中，很快磁盘会满。 
+				2. 不能保证数据的安全：当突然kill掉java的时候，可能会产生冲突，EhCache的解决方法是如果文件冲突了，则重建cache。这对于Cache 
+				数据需要保存的时候可能不利。当然，Cache只是简单的加速，而不能保证数据的安全。如果想保证数据的存储安全，可以使用Bekeley DB Java 
+				Edition版本。这是个嵌入式数据库。可以确保存储安全和空间的利用率。 EhCache的分布式缓存有传统的RMI，1.5版的JGroups，1.6版的JMS。分布式缓存主要解决集群环境中不同的服务器间的数据的同步问题。 
+				使用Spring的AOP进行整合，可以灵活的对方法的返回结果对象进行缓存。 -->
+			<dependency>
+				<groupId>net.sf.ehcache</groupId>
+				<artifactId>ehcache</artifactId>
+				<version>${ehcache.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.ehcache</groupId>
+				<artifactId>ehcache-core</artifactId>
+				<version>2.6.11</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ehcache</groupId>
+				<artifactId>ehcache</artifactId>
+				<version>${ehcache3.version}</version>
+			</dependency>
+
+			<!-- Hazelcast是一个高度可扩展的数据分发和集群平台，可用于实现分布式数据存储、数据缓存。 -->
+			<dependency>
+				<groupId>com.hazelcast</groupId>
+				<artifactId>hazelcast</artifactId>
+				<version>3.5.4</version>
+			</dependency>
+			<dependency>
+				<groupId>com.hazelcast</groupId>
+				<artifactId>hazelcast-client</artifactId>
+				<version>3.5.4</version>
+			</dependency>
+			<dependency>
+				<groupId>com.hazelcast</groupId>
+				<artifactId>hazelcast-spring</artifactId>
+				<version>3.5.4</version>
+			</dependency>
+
+			<!-- xmemcached 缓存组件 -->
+			<!-- simple-spring-memcached -->
+			<dependency>
+				<groupId>com.google.code.simple-spring-memcached</groupId>
+				<artifactId>spring-cache</artifactId>
+				<version>3.6.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.code.simple-spring-memcached</groupId>
+				<artifactId>simple-spring-memcached</artifactId>
+				<version>3.6.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.code.simple-spring-memcached</groupId>
+				<artifactId>xmemcached-provider</artifactId>
+				<version>3.6.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.googlecode.xmemcached</groupId>
+				<artifactId>xmemcached</artifactId>
+				<version>${xmemcached.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.ws.xmlschema</groupId>
+				<artifactId>xmlschema-core</artifactId>
+				<version>${xmlschema-core.version}</version>
+			</dependency>
+			<!-- Redis是一款开源的、高性能的键-值存储（key-value store）。它常被称作是一款数据结构服务器（data structure 
+				server）。 -->
+			<!-- Jedis 是 Redis 官方首选的 Java 客户端开发包。 -->
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>${jedis.version}</version>
+			</dependency>
+			<!-- Redisson 是基于Redis服务之上构建的分布式、可伸缩的Java数据结构，高级的Redis客户端。【redis官方推荐】 
+				Redisson 是使用熟悉的Java数据结构来发挥Redis的威力，基于lettuce Redis客户端和Netty 4 ，兼容 Redis 2.6+ 
+				and JDK 1.6+ -->
+			<dependency>
+				<groupId>org.redisson</groupId>
+				<artifactId>redisson</artifactId>
+				<version>${redisson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.sadstool</groupId>
+				<artifactId>redisson-aspect-lock</artifactId>
+				<version>0.1.0</version>
+			</dependency>
+			<!--Lettuce是一个可伸缩线程安全的Redis客户端。多个线程可以共享同一个RedisConnection。 它利用优秀netty 
+				NIO框架来高效地管理多个连接。 Lettuce是一个可伸缩线程安全的Redis客户端。 多个线程可以共享同一个RedisConnection。它利用优秀netty 
+				NIO框架来高效地管理多个连接。 -->
+			<dependency>
+				<groupId>com.lambdaworks</groupId>
+				<artifactId>lettuce</artifactId>
+				<version>${lettuce.version}</version>
+			</dependency>
+
+			<!-- ######################工作流 依赖工具包###################### -->
+
+			<!-- Activiti是一个业务流程管理(BPM)和工作流系统，适用于开发人员和系统管理员。其核心是超快速，稳定的BPMN2流程引擎。 
+				它易于与 Spring集成使用。 -->
+			<!-- activiti核心 -->
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-engine</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-bpmn-model</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-bpmn-converter</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-image-generator</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-process-validation</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-spring</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<!-- activiti扩展 -->
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-bpmn-layout</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-json-converter</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-common-rest</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-rest</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-simple-workflow</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-camel</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-diagram-rest</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-explorer</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-modeler</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-crystalball</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-osgi</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-cxf</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-cdi</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-jmx</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-mule</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-ldap</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<!-- jBpm是一个灵活可扩展的工作流管理系统。作为 jBpm运行时server输入的业务流程使用简单强大的语言表达并打包在流程档案中。 
+				jBpm将工作流应用开发的便利性和杰出的企业应用集成（EAI）能力结合了起来。jBpm包括一个Web应用程序和一个日程安排程序。 jBpm是一组J2SE组件，可以作为J2EE应用集群部署。 -->
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-audit</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-bpmn2</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-executor</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-flow</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-flow-builder</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-human-task-audit</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-human-task-core</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-human-task-jpa</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-human-task-workitems</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-kie-services</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-persistence-jpa</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-runtime-manager</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-services-api</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<!-- jbpm-services-ejb -->
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-services-ejb-api</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-services-ejb-client</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-services-ejb-impl</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-services-ejb-timer</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-shared-services</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jbpm</groupId>
+				<artifactId>jbpm-workitems</artifactId>
+				<version>${jbpm.version}</version>
+			</dependency>
+			<!--Drools 之 kie规则引擎 -->
+			<dependency>
+				<groupId>org.kie</groupId>
+				<artifactId>kie-api</artifactId>
+				<version>${kie.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.kie</groupId>
+				<artifactId>kie-aries-blueprint</artifactId>
+				<version>${kie.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.kie</groupId>
+				<artifactId>kie-ci</artifactId>
+				<version>${kie.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.kie</groupId>
+				<artifactId>kie-ci-osgi</artifactId>
+				<version>${kie.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.kie</groupId>
+				<artifactId>kie-internal</artifactId>
+				<version>${kie.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.kie</groupId>
+				<artifactId>kie-maven-plugin</artifactId>
+				<version>${kie.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.kie</groupId>
+				<artifactId>kie-remote-client</artifactId>
+				<version>${kie.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.kie</groupId>
+				<artifactId>kie-remote-common</artifactId>
+				<version>${kie.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.kie</groupId>
+				<artifactId>kie-remote-jaxb</artifactId>
+				<version>${kie.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.kie</groupId>
+				<artifactId>kie-spring</artifactId>
+				<version>${kie.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.drools</groupId>
+				<artifactId>knowledge-api</artifactId>
+				<version>${knowledge.version}</version>
+			</dependency>
+
+			<!-- ###################### 大数据相关框架 ###################### -->
+
+			<!--搜索引擎 lucene begain -->
+			<dependency>
+				<groupId>org.apache.lucene</groupId>
+				<artifactId>lucene-core</artifactId>
+				<version>${lucene.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.lucene</groupId>
+				<artifactId>lucene-analyzers</artifactId>
+				<version>3.6.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.lucene</groupId>
+				<artifactId>lucene-queryparser</artifactId>
+				<version>${lucene.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.lucene</groupId>
+				<artifactId>lucene-highlighter</artifactId>
+				<version>${lucene.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.lucene</groupId>
+				<artifactId>lucene-memory</artifactId>
+				<version>${lucene.version}</version>
+			</dependency>
+			<!--搜索引擎 lucene end -->
+
+			<!-- hadoop 一个分布式系统基础架构 -->
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-core</artifactId>
+				<version>${hadoop-core.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-common</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-common-instrumented</artifactId>
+				<version>0.22.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-hdfs</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-hdfs-instrumented</artifactId>
+				<version>0.22.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-mapred-instrumented</artifactId>
+				<version>0.22.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-mapred</artifactId>
+				<version>0.22.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-streaming</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-tools</artifactId>
+				<version>${hadoop-tools.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>libthrift</artifactId>
+				<version>${hadoop-libthrift.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>zookeeper</artifactId>
+				<version>${hadoop-zookeeper.version}</version>
+			</dependency>
+
+
+			<!-- ###################### Swing 相关组件包 ###################### -->
+
+			<!-- swingc -->
+			<dependency>
+				<groupId>craky</groupId>
+				<artifactId>swingc</artifactId>
+				<version>${swingc.version}</version>
+			</dependency>
+			<!--JIntellitype提供了简单的调用方法去注册系统热键 -->
+			<dependency>
+				<groupId>com.melloware</groupId>
+				<artifactId>jintellitype</artifactId>
+				<version>1.3.9</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.media</groupId>
+				<artifactId>jmf</artifactId>
+				<version>2.1.1e</version>
+			</dependency>
+			<!-- <dependency> <groupId>sun-jmf</groupId> <artifactId>jmf</artifactId> 
+				<version>2.1.1b</version> </dependency> -->
+			<dependency>
+				<groupId>net.sourceforge.barbecue</groupId>
+				<artifactId>barbecue</artifactId>
+				<version>1.5-beta1</version>
+			</dependency>
+			<!--lookAndFell -->
+			<dependency>
+				<groupId>org.java.net.substance</groupId>
+				<artifactId>substance</artifactId>
+				<version>6.0</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.squirrel-sql.thirdparty-non-maven</groupId>
+				<artifactId>skinlf</artifactId>
+				<version>6.7</version>
+			</dependency>
+			<dependency>
+				<groupId>com.incors</groupId>
+				<artifactId>kunstoff-laf</artifactId>
+				<version>2.0.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.swinglabs</groupId>
+				<artifactId>swingx</artifactId>
+				<version>1.6.1</version>
+			</dependency>
+			<dependency>
+				<groupId>com.seaglasslookandfeel</groupId>
+				<artifactId>seaglasslookandfeel</artifactId>
+				<version>0.2</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.nimrod</groupId>
+				<artifactId>nimrod-laf</artifactId>
+				<version>1.2</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jidesoft</groupId>
+				<artifactId>jide-oss</artifactId>
+				<version>3.5.15</version>
+			</dependency>
+
+			<!-- ######################打包编译工具包###################### -->
+
+			<!-- Ant,是一个将软件编译、测试、部署等步骤联系在一起加以自动化的一个工具，大多用于Java环境中的软件开发。 -->
+			<dependency>
+				<groupId>org.apache.ant</groupId>
+				<artifactId>ant</artifactId>
+				<version>${ant.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.ant</groupId>
+				<artifactId>ant-apache-oro</artifactId>
+				<version>${ant.version}</version>
+			</dependency>
+
+			<!-- ######################web爬虫工具###################### -->
+
+			<dependency>
+				<groupId>cn.edu.hfut.dmic.webcollector</groupId>
+				<artifactId>WebCollector</artifactId>
+				<version>2.09</version>
+			</dependency>
+
+			<!-- ######################web安全组件###################### -->
+
+			<!-- 它是一个可确保用户输入的HTML/CSS符合应用规范的API。 换句话讲，这个API可以确保用户无法在HTML中提交恶意代码，这些恶意代码提交通常 
+				被用于用户输入的个人资料、评论等会被服务端持久化的数据中。 对Web应用来讲，“恶意代码”通常是指Javascript。CSS样式在调用 Javascript引擎的时候也会被认为是恶意代码。 
+				当然，通常一些“正常”的HTML和CSS也会被用于恶意的目的，所以我们也会对此予以处理 -->
+			<dependency>
+				<groupId>org.owasp.antisamy</groupId>
+				<artifactId>antisamy</artifactId>
+				<version>${owasp-antisamy.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.owasp</groupId>
+				<artifactId>csrfguard</artifactId>
+				<version>${owasp-csrfguard.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.owasp.encoder</groupId>
+				<artifactId>encoder</artifactId>
+				<version>${owasp-encode.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.owasp.encoder</groupId>
+				<artifactId>encoder-jsp</artifactId>
+				<version>${owasp-encode.jsp.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.owasp.esapi</groupId>
+				<artifactId>esapi</artifactId>
+				<version>${owasp-esapi.version}</version>
+			</dependency>
+
+			<!-- ######################文件服务客户端###################### -->
+
+			<dependency>
+				<groupId>org.csource</groupId>
+				<artifactId>fastdfs-client-java</artifactId>
+				<version>${fastdfs-client.version}</version>
+			</dependency>
+
+			<!-- ######################优秀组件###################### -->
+
+			<dependency>
+				<groupId>eu.bitwalker</groupId>
+				<artifactId>UserAgentUtils</artifactId>
+				<version>1.20</version>
+			</dependency>
+
+			<!-- Disruptor它是一个开源的并发框架,并获得2011 Duke’s 程序框架创新奖,能够在无锁的情况下实现网络的Queue并发操作。 -->
+			<dependency>
+				<groupId>com.lmax</groupId>
+				<artifactId>disruptor</artifactId>
+				<version>${disruptor.version}</version>
+			</dependency>
+			<!-- JGroups是一个开源的纯java编写的可靠的群组通讯工具。其是一个可靠的组播通讯工具集（需要说明的是，这并不是说必须要使用IP 
+				Multicast,JGroups也可以使用TCP来实现）。 其工作模式基于IP多播，但可以在可靠性和群组成员管理上进行扩展。其结构上设计灵活，提供了一种灵活兼容多种协议的协议栈，对于每个产品都有不同的可靠性需求。这种协议栈可以让用户定义的自己可靠性指标和性能指标。 
+				JGroups可以用来创建一个组，这个组中的成员可以给其他成员发送消息。 -->
+			<dependency>
+				<groupId>org.jgroups</groupId>
+				<artifactId>jgroups</artifactId>
+				<version>${jgroups.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>jgroups</groupId>
+				<artifactId>jgroups</artifactId>
+				<version>2.9.0.GA</version>
+			</dependency>
+			<!-- JUnRar是一个采用纯Java实现的rar文件压缩和解压缩的开源类库。 -->
+			<dependency>
+				<groupId>com.github.junrar</groupId>
+				<artifactId>junrar</artifactId>
+				<version>0.7</version>
+			</dependency>
+			<!-- JCIFS 是一个纯Java语言编写，基于CIFS/SMB网络协议的开源客户端 -->
+			<dependency>
+				<groupId>org.samba.jcifs</groupId>
+				<artifactId>jcifs</artifactId>
+				<version>1.3.3</version>
+			</dependency>
+			<!-- JSch是一个纯Java实现的SSH2网络协议客户端 -->
+			<dependency>
+				<groupId>com.jcraft</groupId>
+				<artifactId>jsch</artifactId>
+				<version>0.1.53</version>
+			</dependency>
+			<!-- JSqlParser能够解析SQL语句并它翻译成一个Java类层次。它产生的层次可以使用访问者模式导航 -->
+			<dependency>
+				<groupId>com.github.jsqlparser</groupId>
+				<artifactId>jsqlparser</artifactId>
+				<version>0.9.7</version>
+			</dependency>
+			<!-- Thumbnailator是一个用来生成图像缩略图的 Java类库，通过很简单的代码即可生成图片缩略图，也可直接对一整个目录的图片生成缩略图。 -->
+			<dependency>
+				<groupId>net.coobird</groupId>
+				<artifactId>thumbnailator</artifactId>
+				<version>0.4.8</version>
+			</dependency>
+			<!-- JavaMelody 能够监测Java或Java EE应用程序服务器，并以图表的方式显示：Java内存和Java CPU使用情况， 
+				用户Session数量，JDBC连接数，和http请求、sql请求、jsp页面与业务接口方法（EJB3、Spring、 Guice）的执行数量， 
+				平均执行时间，错误百分比等。图表可以按天，周，月，年或自定义时间段查看。 -->
+			<dependency>
+				<groupId>net.bull.javamelody</groupId>
+				<artifactId>javamelody-core</artifactId>
+				<version>1.58.0</version>
+			</dependency>
+			<!-- NekoHTML是一个简单地HTML扫描器和标签补偿器(tag balancer),使得程序能解析HTML文档并用标准的XML接口来访问其中的信息。 
+				这个解析器能投扫描HTML文件并“修正”许多作者（人或机器）在编写HTML文档过程中常犯的错误。 NekoHTML能增补缺失的父元素、自动用结束标签关闭相应的元素，以及不匹配的内嵌元素标签。 
+				NekoHTML的开发使用了Xerces Native Interface (XNI)，后者是Xerces2的实现基础。 -->
+			<dependency>
+				<groupId>net.sourceforge.nekohtml</groupId>
+				<artifactId>nekohtml</artifactId>
+				<version>${nekohtml.version}</version>
+			</dependency>
+			<!-- SNMP4J是一个用Java来实现SNMP(简单网络管理协议)协议的开源项目.它支持以命令行的形式进行管理与响应。SNMP4J是纯面向对象设计与SNMP++(用C++实现SNMPv1/v2c/v3)相类似。 
+				SNMP4J API 提供以下下特性： 支持MD5和SHA验证，DES，3DES,AES128、AES192和AES256加密的SNMPv3。 支持MPv1,MPv2C和MPv3，带执行的可阻塞的信息处理模块。 
+				全部PDU格式。 可阻塞的传输拓扑。支持UPD、TCP、TLS 。 可阻塞的超时模块。 同步和异步请求。 命令发生器以及命令应答器的支持。 基于Apache 
+				license的开源免费。 JAVA 1.4.1或更高版本(2.0或更高版本需要jdk1.6及以上的支持)。 基于LOG4J记录日志。 使用GETBULK实现Row-based的有效的异步表格获取。 
+				支持多线程。 -->
+			<dependency>
+				<groupId>org.snmp4j</groupId>
+				<artifactId>snmp4j</artifactId>
+				<version>${snmp4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.snmp4j</groupId>
+				<artifactId>snmp4j-agent</artifactId>
+				<version>${snmp4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.snmp4j</groupId>
+				<artifactId>snmp4j-agentx</artifactId>
+				<version>${snmp4j.version}</version>
+			</dependency>
+
+			<!-- ######################org.apache.xmlgraphics ###################### -->
+
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-transcoder</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-util</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-ext</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-awt-util</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-svggen</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-dom</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-svg-dom</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-css</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-bridge</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-gvt</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-xml</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-codec</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-parser</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-anim</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-script</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-rasterizer</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-swing</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-gui-util</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-js</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-extension</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>batik-ttf2svg</artifactId>
+				<version>${batik.version}</version>
+			</dependency>
+
+			<!-- ###################### Flyway是一个敏捷的Java数据库迁移框架。支持在启动时自动迁移。 ###################### -->
+			<dependency>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-core</artifactId>
+				<version>${flyway.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-sbt</artifactId>
+				<version>${flyway.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>1.3.170</version>
+			</dependency>
+
+			<!-- ###################### Shiro 1.2.x ###################### -->
+			<!-- Apache Shiro是一个强大的，易用的Java安全框架。它被用作于认证，授权，加密，session管理。依赖于Shiro简单易懂的API，就可以快速的构建包括手机，大型web和商业应用。 -->
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-core</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-web</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-spring</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-ehcache</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-cas</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+
+			<!-- ###################### Metrics 3.x ###################### -->
+
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-annotation</artifactId>
+				<version>${metrics.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-core</artifactId>
+				<version>${metrics.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-healthchecks</artifactId>
+				<version>${metrics.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-jvm</artifactId>
+				<version>${metrics.version}</version>
+			</dependency>
+
+			<!-- HTTP报表 Metric也提供了一个servlet (AdminServlet)提供JSON风格的报表。 它还提供了单一功能的servlet 
+				(MetricsServlet, HealthCheckServlet, ThreadDumpServlet, PingServlet)。 -->
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-servlets</artifactId>
+				<version>${metrics.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-httpclient</artifactId>
+				<version>${metrics.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-servlet</artifactId>
+				<version>${metrics.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-ehcache</artifactId>
+				<version>${metrics.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-log4j2</artifactId>
+				<version>${metrics.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.ryantenney.metrics</groupId>
+				<artifactId>metrics-spring</artifactId>
+				<version>3.1.3</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/org.hyperic/sigar -->
+			<dependency>
+				<groupId>org.hyperic</groupId>
+				<artifactId>sigar</artifactId>
+				<version>${sigar.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hyperic</groupId>
+				<artifactId>sigar-native</artifactId>
+				<version>${sigar.version}</version>
+			</dependency>
+
+			<!--#####################单元测试组件###################### -->
+			<dependency>
+				<groupId>com.oracle</groupId>
+				<artifactId>ojdbc14</artifactId>
+				<version>${oracle-10g-driver.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.databene</groupId>
+				<artifactId>feed4junit</artifactId>
+				<version>${feed4junit.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hamcrest</groupId>
+				<artifactId>hamcrest-core</artifactId>
+				<version>${hamcrest.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jayway.jsonpath</groupId>
+				<artifactId>json-path-assert</artifactId>
+				<version>${jsonpath.version}</version>
+			</dependency>
+
+			<dependency>
+			    <groupId>org.terracotta</groupId>
+			    <artifactId>terracotta-toolkit-runtime</artifactId>
+			    <version>${terracotta-toolkit-runtime.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<!-- JUnit is a unit testing framework for Java, created by Erich Gamma 
+			and Kent Beck. -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- The slf4j API -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Java Servlet API -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Log4j 2.x 包含了基于LMAX 分离库的下一代的异步日志系统，在多线程环境下，异步日志系统比 Log4j 1.x 和Logback 
+			提高了10倍性能提升（吞吐量和延迟率 ） -->
+
+		<!-- The Apache Log4j Implementation -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j2.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- The Apache Log4j SLF4J API binding to Log4j 2 Core -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j2.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- The Apache Log4j Commons Logging Adapter -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-jcl</artifactId>
+			<version>${log4j2.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- The Apache Log4j implementation of java.util.logging -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-jul</artifactId>
+			<version>${log4j2.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+</project>

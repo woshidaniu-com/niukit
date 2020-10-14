@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../jquery-1.11.1-min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jquery.event.mousewheel-min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<p>jQuery Mousewheel Plugin,用于添加跨浏览器的鼠标滚轮支持。</p>
+
+		<p>mousewheel事件的处理函数有一点小小的变化，它除了第一个参数event 外，还接收到第二个参数delta。</p>
+
+		<p>通过参数delta可以获取鼠标滚轮的方向和速度。</p>
+
+		<p>如果delta的值是负的即-1，那么滚轮就是向下滚动，正的1就是向上。</p>
+		<p>js调用如下：</p>
+		<script type="text/javascript">
+			// using bind
+			$(document).bind('mousewheel', function(event, delta, deltaX, deltaY) {
+				if(window.console && console.log) {
+					console.log(delta, deltaX, deltaY);
+				}
+			});
+			// using the event helper
+			$(document).mousewheel(function(event, delta, deltaX, deltaY) {
+				if(window.console && console.log) {
+					console.log(delta, deltaX, deltaY);
+				}
+			});
+		</script>
+
+	</body>
+
+</html>

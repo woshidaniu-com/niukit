@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+	<description></description>
+	
+	<!-- 字段值的转换， key是字段名，value是转换的sql-->
+	<util:map id="columns_transform_list" map-class="java.util.HashMap" >
+		<entry key="axbxrw" value="select case ? when '是' then '1' when '否' then '0' else null end from dual"/>
+		<entry key="bgr_id" value="select jsjbxxb_id from view_js_xnw where jsxm = ?"/>
+		<entry key="ydqzy_id"   value="select zydmb_id from xt_zydmb where zymc = ?"/>
+		<entry key="ydqxi_id"   value="select jgjbxxb_id from xt_jgjbxxb where bmmc = ?"/>
+	</util:map>
+	
+</beans>

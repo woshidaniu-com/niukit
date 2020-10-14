@@ -1,0 +1,251 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.woshidaniu</groupId>
+		<artifactId>niukit-authz-build</artifactId>
+		<version>1.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>niukit-authz-dependencies</artifactId>
+	<version>1.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>niukit Authc Dependencies</name>
+	<description>niukit Authc Dependencies</description>
+	
+	<!-- 依赖版本-->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<buji-pac4j.version>3.2.0</buji-pac4j.version>
+		<cas-client.version>3.4.1</cas-client.version>
+		<hadoop.version>3.0.0</hadoop.version>
+		<idstar.version>1.3</idstar.version>
+		<jersey-client.version>1.19.4</jersey-client.version>
+		<pac4j.version>2.2.1</pac4j.version>
+		<scribe.version>3.2.0</scribe.version>
+		<thauthall.version>1.0.0</thauthall.version>
+		<uaac.version>1.6.2</uaac.version>
+		<validate.version>1.0</validate.version>
+		<woodstox-stax2-api.version>4.0.0</woodstox-stax2-api.version>
+		<woodstox-asl.version>4.4.1</woodstox-asl.version>
+		<niucaclient.version>6.0</niucaclient.version>
+		<zookeeper.version>3.3.6</zookeeper.version>
+		<dom4j.version>1.6.1</dom4j.version>
+		<niukit.shiro.version>1.1.1</niukit.shiro.version>
+		<niukit.httpclient.version>1.1.1</niukit.httpclient.version>
+		<niukit.basicutils.version>1.1.1</niukit.basicutils.version>
+
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>niukit-httpclient</artifactId>
+				<version>${niukit.httpclient.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>dom4j</groupId>
+				<artifactId>dom4j</artifactId>
+				<version>${dom4j.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/io.buji/buji-pac4j -->
+			<dependency>
+				<groupId>io.buji</groupId>
+				<artifactId>buji-pac4j</artifactId>
+				<version>${buji-pac4j.version}</version>
+			</dependency>
+
+
+			<!-- https://mvnrepository.com/artifact/org.jasig.cas.client/cas-client-core -->
+			<dependency>
+				<groupId>org.jasig.cas.client</groupId>
+				<artifactId>cas-client-core</artifactId>
+				<version>${cas-client.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.jasig.cas.client/cas-client-support-saml -->
+			<dependency>
+				<groupId>org.jasig.cas.client</groupId>
+				<artifactId>cas-client-support-saml</artifactId>
+				<version>${cas-client.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.jasig.cas.client/cas-client-support-distributed-memcached -->
+			<dependency>
+				<groupId>org.jasig.cas.client</groupId>
+				<artifactId>cas-client-support-distributed-memcached</artifactId>
+				<version>${cas-client.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.jasig.cas.client/cas-client-support-distributed-ehcache -->
+			<dependency>
+				<groupId>org.jasig.cas.client</groupId>
+				<artifactId>cas-client-support-distributed-ehcache</artifactId>
+				<version>${cas-client.version}</version>
+			</dependency>
+
+
+			<!-- 金智门户单点认证 -->
+			<dependency>
+				<groupId>com.jzsoft</groupId>
+				<artifactId>idstar</artifactId>
+				<version>${idstar.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.pac4j -->
+	        <dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>pac4j-cas</artifactId>
+	            <version>${pac4j.version}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>pac4j-core</artifactId>
+	            <version>${pac4j.version}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>pac4j-couch</artifactId>
+	            <version>${pac4j.version}</version>
+	        </dependency>
+	        <dependency>
+			    <groupId>org.pac4j</groupId>
+			    <artifactId>pac4j-config</artifactId>
+			    <version>${pac4j.version}</version>
+			    <scope>runtime</scope>
+			</dependency>
+	        <dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>pac4j-gae</artifactId>
+	            <version>${pac4j.version}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>pac4j-oauth</artifactId>
+	            <version>${pac4j.version}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>pac4j-http</artifactId>
+	            <version>${pac4j.version}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>pac4j-jwt</artifactId>
+	            <version>${pac4j.version}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>pac4j-kerberos</artifactId>
+	            <version>${pac4j.version}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>pac4j-ldap</artifactId>
+	            <version>${pac4j.version}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>pac4j-mongo</artifactId>
+	            <version>${pac4j.version}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>pac4j-oidc</artifactId>
+	            <version>${pac4j.version}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>pac4j-openid</artifactId>
+	            <version>${pac4j.version}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>pac4j-saml</artifactId>
+	            <version>${pac4j.version}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>pac4j-stormpath</artifactId>
+	            <version>2.0.0</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>pac4j-sql</artifactId>
+	            <version>${pac4j.version}</version>
+	        </dependency>
+			<dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>spring-webmvc-pac4j</artifactId>
+	            <version>${pac4j-webmvc.version}</version>
+	        </dependency>
+	        <!-- https://mvnrepository.com/artifact/com.github.scribejava -->
+			<dependency>
+			    <groupId>com.github.scribejava</groupId>
+			    <artifactId>scribejava-apis</artifactId>
+			    <version>${scribe.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>com.github.scribejava</groupId>
+			    <artifactId>scribejava-core</artifactId>
+			    <version>${scribe.version}</version>
+			</dependency>
+			<!-- 华中师范大学 单点认证 -->
+			<dependency>
+				<groupId>thauthall</groupId>
+				<artifactId>thauthall</artifactId>
+				<version>${thauthall.version}</version>
+			</dependency>
+			<!-- 科大讯飞-单点登录 -->
+			<dependency>
+				<groupId>com.iflytek</groupId>
+				<artifactId>uaac-common</artifactId>
+				<version>${uaac.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.iflytek</groupId>
+				<artifactId>uaac-cache</artifactId>
+				<version>${uaac.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.iflytek</groupId>
+				<artifactId>uaac-client-rest</artifactId>
+				<version>${uaac.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-client -->
+			<dependency>
+			    <groupId>com.sun.jersey</groupId>
+			    <artifactId>jersey-client</artifactId>
+			    <version>${jersey-client.version}</version>
+			</dependency>
+			<!-- 浙大单点登录 -->
+			<dependency>
+				<groupId>com.woshidaniu</groupId>
+				<artifactId>validate</artifactId>
+				<version>${validate.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.codehaus.woodstox -->
+			<dependency>
+			    <groupId>org.codehaus.woodstox</groupId>
+			    <artifactId>stax2-api</artifactId>
+			    <version>${woodstox-stax2-api.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.codehaus.woodstox</groupId>
+			    <artifactId>woodstox-core-asl</artifactId>
+			    <version>${woodstox-asl.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper -->
+			<dependency>
+			    <groupId>org.apache.zookeeper</groupId>
+			    <artifactId>zookeeper</artifactId>
+			    <version>${zookeeper.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.woshidaniu</groupId>
+				<artifactId>niucaclient</artifactId>
+				<version>6.0</version>
+			</dependency>
+		
+		</dependencies>
+	</dependencyManagement>
+
+</project>

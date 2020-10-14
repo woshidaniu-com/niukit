@@ -1,0 +1,148 @@
+编写规范如下：
+　　　<!ELEMENT 元素名称　元素说明>
+其中元素说明可进行以下的取值（注意括号的使用）：
+　　　EMPTY 表示该元素是单标签表示的，即开始标签也就是结束标签，如html标签中的　<br/>
+　　　ANY　表示该元素是双标签格式的，且开始标签和结束标签之间的内容任意
+　　　(＃PCDATA)　表示该元素是双标签格式的，且开始标签和结束标签之间的内容是ＰＣＤＡＴＡ类型的数据
+　　　(元素名称１，元素名称２，元素名称３....)　　表示该元素可以拥有的子元素的元素名，注意这
+　　　　　　　些子元素后面可以用以下的符号进行修饰:*、+、?，用＊号修饰表示，这个子元素在其父元素中
+　　　　　　　可以出现0次会是0次以上，用？号修改表示这个元素在其父元素中出现１或是１次以上，用＋号
+　　　　　　　修饰表示这个元素在其父元素中出现0或是１次，如下例<!ELEMENT person (name,
+　　　　　　　phone*,address+,wife?)>，表示当写xml文档时，人这个标签对中有且只有一个姓名，０个或是
+　　　　　　　０个以上的电话号码，１个或是１个以上的家庭住址，０个或是１个老婆（我们国家是这样要求
+　　　　　　　的，别的国家我就不知道了..）
+　　　(元素名称１ | 元素名称２ | 元素名称３...)  用或连接符来连接元素，表示这几个元素中的之一出现在其父
+　　　　　　　元素中，如<!ELEMENT person (name,phone*,address+,wife?,(gongcandang | otherdang))>，
+　　　　　　　其它元素的含义同上，然后(gongcandang | otherdang)表示这个人要么是共产党，要么是别的
+　　　　　　　什么党，不能既入共产党又入别的党（要不然就是对党不忠...）
+
+属性
+
+ 编写规范如下：
+
+　　　<!ATTLIST 元素名称　属性名称　属性类型　默认值>
+
+元素名称：表示这个属性是哪个元素所拥有的属性
+
+属性名称：表示这个属性在元素中应该出现的名字，只有知道了这个名称，才能确切的对某一属性进行赋值
+
+属性类型：属性的取值类型，由于这个比较固定，所以就直接摘录w3school上的解释
+
+型 	描述
+CDATA 	值为字符数据 (character data)
+(en1|en2|..) 	此值是枚举列表中的一个值
+ID 	值为唯一的 id
+IDREF 	值为另外一个元素的 id
+IDREFS 	值为其他 id 的列表
+NMTOKEN 	值为合法的 XML 名称
+NMTOKENS 	值为合法的 XML 名称的列表
+ENTITY 	值是一个实体
+ENTITIES 	值是一个实体列表
+NOTATION 	此值是符号的名称
+xml: 	值是一个预定义的 XML 值
+
+默认值：这个属性的默认取值，
+同理由于这个比较固定，所以就直接摘录w3school上的解释
+
+值 	解释
+值 	属性的默认值
+#REQUIRED 	属性值是必需的
+#IMPLIED 	属性不是必需的
+#FIXED value 	属性值是固定的
+
+实体
+编写规范 
+
+<!ENTITY 实体名称 "实体的值">
+
+
+
+
+
+
+
+
+
+
+
+实例
+
+这里就针对mars老师讲的那个歌曲资源列表所需要的xml进行dtd编写，可进行如下的编写
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<!ELEMENT resources (resource*)>
+
+<!ELEMENT resource (id,mp3,lrc)>
+
+<!ELEMENT id (#PCDATA)>
+
+<!ELEMENT mp3 (name,size)>
+
+<!ELEMENT lrc (name,size)>
+
+<!ELEMENT name (#PCDATA)>
+
+<!ELEMENT size (#PCDATA)>
+
+然就这个文件命名为：musicList.dtd放到tomcat服务器的WEB-INF目录下
+
+接下来编写音乐的资源文件，其内容可如下：
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE resources SYSTEM "WEB-INF/musicList.dtd">
+
+<resources>
+
+    <resource>
+
+        <id>0001</id>
+
+        <mp3>          
+
+          <name>a1.mp3</name>
+
+          <size>1024</size>
+
+        </mp3>
+
+        <lrc>
+
+            <name>a1.lrc</name>
+
+            <size>1024</size>
+
+        </lrc>
+
+    </resource>
+
+
+
+    
+
+    <resource>
+
+        <id>0002</id>
+
+        <mp3>          
+
+          <name>a2.mp3</name>
+
+          <size>1024</size>
+
+        </mp3>
+
+        <lrc>
+
+            <name>a2.lrc</name>
+
+            <size>1024</size>
+
+        </lrc>
+
+    </resource>
+
+</resources>

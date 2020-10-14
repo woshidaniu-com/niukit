@@ -1,0 +1,441 @@
+  // 创建word文档,并设置纸张的大小  
+        Document document = new Document(PageSize.A4); 
+        RtfWriter2.getInstance(document, new FileOutputStream( 
+                "D:/test/word.rtf")); 
+        // 打开document  
+        document.open(); 
+        // 设置字体，字号，加粗，颜色  
+        Font font = new Font(Font.NORMAL, 20, Font.BOLD, new Color(255, 0, 0)); 
+        // 设置新的段落，使其字体为font  
+        Paragraph p = new Paragraph("文书制作", font); 
+        // 设置段落居中，其中1为居中对齐，2为右对齐，3为左对齐  
+        p.setAlignment(1); 
+        // 文档中加入该段落  
+        document.add(p); 
+        //调用系统的“楷体”字体，设置该段落时楷体  
+        BaseFont bf = BaseFont.createFont("C:\\Windows\\Fonts\\simli.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED); 
+        font = new Font(bf, 16, Font.NORMAL, new Color(0, 0, 0)); 
+        p = new Paragraph( 
+                "    itext可以实现插入段落，可以设置段落的缩进，居中，首行缩进，段前距，段后距。可以设置字体，字号，格式。功能比较齐全。", 
+                font); 
+        // 设置段落缩进  
+        p.setIndentationLeft(20); 
+        // 设置首行缩进  
+        p.setFirstLineIndent(30f); 
+        // 设置段后距和段前距  
+        p.setSpacingAfter(10f); 
+        p.setSpacingBefore(100f); 
+        document.add(p); 
+        p = new Paragraph( 
+                "itext可以插入表格，设置表格的行列数，可以设置表格边框，可以设置表格位置，可以设置表格总宽度和每一列的宽度。单元格的插入和内容可控", 
+                font); 
+        document.add(p); 
+        p = new Paragraph("itext可以插入图片，可以设置图片的大小，gif、jpg、png格式的图片都可以", font); 
+        document.add(p); 
+        // 创建有三列的表格  
+        Table table = new Table(2, 3); 
+        // 设置table的边框宽度为0  
+        table.setBorderWidth(1f); 
+        // table.setAbsWidth("120px");  
+        // 设置表格右对齐，其中1为居中对齐，2为右对齐，3为左对齐  
+        table.setAlignment(2); 
+        // 设置各列的宽度  
+        int[] widths = { 200, 100 }; 
+        table.setWidths(widths); 
+        // table.setPadding(0);  
+        // table.setSpacing(0);  
+ 
+        // 读取图片(参数为gif、jpg、png格式的图片都可以)，设置图片大小  
+        Image image = Image.getInstance("D:/test/1.jpg"); 
+        // Image img = Image.getInstance(new URL("http://xxx.com/logo.jpg)");  
+        // 设置图片的绝对大小，宽和高  
+        image.scaleAbsolute(50f, 50f); 
+        // 设置图片居中显示  
+        image.setAlignment(Image.MIDDLE); 
+        // 创建单元格,并且将单元格内容设置为图片  
+        Cell cell = new Cell(image); 
+        // 设置单元格边框为0  
+        cell.setBorder(0); 
+        // cell.setHeader(true);  
+        // cell.setColspan(3);// 设置表格为三列  
+        // cell.setRowspan(3);// 设置表格为三行  
+        table.addCell(cell); 
+        // table.endHeaders();// 表头结束  
+        table.addCell(cell); 
+        cell = new Cell("该单元格的长度是200"); 
+        cell.setBorder(0); 
+        table.addCell(cell); 
+        cell = new Cell("该单元格的长度是100"); 
+        // cell.setWidth("10px");  
+        table.addCell(cell); 
+        // cell.setBorder(1);  
+        // 设置垂直居中  
+        cell.setVerticalAlignment(1); 
+        // 设置水平居中  
+        cell.setHorizontalAlignment(1); 
+        // document.add(new Paragraph("用java生成word文件"));  
+        document.add(table); 
+        // 关闭document  
+        document.close(); 
+----------------------------------------------------------------------------------------------、
+        //创建一个文档对象纸张大小为A4
+        Document doc=new Document(PageSize.A4,50,50,50,50);
+        //设置要输出到磁盘上的文件名称
+        PdfWriter writer=PdfWriter.getInstance(doc,new FileOutputStream(new File("徐熙媛.pdf")));
+        //设置作者信息
+        doc.addAuthor("sxyx2008");
+        //设置文档创建日期
+        doc.addCreationDate();
+        //设置标题
+        doc.addTitle("iText测试");
+        //设置值主题
+        doc.addSubject("iText");
+        
+       //构建页脚
+        HeaderFooter footer=new HeaderFooter(new Phrase(), true);
+        //设置页脚是否有边框
+        //0表示无
+        //1上边框
+        //2下边框
+        //3上下边框都有 默认都有
+        //设置页脚是否有边框
+        footer.setBorder(0);
+        //footer.setBorder(1);
+        //footer.setBorder(2);
+        //footer.setBorder(3);
+        //设置页脚的对齐方式
+        footer.setAlignment(Element.ALIGN_CENTER);
+        //将页脚添加到文档中
+       doc.setFooter(footer);
+        
+        //打开文档开始写内容
+        doc.open();
+        //Paragraph par1=new Paragraph("Hello,Welcome You");
+       //Paragraph par2=new Paragraph("你好，中文测试",ChineseFont());
+
+        /*par1.setAlignment(Element.ALIGN_CENTER);
+        doc.add(par1);*/
+        //par2.setAlignment(Element.ALIGN_CENTER);
+        //doc.add(par2);
+        
+        //构建一段落
+        Paragraph par3=new Paragraph("客户信息表",ChineseFont());
+        //设置局中对齐
+        par3.setAlignment(Element.ALIGN_CENTER);
+        //添加到文档
+        doc.add(par3);
+        
+        //创建一个四列的表格
+        Table table=new Table(4);
+        //设置边框
+        table.setBorder(1);
+        
+        //创建表头
+        
+        Cell cell1=new Cell(new Phrase("编号",ChineseFont()));
+        cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell1.setVerticalAlignment(Element.ALIGN_CENTER);
+        cell1.setHeader(true);
+        cell1.setBackgroundColor(Color.RED);
+        
+        
+        Cell cell2=new Cell(new Phrase("姓名",ChineseFont()));
+        cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell2.setVerticalAlignment(Element.ALIGN_CENTER);
+        cell2.setHeader(true);
+        cell2.setBackgroundColor(Color.RED);
+        
+        Cell cell3=new Cell(new Phrase("性别",ChineseFont()));
+        cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell3.setVerticalAlignment(Element.ALIGN_CENTER);
+        cell3.setHeader(true);
+        cell3.setBackgroundColor(Color.RED);
+        
+        Cell cell4=new Cell(new Phrase("备注",ChineseFont()));
+        cell4.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell4.setVerticalAlignment(Element.ALIGN_CENTER);
+        cell4.setHeader(true);
+        cell4.setBackgroundColor(Color.RED);
+        
+        
+        table.addCell(cell1);
+        table.addCell(cell2);
+        table.addCell(cell3);
+        table.addCell(cell4);
+        //添加此代码后每页都会显示表头
+        table.endHeaders();
+        
+        
+        //循环向表格中添加100条记录 100行4列的表格
+        
+        //以下代码的作用是创建100行数据,其中每行有四列,列依次为 编号 姓名 性别 备注
+        for (int i = 1; i <=100; i++) {
+            
+            //设置编号单元格
+            Cell cell11=new Cell(i+"");
+            //设置姓名单元格
+            Cell cell22=new Cell(new Phrase("徐熙媛",ChineseFont()));
+            //设置性别单元格
+            Cell cell33=new Cell(new Phrase("女",ChineseFont()));
+            //设置备注单元格
+            Cell cell44=new Cell(new Phrase("好姑娘",ChineseFont()));
+            
+            //单元格水平对齐方式
+            cell11.setHorizontalAlignment(Element.ALIGN_CENTER);
+            //单元格垂直对齐方式
+            cell11.setVerticalAlignment(Element.ALIGN_CENTER);
+            
+            cell22.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell22.setVerticalAlignment(Element.ALIGN_CENTER);
+            
+            cell33.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell33.setVerticalAlignment(Element.ALIGN_CENTER);
+            
+            cell44.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell44.setVerticalAlignment(Element.ALIGN_CENTER);
+           
+            
+           table.addCell(cell11);
+            table.addCell(cell22);
+            table.addCell(cell33);
+            table.addCell(cell44);
+            
+        }
+        
+        //将表格添加到新的文档
+        doc.add(table);
+        //创建新的一页
+        doc.newPage();
+        //添加图片
+        Image image=Image.getInstance("D:\\Program Files\\myeclipseworkspace\\6.5\\iText\\src\\5.jpg");
+        //添加到文档
+        doc.add(image);
+        //设置对象方式
+        image.setAlignment(Element.ALIGN_CENTER);
+        
+        doc.close();
+        writer.close();
+    }
+    
+    //pdf文档中文字符处理
+    public static Font ChineseFont()
+    {
+        BaseFont baseFont=null;
+        try {
+            baseFont=BaseFont.createFont("STSong-Light","UniGB-UCS2-H", true);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Font chineseFont=new Font(baseFont,8,Font.NORMAL,Color.BLUE);
+        return chineseFont;
+    }
+--------------------------------------------------------------------------------------------
+/**
+ * ITextTest
+ * iText生成PDF加入列表，注释等内容，同时设置页眉和页脚及页码等。
+ */
+package com.labci.itext.test;
+import java.awt.Color;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import com.lowagie.text.Annotation;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Font;
+import com.lowagie.text.HeaderFooter;
+import com.lowagie.text.List;
+import com.lowagie.text.ListItem;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.BaseFont;
+import com.lowagie.text.pdf.PdfWriter;
+/**
+ * @author Bill Tu(tujiyue/iwtxokhtd)
+ * Jun 6, 2011[4:10:35 PM]
+ *
+ */
+public class ITextList {
+	private final static String RESULT_FILE="itext_list.pdf";
+	
+	public static void main(String []args){
+		Document doc=new Document();
+		
+		try {
+			
+			
+			
+			PdfWriter.getInstance(doc, new FileOutputStream(RESULT_FILE));
+			BaseFont fontChinese=null;
+			try {
+				fontChinese = BaseFont.createFont("STSong-Light","UniGB-UCS2-H",BaseFont.NOT_EMBEDDED);//设置中文字体
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        
+            Font chinese = new Font(fontChinese, 10, Font.NORMAL); 
+			
+            /**
+             * HeaderFooter的第2个参数为非false时代表打印页码
+             * 页眉页脚中也可以加入图片，并非只能是文字
+             */
+			HeaderFooter header=new HeaderFooter(new Phrase("这仅仅是个页眉，页码在页脚处",chinese),false);
+			
+			//设置是否有边框等
+//			header.setBorder(Rectangle.NO_BORDER);
+			header.setBorder(Rectangle.BOTTOM);
+			header.setAlignment(1);
+			header.setBorderColor(Color.red);
+			doc.setHeader(header);
+			
+			HeaderFooter footer=new HeaderFooter(new Phrase("-",chinese),new Phrase("-",chinese));
+			/**
+			 * 0是靠左
+			 * 1是居中
+			 * 2是居右
+			 */
+			footer.setAlignment(1);
+			footer.setBorderColor(Color.red);
+			footer.setBorder(Rectangle.BOX);
+			doc.setFooter(footer);
+		
+			/**
+			 * 页眉页脚的设置一定要在open前设置好
+			 */
+			doc.open();
+			/**
+			 * true:代表要排序,10代表序号与文字之间的间距
+			 * false:代表不排序，则文字前的符号为"-"
+			 */
+			List itextList=new List(true,10);
+			
+			/**
+			 * 也可以改变列表的符号[可选]
+			 * $$$$$$$$$$$
+			 * 要改变列表符号时，上面的List构造方法第一参数值必须为false
+			 * $$$$$$$$$$$
+			 * 可以使用字符串，Chunk,Image等作列表符号,如下
+			 */
+			//itextList.setListSymbol("*");
+			
+			ListItem firstItem=new ListItem("first paragraph");
+			ListItem secondItem=new ListItem("second paragraph");
+			ListItem thirdItem=new ListItem("third paragraph");
+			itextList.add(firstItem);
+			itextList.add(secondItem);
+			itextList.add(thirdItem);
+			
+			doc.add(itextList);
+			
+			//添加注释,注释有标题和内容,注释可以是文本，内部链接，外部链接，图片等
+			Annotation annotation=new Annotation("what's this?","it's a tree and it is not a big");
+			
+			doc.add(annotation);
+			
+			doc.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+--------------------------------------------------------------------------------------------
+
+ // 创建word文档,并设置纸张的大小
+  Document document = new Document(PageSize.A4);
+  RtfWriter2.getInstance(document, new FileOutputStream(
+    "D:/test/word.rtf"));
+  // 打开document
+  document.open();
+  // 设置字体，字号，加粗，颜色
+  Font font = new Font(Font.NORMAL, 20, Font.BOLD, new Color(255, 0, 0));
+  // 设置新的段落，使其字体为font
+  Paragraph p = new Paragraph("文书制作", font);
+  // 设置段落居中，其中1为居中对齐，2为右对齐，3为左对齐
+  p.setAlignment(1);
+  // 文档中加入该段落
+  document.add(p);
+  //调用系统的“楷体”字体，设置该段落时楷体
+  BaseFont bf = BaseFont.createFont("C:\\Windows\\Fonts\\simli.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+  font = new Font(bf, 16, Font.NORMAL, new Color(0, 0, 0));
+  p = new Paragraph(
+    "    itext可以实现插入段落，可以设置段落的缩进，居中，首行缩进，段前距，段后距。可以设置字体，字号，格式。功能比较齐全。",
+    font);
+  // 设置段落缩进
+  p.setIndentationLeft(20);
+  // 设置首行缩进
+  p.setFirstLineIndent(30f);
+  // 设置段后距和段前距
+  p.setSpacingAfter(10f);
+  p.setSpacingBefore(100f);
+  document.add(p);
+  p = new Paragraph(
+    "itext可以插入表格，设置表格的行列数，可以设置表格边框，可以设置表格位置，可以设置表格总宽度和每一列的宽度。单元格的插入和内容可控",
+    font);
+  document.add(p);
+  p = new Paragraph("itext可以插入图片，可以设置图片的大小，gif、jpg、png格式的图片都可以", font);
+  document.add(p);
+  // 创建有三列的表格
+  Table table = new Table(2, 3);
+  // 设置table的边框宽度为0
+  table.setBorderWidth(1f);
+  // table.setAbsWidth("120px");
+  // 设置表格右对齐，其中1为居中对齐，2为右对齐，3为左对齐
+  table.setAlignment(2);
+  // 设置各列的宽度
+  int[] widths = { 200, 100 };
+  table.setWidths(widths);
+  // table.setPadding(0);
+  // table.setSpacing(0);
+
+  // 读取图片(参数为gif、jpg、png格式的图片都可以)，设置图片大小
+  Image image = Image.getInstance("D:/test/1.jpg");
+  // Image img = Image.getInstance(new URL("http://xxx.com/logo.jpg)");
+  // 设置图片的绝对大小，宽和高
+  image.scaleAbsolute(50f, 50f);
+  // 设置图片居中显示
+  image.setAlignment(Image.MIDDLE);
+  // 创建单元格,并且将单元格内容设置为图片
+  Cell cell = new Cell(image);
+  // 设置单元格边框为0
+  cell.setBorder(0);
+  // cell.setHeader(true);
+  // cell.setColspan(3);// 设置表格为三列
+  // cell.setRowspan(3);// 设置表格为三行
+  table.addCell(cell);
+  // table.endHeaders();// 表头结束
+  table.addCell(cell);
+  cell = new Cell("该单元格的长度是200");
+  cell.setBorder(0);
+  table.addCell(cell);
+  cell = new Cell("该单元格的长度是100");
+  // cell.setWidth("10px");
+  table.addCell(cell);
+  // cell.setBorder(1);
+  // 设置垂直居中
+  cell.setVerticalAlignment(1);
+  // 设置水平居中
+  cell.setHorizontalAlignment(1);
+  // document.add(new Paragraph("用java生成word文件"));
+  document.add(table);
+  // 关闭document
+  document.close();
+  -----------------------------------------
+  
+  
+ // 表头设置,创建小节标题,往小节中写文本内容
+Paragraph paragraph1 = new Paragraph("开单日期：", ChineseFont());
+paragraph1.setIndentationLeft(100);//左边缩进设置
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+Chunk chunk1 = new Chunk(sdf.format(pageObject.getReceiptDate()) + "         ");
+Chunk chunk2 = new Chunk("                                                                           " + "单   号:  ");
+Chunk chunk13 = new Chunk(pageObject.getNo());
+paragraph1.add(chunk1);
+paragraph1.add(chunk2);
+paragraph1.add(chunk13);
+doc.add(paragraph1);
+  

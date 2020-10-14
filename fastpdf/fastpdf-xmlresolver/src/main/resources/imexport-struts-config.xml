@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "../../WebRoot/dtds/struts-2.1.dtd">
+<struts>
+	<package name="system_common" extends="default">
+		<default-action-ref name="commonDefaultLogin"></default-action-ref>
+		
+		<action name="commonDefaultLogin" class="commonAction" method="commonDefaultLogin">
+			<result name="index">login.jsp</result>
+		</action>
+		
+		<action name="dataExp*" class="commonDataExpAction" method="commonDataExp{1}">
+			<result name="list">jwglxt/common/DataExport.jsp</result>
+			<result name="line">jwglxt/common/DataExportIframe.jsp</result>
+			<result name="release">jwglxt/common/DataReleaseExport.jsp</result>
+			<result name="exp" type="stream">
+				<param name="inputName">inputStream</param>
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="contentDisposition">attachment;filename="${title}"</param>
+			</result>
+			<result name="list_plus">jwglxt/common/DataExportPlus.jsp</result>
+		</action>
+		
+		<!-- 数据导出加强版 -->
+		<action name="dataProExp*" class="commonDataExpProAction" method="commonDataExp{1}">
+			<result name="list">jwglxt/common/DataProExport.jsp</result>
+			<result name="exp" type="stream">
+				<param name="inputName">inputStream</param>
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="contentDisposition">attachment;filename="${title}"</param>
+			</result>
+		</action>
+		
+		<!-- 利用ibatis导出 -->
+		<action name="dataOpe*" class="commonDataOpeAction" method="commonDataOpe{1}">
+			<result name="list">jwglxt/common/DataOpeExport.jsp</result>
+			<result name="exp" type="stream">
+				<param name="inputName">inputStream</param>
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="contentDisposition">attachment;filename="${title}"</param>
+			</result>
+		</action>
+		
+		<action name="dataImp*" class="commonDataExpAction" method="commonDataImp{1}">
+			<result name="imp">jwglxt/common/DataImport.jsp</result>
+		</action>
+		
+		<!-- 表更新 -->
+		<action name="dataUpd*" class="commonDataUpdateAction" method="commonDataUpd{1}">
+			<result name="dialog">jwglxt/common/DataExportIndex.jsp</result>
+			<result name="rd_content">jwglxt/common/DataContentIndex.jsp</result>
+			<result name="rd_table_column">jwglxt/common/DataContentTableIndex.jsp</result>
+		</action>
+		
+		<action name="simple_common*" class="simpleCommonAction" method="simpleCommon{1}">
+			<result name="xt_jgjbxxb">jwglxt/common/simple/xys.jsp</result>
+			<result name="xt_jgjbxxb_show">jwglxt/common/simple/xyt.jsp</result>
+			<result name="xt_zydmb">jwglxt/common/simple/zys.jsp</result>
+			<result name="xt_zydmb_show">jwglxt/common/simple/zyt.jsp</result>
+			<result name="jhgl_kcdmb">jwglxt/common/simple/kcs.jsp</result>
+			<result name="jhgl_kcdmb_show">jwglxt/common/simple/kct.jsp</result>
+			<result name="view_js_xnw">jwglxt/common/simple/jss.jsp</result>
+			<result name="view_js_xnw_show">jwglxt/common/simple/jst.jsp</result>
+			<result name="pk_jxcdxxb">jwglxt/common/simple/cds.jsp</result>
+			<result name="pk_jxcdxxb_show">jwglxt/common/simple/cdt.jsp</result>
+			<result name="xt_xzbdmb">jwglxt/common/simple/bjs.jsp</result>
+			<result name="xt_xzbdmb_show">jwglxt/common/simple/bjt.jsp</result>
+			<result name="view_jhgl_jxjhzyxxb">jwglxt/common/simple/njzys.jsp</result>
+			<result name="view_jhgl_jxjhzyxxb_show">jwglxt/common/simple/njzyt.jsp</result>
+		</action>
+		
+		<!-- 数据表维护 xiaofeng -->
+		<action name="sjbwh*" class="sjbwhAction" method="sjbwh{1}">
+			<!-- 课程基本信息 -->
+			<result name="rd_kccxlist">jwglxt/jxjh/kcxxwh/cxtj/KcxxCx.jsp</result>
+			<result name="kccxlist">jwglxt/jxjh/kcxxwh/cxtj/KcxxCxList.jsp</result>
+		    <!-- 教师基本信息 -->
+			<result name="rdszcxlist">jwglxt/szgl/cxtj/jsxxCx.jsp</result>
+			<result name="szcxlist">jwglxt/szgl/cxtj/jsxxCxList.jsp</result>
+			<result name="rdsztjlist">jwglxt/szgl/cxtj/jsxxTj.jsp</result>
+			<result name="sztjlist">jwglxt/szgl/cxtj/jsxxTjList.jsp</result>
+			<!-- 学生基本信息 -->
+			<result name="rdxscxlist">jwglxt/xjgl/cxtj/xsxxCx.jsp</result>
+			<result name="xscxlist">jwglxt/xjgl/cxtj/xsxxCxList.jsp</result>
+			<result name="rdxstjlist">jwglxt/xjgl/cxtj/xsxxTj.jsp</result>
+			<result name="xstjlist">jwglxt/xjgl/cxtj/xsxxTjList.jsp</result>
+
+			<result name="rdsjfx">jwglxt/szgl/cxtj/sjfxXxsz.jsp</result>
+			<result name="rdsjfxshow">jwglxt/szgl/cxtj/sjfxShow.jsp</result>
+			<result name="chart" type="jchart">
+      	 		<param name="width">600</param>
+      	 		<param name="height">500</param>
+      	 	</result>
+			<result name="exp" type="stream">
+				<param name="inputName">inputStream</param>
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="contentDisposition">attachment;filename="${title}"</param>
+			</result>
+		</action>
+		
+		<!-- 打印 -->
+		<action name="print*" class="commonPrintAction" method="commonPrint{1}">
+			<result name="common">jwglxt/common/PrintPage.jsp</result><!-- 打印公共页 -->
+		</action>
+		
+		<!-- 验证用 -->
+		<action name="validate*" class="com.woshidaniu.action.common.ValidateAction" method="validate{1}"></action>
+		
+		<action name="columnsShow*" class="columnsShowAction" method="columnsShow{1}">
+			<result name="success">jwglxt/common/simple/column.jsp</result>
+		</action>
+		
+		<!-- 学生是否可维护字段 -->
+		<action name="columnsXssfkwh*" class="columnsXssfkwhAction" method="columnsXssfkwh{1}">
+			<result name="index">jwglxt/common/simple/xskwhColumn.jsp</result>
+		</action>
+		
+		<!-- 自动完成 -->
+		<action name="autoComplete*" class="autoCompleteAction" method="autoComplete{1}">
+			<result name="success" type="ajax">
+				<param name="contentType">application/json; charset=UTF-8</param>
+				<param name="contentName">json</param>
+			</result>
+		</action>
+		
+		<action name="xt_commonSelect*" class="commonSelectAction" method="commonSelect{1}">
+			<result name="professions">jwglxt/common/xztck/Zyfx.jsp</result>
+			<result name="single_major">jwglxt/common/xztck/SMajor.jsp</result>
+			<result name="single_base_department">jwglxt/common/xztck/SBase.jsp</result>
+		</action>
+		
+		<action name="common*" class="commonAction" method="common{1}">
+			<result name="select_users">jwglxt/common/selectMultiUsers.jsp</result>
+			<result name="select_users_data">jwglxt/common/selectMultiUsersData.jsp</result>
+			<result name="select_single_teacher">jwglxt/common/selectSingleTeacher.jsp</result>
+			<result name="select_single_stu">jwglxt/common/selectSingleStu.jsp</result>
+			<result name="select_single_major">jwglxt/common/selectSingleMajor.jsp</result>
+			<result name="select_single_course">jwglxt/common/selectSingleCourse.jsp</result>
+			<result name="select_single_teacher_obj">jwglxt/common/selectSingleTeacherObj.jsp</result><!-- 单个教师返回Object -->
+			<result name="select_mutil_teachers">jwglxt/common/selectMutilTeachers.jsp</result><!-- 多个教师主界面返回Object[] -->
+			<result name="select_mutil_teachers_list">jwglxt/common/selectMutilTeachersList.jsp</result><!-- 多个教师选择列表 -->
+			<result name="select_mutil_colleges">jwglxt/common/selectMutilColleges.jsp</result><!-- 多个学院主界面返回Object[] -->
+			<result name="select_mutil_colleges_list">jwglxt/common/selectMutilCollegesList.jsp</result><!-- 多个学院选择列表 -->
+			<result name="select_mutil_majors">jwglxt/common/selectMutilMajors.jsp</result><!-- 多个专业主界面返回Object[] -->
+			<result name="select_mutil_majors_list">jwglxt/common/selectMutilMajorsList.jsp</result><!-- 多个专业选择列表 -->
+			<result name="select_mutil_classes">jwglxt/common/selectMutilClasses.jsp</result><!-- 多个班级主界面返回Object[] -->
+			<result name="select_mutil_classes_list">jwglxt/common/selectMutilClassesList.jsp</result><!-- 多个班级选择列表 -->
+			<result name="select_single_material">jwglxt/common/selectSingleMaterial.jsp</result><!-- 单个教材返回Object -->
+			<result name="select_single_teach_classes">jwglxt/common/selectSingleTeachClasses.jsp</result><!-- 单个教学班返回Object -->
+			<result name="select_single_student_obj">jwglxt/common/selectSingleStudentObj.jsp</result><!-- 单个学生返回Object -->			
+			<result name="select_single_xgxk">jwglxt/common/selectSingleXgxk.jsp</result>
+			<result name="select_single_tyk">jwglxt/common/selectSingleTyk.jsp</result>
+			<result name="select_single_jc">jwglxt/common/selectSingleJc.jsp</result>
+			<result name="select_single_jxcd_obj">jwglxt/common/selectSingleJxcdObj.jsp</result> <!-- 单个教学场地返回Object -->
+			<result name="select_single_jxcd_obj_list">jwglxt/common/selectSingleJxcdObjList.jsp</result><!-- 单个教学场地返回Object -->
+			<result name="select_jxcd_list">jwglxt/common/selectxcdList.jsp</result><!-- 返回查询的教学场地 -->
+			<result name="success">${url}</result>
+			<result name="time_setting">jwglxt/common/TimeSetting.jsp</result>
+		</action>
+		
+		<action name="xt_commonTimeSetting*" class="commonTimeSettingAction" method="commonTimeSetting{1}">
+			<result name="time_setting">jwglxt/common/timesetting/TimeSettingIndex.jsp</result>
+			<result name="time_setting_jglist">jwglxt/common/timesetting/TimeSettingJgwhList.jsp</result>
+		</action>
+		
+		<action name="xt_commonQuery*" class="commonQueryAction" method="commonQuery{1}"></action>
+	</package>
+</struts>
+ 	 

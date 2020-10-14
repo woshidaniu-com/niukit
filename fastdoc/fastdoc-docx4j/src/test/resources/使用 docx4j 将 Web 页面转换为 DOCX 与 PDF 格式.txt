@@ -1,0 +1,11 @@
+一、背景
+
+项目中需要将某数据显示的内容，提供一个下载 DOCX 与 PDF 功能。在分析阶段发现 docx4j（ http://www.docx4java.org/trac/docx4j ）提供了转换功能。在调试开发时遇到了 HTML 格式兼容，样式丢失，PDF 中文字体等问题。
+
+二、分析
+
+docx4j-ImportXHTML（ https://github.com/plutext/docx4j-ImportXHTML ），从名称上一看就知道这个只支持 XHTML。如果是非 XHTML 格式，解析就有问题。
+
+所以在样例中使用了  jsoup（ http://jsoup.org/ ）将 HTML 统一转换为 XHTML，并去掉不需要的一些内容（如：script）。这时再调用  docx4j-ImportXHTML 就可以正常解析。
+
+注：这种转换不适用于常规 HTML 页面，转换过程中会丢失样式造成混乱。在这里想要做的是一种以特定 HTML 格式编写页面模板转出 DOCX 与 PDF 的方式。

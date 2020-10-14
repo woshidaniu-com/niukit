@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script src="../../jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jquery.event.delegate-min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			$(document).off('click.data-api', '[data-toggle*="clearfix"]').on('click.data-api', '[data-toggle*="clearfix"]', function(event) {
+
+				//此时会自动清除当前元素上data-target的值
+
+			}).off('keyup.data-api', '[data-toggle*="float"]').on('keyup.data-api', '[data-toggle*="float"]', function(e) {
+
+				//只能输入参数自动绑定脚本
+
+			}).on('blur.data-api', '[data-toggle*="float"]', function(e) {
+
+				//当前元素失去焦点时如果是以.开始自动在前方添加0
+
+			}).off('keydown.data-api').on('keydown.data-api', '*', function (e) {
+				
+				//阻止浏览器默认行为
+				//处理删除键导致的提交问题
+				//处理键盘事件 禁止后退键（Backspace）密码或单行、多行文本框除外  
+				//当敲Backspace键时，事件源类型为密码或单行、多行文本的，并且readOnly属性为true或disabled属性为true的，则退格键失效
+				//取消事件冒泡
+				//兼容jgGrid页码框回车事件；并阻止其他的浏览器默认事件
+				
+			}).off("focus",".ke-input-text").on("focus",".ke-input-text",function(){
+				
+				//解决KindEditor编辑器不可编辑问题
+				
+			});
+		</script>
+	</body>
+
+</html>

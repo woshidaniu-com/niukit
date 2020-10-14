@@ -1,0 +1,91 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.woshidaniu</groupId>
+		<artifactId>niutal-ui</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<artifactId>niutal-ui-v5</artifactId>
+	<packaging>war</packaging>
+	<version>1.1.1</version>
+	<dependencies>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+		</dependency>
+		
+<!--		<dependency>-->
+<!--			<groupId>${project.groupId}</groupId>-->
+<!--			<artifactId>niutal-ui-mui</artifactId>-->
+<!--			<version>1.0.0</version>-->
+<!--			<type>war</type>-->
+<!--		</dependency>-->
+		
+	</dependencies>
+	
+	<build>
+		<!-- 指定打包过程中将 webapp目录下的静态资源拷贝到 META-INF/resources/webjars/下面；
+			   这个是Web工程可以直接访问并同时可以将静态资源打包成Jar的关键。
+		-->
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/main/webapp/assets</directory>
+    			<targetPath>${outputDirectory}</targetPath>
+			</resource>
+			<resource>
+				<directory>${project.basedir}/src/main/resources</directory>
+    			<targetPath>${project.build.outputDirectory}</targetPath>
+			</resource>
+        </resources>
+		<plugins>
+			<!-- ant脚步执行插件 --> 
+			<plugin>
+	        	<groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-antrun-plugin</artifactId>
+	        </plugin>
+			<!-- war 包生成插件 -->
+<!--			<plugin>-->
+<!--				 <groupId>org.apache.maven.plugins</groupId>-->
+<!--				 <artifactId>maven-war-plugin</artifactId>-->
+<!--				 <configuration>-->
+<!--					<overlays>-->
+<!--						<overlay></overlay>-->
+<!--						<overlay>-->
+<!--							<groupId>${project.groupId}</groupId>-->
+<!--							<artifactId>niutal-ui-mui</artifactId>-->
+<!--						</overlay>-->
+<!--					</overlays>-->
+<!--					<dependentWarExcludes></dependentWarExcludes>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
+			<!-- 
+            	Jetty插件
+            	http://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html
+             -->
+<!--            <plugin>-->
+<!--			    <groupId>org.eclipse.jetty</groupId>-->
+<!--				<artifactId>jetty-maven-plugin</artifactId>-->
+<!--		    </plugin>-->
+
+		    <!-- 通过docker-maven插件构造Docker镜像
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+			</plugin> -->
+			
+		</plugins>
+	</build>
+
+	
+</project>

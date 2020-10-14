@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+	<description></description>
+	
+	<!-- dynamic table name configuration -->
+	<util:map id="table_dynamic_name_map" map-class="java.util.HashMap" >
+	  	<entry key="report_xs_info" value="report_xs_#{xn}_#{xq}"></entry>
+		<entry key="report_zxs_info" value="report_zxs_#{xn}_#{xq}"></entry>
+		<entry key="report_bys_info" value="report_bys_#{xn}_#{xq}"></entry>
+	</util:map>
+	
+</beans>

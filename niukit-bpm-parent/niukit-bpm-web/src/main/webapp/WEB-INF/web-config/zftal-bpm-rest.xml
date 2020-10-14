@@ -1,0 +1,13 @@
+ <filter>
+     <filter-name>JSONPFilter</filter-name>
+     <filter-class>com.woshidaniu.component.bpm.web.JsonpCallbackFilter</filter-class>
+ </filter>
+
+ <filter-mapping>
+     <filter-name>JSONPFilter</filter-name>
+     <url-pattern>/processDiagram/*</url-pattern>
+ </filter-mapping>
+ <filter-mapping>
+     <filter-name>JSONPFilter</filter-name>
+     <url-pattern>/activiti-rest-service/*</url-pattern>
+ </filter-mapping>

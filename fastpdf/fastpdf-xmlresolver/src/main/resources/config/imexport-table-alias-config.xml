@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+	<description></description>
+	
+	<!-- table name configuration -->
+	<util:map id="table_alias_map" map-class="java.util.HashMap" >
+	    <entry key="EP_100010" value="sj_cxxxmkcb"/>
+	    <entry key="EP_100012" value="cj_djkscjb"/>
+		<entry key="IMP_1000000" value="xt_zyfxdmb"/>
+	</util:map>
+	
+</beans>

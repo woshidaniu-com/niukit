@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>		
+		<groupId>com.woshidaniu</groupId>
+		<artifactId>niukit-parent</artifactId>
+		<version>1.1.1</version>
+	</parent>
+	
+	<artifactId>niukit-cache-parent</artifactId>
+	<packaging>pom</packaging>
+
+	<name>niukit-cache</name>
+	<description>缓存统一组件实现</description>
+
+	<modules> 
+		<module>niukit-cache-core</module>
+		<module>niukit-cache-ehcache</module>
+		<module>niukit-cache-jedis</module>
+		<module>niukit-cache-oscache</module>
+		<module>niukit-cache-xmemcached</module> 
+	</modules>
+
+</project>

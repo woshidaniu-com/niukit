@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+	<description>高基报表</description>
+	
+	<!-- 新生导入导出 --> 	
+	<util:list id="report_xs_info_import" list-class="java.util.ArrayList">
+		<map><entry key="column_name" value="XH"></entry><entry key="comments" value="学号"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="XM"></entry><entry key="comments" value="姓名"></entry></map>
+		<map><entry key="column_name" value="XB"></entry><entry key="comments" value="性别"></entry></map>
+		<map><entry key="column_name" value="CSRQ"></entry><entry key="comments" value="出生日期"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="XSLBDMB_ID"></entry><entry key="comments" value="学生类别"></entry><entry key="mapper" value="XSLBMC"></entry></map>
+		<map><entry key="column_name" value="LYS"></entry><entry key="comments" value="来源省"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="LYDC"></entry><entry key="comments" value="来源地区"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="RXNY"></entry><entry key="comments" value="入学年月"></entry></map>
+		<map><entry key="column_name" value="BYNY"></entry><entry key="comments" value="毕业年月"></entry></map>
+		<map><entry key="column_name" value="LQPC"></entry><entry key="comments" value="录取批次"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="DLLQPC"></entry><entry key="comments" value="录取批次（大类）"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="XQDMB_ID"></entry><entry key="comments" value="校区名称"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="XQMC"></entry></map>
+		<map><entry key="column_name" value="NJ_ID"></entry><entry key="comments" value="年级"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="ZYDMB_ID"></entry><entry key="comments" value="专业"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="ZYMC"></entry></map>
+		<map><entry key="column_name" value="XZBDMB_ID"></entry><entry key="comments" value="班级"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="XZBMC"></entry></map>
+		<map><entry key="column_name" value="XJZTDMB_ID"></entry><entry key="comments" value="学籍状态"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="ZTMC"></entry></map>
+		<map><entry key="column_name" value="XZDMB_ID"></entry><entry key="comments" value="学制"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="XZMC"></entry></map>
+		<map><entry key="column_name" value="DQXN"></entry><entry key="comments" value="当前学年"></entry></map>
+		<map><entry key="column_name" value="YEAR"></entry><entry key="comments" value="年"></entry></map>
+	</util:list>
+	<util:list id="report_xs_info_list" list-class="java.util.ArrayList">
+		<map><entry key="column_name" value="XH"></entry><entry key="comments" value="学号"></entry></map>
+		<map><entry key="column_name" value="XM"></entry><entry key="comments" value="姓名"></entry></map>
+		<map><entry key="column_name" value="XB"></entry><entry key="comments" value="性别"></entry></map>
+		<map><entry key="column_name" value="CSRQ"></entry><entry key="comments" value="出生日期"></entry></map>
+		<map><entry key="column_name" value="XSLBMC"></entry><entry key="comments" value="学生类别"></entry></map>
+		<map><entry key="column_name" value="LYS"></entry><entry key="comments" value="来源省"></entry></map>
+		<map><entry key="column_name" value="LYDC"></entry><entry key="comments" value="来源地区"></entry></map>
+		<map><entry key="column_name" value="RXNY"></entry><entry key="comments" value="入学年月"></entry></map>
+		<map><entry key="column_name" value="BYNY"></entry><entry key="comments" value="毕业年月"></entry></map>
+		<map><entry key="column_name" value="LQPC"></entry><entry key="comments" value="录取批次"></entry></map>
+		<map><entry key="column_name" value="DLLQPC"></entry><entry key="comments" value="录取批次（大类）"></entry></map>
+		<map><entry key="column_name" value="NJ_ID"></entry><entry key="comments" value="年级"></entry></map>
+		<map><entry key="column_name" value="XQMC"></entry><entry key="comments" value="校区名称"></entry></map>
+		<map><entry key="column_name" value="ZYMC"></entry><entry key="comments" value="专业"></entry></map>
+		<map><entry key="column_name" value="XZBMC"></entry><entry key="comments" value="班级"></entry></map>
+		<map><entry key="column_name" value="ZTMC"></entry><entry key="comments" value="学籍状态"></entry></map>
+		<map><entry key="column_name" value="XZMC"></entry><entry key="comments" value="学制"></entry></map>
+		<map><entry key="column_name" value="DQXN"></entry><entry key="comments" value="当前学年"></entry></map>
+		<map><entry key="column_name" value="YEAR"></entry><entry key="comments" value="年"></entry></map>
+	</util:list>
+	
+  
+	<!-- 在校生导入导出 --> 
+	<util:list id="report_zxs_info_import" list-class="java.util.ArrayList">
+		<map><entry key="column_name" value="XH"></entry><entry key="comments" value="学号"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="XM"></entry><entry key="comments" value="姓名"></entry></map>
+		<map><entry key="column_name" value="XB"></entry><entry key="comments" value="性别"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="CSRQ"></entry><entry key="comments" value="出生日期"></entry></map>
+		<map><entry key="column_name" value="XSLYDMB_ID"></entry><entry key="comments" value="学生来源"></entry><entry key="mapper" value="XSLYMC"></entry></map>
+		<map><entry key="column_name" value="XSLBDMB_ID"></entry><entry key="comments" value="学生类别"></entry><entry key="mapper" value="XSLBMC"></entry></map>
+		<map><entry key="column_name" value="LYS"></entry><entry key="comments" value="来源省"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="LYDC"></entry><entry key="comments" value="来源地区"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="LQPC"></entry><entry key="comments" value="录取批次"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="DLLQPC"></entry><entry key="comments" value="录取批次（大类）"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="RXNY"></entry><entry key="comments" value="入学年月"></entry></map>
+		<map><entry key="column_name" value="BYNY"></entry><entry key="comments" value="毕业年月"></entry></map>
+		<map><entry key="column_name" value="XQDMB_ID"></entry><entry key="comments" value="校区名称"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="XQMC"></entry></map>
+		<map><entry key="column_name" value="NJ_ID"></entry><entry key="comments" value="年级"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="SSXY_ID"></entry><entry key="comments" value="学院"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="SSXYMC"></entry></map>
+		<map><entry key="column_name" value="SSX_ID"></entry><entry key="comments" value="系"></entry><entry key="mapper" value="SSXMC"></entry></map>
+		<map><entry key="column_name" value="ZYDMB_ID"></entry><entry key="comments" value="专业"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="ZYMC"></entry></map>
+		<map><entry key="column_name" value="ZYFXDMB_ID"></entry><entry key="comments" value="专业方向"></entry><entry key="mapper" value="ZYFXMC"></entry></map>
+		<map><entry key="column_name" value="XZBDMB_ID"></entry><entry key="comments" value="行政班"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="XZBMC"></entry></map>
+		<map><entry key="column_name" value="XJZTDMB_ID"></entry><entry key="comments" value="学籍状态"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="ZTMC"></entry></map>
+		<map><entry key="column_name" value="XZDMB_ID"></entry><entry key="comments" value="学制"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="XZMC"></entry></map>
+		<map><entry key="column_name" value="BYND"></entry><entry key="comments" value="毕业年度"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="DQXN"></entry><entry key="comments" value="当前学年"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="YEAR"></entry><entry key="comments" value="年"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="GRADE"></entry><entry key="comments" value="学生级别"></entry><entry key="requisite" value="1"></entry></map>
+	</util:list>	
+	<util:list id="report_zxs_info_list" list-class="java.util.ArrayList">
+		<map><entry key="column_name" value="XH"></entry><entry key="comments" value="学号"></entry></map>
+		<map><entry key="column_name" value="XM"></entry><entry key="comments" value="姓名"></entry></map>
+		<map><entry key="column_name" value="XB"></entry><entry key="comments" value="性别"></entry></map>
+		<map><entry key="column_name" value="CSRQ"></entry><entry key="comments" value="出生日期"></entry></map>
+		<map><entry key="column_name" value="XSLYMC"></entry><entry key="comments" value="学生来源"></entry></map>
+		<map><entry key="column_name" value="XSLBMC"></entry><entry key="comments" value="学生类别"></entry></map>
+		<map><entry key="column_name" value="LYS"></entry><entry key="comments" value="来源省"></entry></map>
+		<map><entry key="column_name" value="LYDC"></entry><entry key="comments" value="来源地区"></entry></map>
+		<map><entry key="column_name" value="LQPC"></entry><entry key="comments" value="录取批次"></entry></map>
+		<map><entry key="column_name" value="DLLQPC"></entry><entry key="comments" value="录取批次（大类）"></entry></map>
+		<map><entry key="column_name" value="RXNY"></entry><entry key="comments" value="入学年月"></entry></map>
+		<map><entry key="column_name" value="BYNY"></entry><entry key="comments" value="毕业年月"></entry></map>
+		<map><entry key="column_name" value="XQMC"></entry><entry key="comments" value="校区名称"></entry></map>
+		<map><entry key="column_name" value="NJ_ID"></entry><entry key="comments" value="年级"></entry></map>
+		<map><entry key="column_name" value="SSXYMC"></entry><entry key="comments" value="学院"></entry></map>
+		<map><entry key="column_name" value="SSXMC"></entry><entry key="comments" value="系"></entry></map>
+		<map><entry key="column_name" value="ZYMC"></entry><entry key="comments" value="专业"></entry></map>
+		<map><entry key="column_name" value="ZYFXMC"></entry><entry key="comments" value="专业方向"></entry></map>
+		<map><entry key="column_name" value="XZBMC"></entry><entry key="comments" value="行政班"></entry></map>
+		<map><entry key="column_name" value="BYND"></entry><entry key="comments" value="毕业年度"></entry></map>
+		<map><entry key="column_name" value="ZTMC"></entry><entry key="comments" value="学籍状态"></entry></map>
+		<map><entry key="column_name" value="XZMC"></entry><entry key="comments" value="学制"></entry></map>
+		<map><entry key="column_name" value="DQXN"></entry><entry key="comments" value="当前学年"></entry></map>
+		<map><entry key="column_name" value="YEAR"></entry><entry key="comments" value="年"></entry></map>
+		<map><entry key="column_name" value="GRADE"></entry><entry key="comments" value="学生级别"></entry></map>
+	</util:list>
+	
+	<!-- 毕业生导入导出 --> 	
+	<util:list id="report_bys_info_import" list-class="java.util.ArrayList">
+		<map><entry key="column_name" value="XH"></entry><entry key="comments" value="学号"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="XM"></entry><entry key="comments" value="姓名"></entry></map>
+		<map><entry key="column_name" value="XB"></entry><entry key="comments" value="性别"></entry></map>
+		<map><entry key="column_name" value="CSRQ"></entry><entry key="comments" value="出生日期"></entry></map>
+		<map><entry key="column_name" value="XSLYDMB_ID"></entry><entry key="comments" value="学生来源"></entry><entry key="mapper" value="XSLYMC"></entry></map>
+		<map><entry key="column_name" value="XSLBDMB_ID"></entry><entry key="comments" value="学生类别"></entry><entry key="mapper" value="XSLBMC"></entry></map>
+		<map><entry key="column_name" value="LYS"></entry><entry key="comments" value="来源省"></entry></map>
+		<map><entry key="column_name" value="LYDC"></entry><entry key="comments" value="来源地区"></entry></map>
+		<map><entry key="column_name" value="LQPC"></entry><entry key="comments" value="录取批次"></entry></map>
+		<map><entry key="column_name" value="DLLQPC"></entry><entry key="comments" value="录取批次（大类）"></entry></map>
+		<map><entry key="column_name" value="RXNY"></entry><entry key="comments" value="入学年月"></entry></map>
+		<map><entry key="column_name" value="BYNY"></entry><entry key="comments" value="毕业年月"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="XQDMB_ID"></entry><entry key="comments" value="校区名称"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="XQMC"></entry></map>
+		<map><entry key="column_name" value="NJ_ID"></entry><entry key="comments" value="年级"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="SSXY_ID"></entry><entry key="comments" value="学院"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="SSXYMC"></entry></map>
+		<map><entry key="column_name" value="SSX_ID"></entry><entry key="comments" value="系"></entry><entry key="mapper" value="SSXMC"></entry></map>
+		<map><entry key="column_name" value="ZYDMB_ID"></entry><entry key="comments" value="专业"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="ZYMC"></entry></map>
+		<map><entry key="column_name" value="ZYFXDMB_ID"></entry><entry key="comments" value="专业方向"></entry><entry key="mapper" value="ZYFXMC"></entry></map>
+		<map><entry key="column_name" value="XZBDMB_ID"></entry><entry key="comments" value="行政班"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="XZBMC"></entry></map>
+		<map><entry key="column_name" value="XJZTDMB_ID"></entry><entry key="comments" value="学籍状态"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="ZTMC"></entry></map>
+		<map><entry key="column_name" value="XZDMB_ID"></entry><entry key="comments" value="学制"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="XZMC"></entry></map>
+		<map><entry key="column_name" value="BYJLWHB_ID"></entry><entry key="comments" value="毕结业结论"></entry><entry key="requisite" value="1"></entry><entry key="mapper" value="BYJLMC"></entry></map>
+		<map><entry key="column_name" value="BYND"></entry><entry key="comments" value="毕业年度"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="DQXN"></entry><entry key="comments" value="当前学年"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="YEAR"></entry><entry key="comments" value="年"></entry><entry key="requisite" value="1"></entry></map>
+	</util:list>
+	<util:list id="report_bys_info_list" list-class="java.util.ArrayList">
+		<map><entry key="column_name" value="XH"></entry><entry key="comments" value="学号"></entry></map>
+		<map><entry key="column_name" value="XM"></entry><entry key="comments" value="姓名"></entry></map>
+		<map><entry key="column_name" value="XB"></entry><entry key="comments" value="性别"></entry></map>
+		<map><entry key="column_name" value="CSRQ"></entry><entry key="comments" value="出生日期"></entry></map>
+		<map><entry key="column_name" value="XSLYMC"></entry><entry key="comments" value="学生来源"></entry></map>
+		<map><entry key="column_name" value="XSLBMC"></entry><entry key="comments" value="学生类别"></entry></map>
+		<map><entry key="column_name" value="LYS"></entry><entry key="comments" value="来源省"></entry></map>
+		<map><entry key="column_name" value="LYDC"></entry><entry key="comments" value="来源地区"></entry></map>
+		<map><entry key="column_name" value="LQPC"></entry><entry key="comments" value="录取批次"></entry></map>
+		<map><entry key="column_name" value="DLLQPC"></entry><entry key="comments" value="录取批次（大类）"></entry></map>
+		<map><entry key="column_name" value="RXNY"></entry><entry key="comments" value="入学年月"></entry></map>
+		<map><entry key="column_name" value="BYNY"></entry><entry key="comments" value="毕业年月"></entry></map>
+		<map><entry key="column_name" value="XQMC"></entry><entry key="comments" value="校区名称"></entry></map>
+		<map><entry key="column_name" value="NJ_ID"></entry><entry key="comments" value="年级"></entry></map>
+		<map><entry key="column_name" value="SSXYMC"></entry><entry key="comments" value="学院"></entry></map>
+		<map><entry key="column_name" value="SSXMC"></entry><entry key="comments" value="系"></entry></map>
+		<map><entry key="column_name" value="ZYMC"></entry><entry key="comments" value="专业"></entry></map>
+		<map><entry key="column_name" value="ZYFXMC"></entry><entry key="comments" value="专业方向"></entry></map>
+		<map><entry key="column_name" value="XZBMC"></entry><entry key="comments" value="行政班"></entry></map>
+		<map><entry key="column_name" value="BYND"></entry><entry key="comments" value="毕业年度"></entry></map>
+		<map><entry key="column_name" value="ZTMC"></entry><entry key="comments" value="学籍状态"></entry></map>
+		<map><entry key="column_name" value="XZMC"></entry><entry key="comments" value="学制"></entry></map>
+		<map><entry key="column_name" value="BYJLMC"></entry><entry key="comments" value="毕结业结论"></entry></map>
+		<map><entry key="column_name" value="DQXN"></entry><entry key="comments" value="当前学年"></entry></map>
+		<map><entry key="column_name" value="YEAR"></entry><entry key="comments" value="年"></entry></map>
+	</util:list>
+	
+
+  
+</beans>

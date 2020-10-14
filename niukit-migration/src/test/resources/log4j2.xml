@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="OFF">
+
+	<Properties>
+		<!-- 日志输出格式 -->
+		<Property name="LOG_CONSOLE_LAYOUT">[Log4j2-dev][%p][%t] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%C:%M:%L] %m%n</Property>
+	</Properties>
+
+	<Appenders>
+		<!-- 控制台日志输出配置 -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${LOG_CONSOLE_LAYOUT}" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+	
+        <Root level="debug" includeLocation="true">  
+            <AppenderRef ref="Console" />  
+        </Root>
+
+	</Loggers>
+</Configuration>

@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.woshidaniu</groupId>
+		<artifactId>niukit-parent</artifactId>
+		<version>1.1.1</version>
+	</parent>
+	<artifactId>niukit-configuration</artifactId> 
+	<description>基础公共组件，定于基本对象</description>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<!-- commons-configuration 自动加载的是2.1的版本，编译时会报错，所以再加上这个 -->  
+		<dependency>  
+		    <groupId>commons-lang</groupId>  
+		    <artifactId>commons-lang</artifactId>  
+		</dependency> 
+		<dependency>  
+		    <groupId>commons-io</groupId>  
+		    <artifactId>commons-io</artifactId>  
+		</dependency>
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+		</dependency>
+	</dependencies>
+</project>

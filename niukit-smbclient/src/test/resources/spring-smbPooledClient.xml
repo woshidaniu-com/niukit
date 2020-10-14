@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemalocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        			 http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+                    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+                    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+					http://www.springframework.org/schema/security  http://www.springframework.org/schema/security/spring-security.xsd
+       	 			http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       	 			http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
+	default-autowire="byName" default-lazy-init="false">
+	
+	<!-- 加载smbclient配置文件 --> 
+	<util:properties id="smbClientProps" location="classpath:smbclient.properties"/>
+	
+	<!-- 初始化smb连接参数对象   -->
+	<bean name="smbClientConfig" class="com.woshidaniu.niukit.smbclient.SMBClientConfig"> 
+		<constructor-arg>  
+	    	<ref bean="smbClientProps"></value>
+        </constructor-arg> 
+	</bean>
+	
+	<!-- 初始化smb客户端连接构建器   -->
+  	<bean name="smbClientBuilder" class="com.woshidaniu.niukit.smbclient.SMBClientBuilder"> 
+        <constructor-arg>  
+	    	<ref bean="smbClientConfig"></value>
+        </constructor-arg> 
+	</bean>               
+	
+	<!-- 初始化smb连接池参数管理器   -->
+	<bean name="smbClientPoolConfig" class="com.woshidaniu.niukit.smbclient.pool.SMBClientPoolConfig"> 
+		<constructor-arg>  
+	    	<ref bean="smbClientProps"></value>
+        </constructor-arg> 
+	</bean>
+	
+	<!-- 初始化smb连接管理器   -->
+	<bean name="smbClientManager" class="com.woshidaniu.niukit.smbclient.pool.SMBPooledClientManager">
+	    <constructor-arg>  
+	    	<ref bean="smbClientBuilder"></value>
+        </constructor-arg> 
+        <constructor-arg>  
+	    	<ref bean="smbClientPoolConfig"></value>
+        </constructor-arg> 
+	</bean>
+	
+	<!-- 初始化smb客户端   -->
+	<bean name="smbClient" class="com.woshidaniu.niukit.smbclient.client.SMBPooledResourceClient">
+	    <!-- 指定smb连接管理器   -->
+		<property name="clientManager" ref="smbClientManager"/>
+	</bean>
+	
+</beans>

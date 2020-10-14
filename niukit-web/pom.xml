@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.woshidaniu</groupId>
+		<artifactId>niukit-parent</artifactId>
+		<version>1.1.1</version>
+	</parent>
+	
+	<artifactId>niukit-web</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-io</artifactId>
+					<groupId>commons-io</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- O'Reilly公司的Java HTTP文件上传组件，简单实用，做的非常好。  -->
+		<dependency>
+		    <groupId>com.oreilly</groupId>
+		    <artifactId>cos</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>niukit-basicutils</artifactId>
+            <version>${project.version}</version>
+		</dependency>
+		<!-- 扩展支持缓存的过滤器实现 -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>niukit-cache-core</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+		</dependency>
+		
+	</dependencies>
+	
+</project>

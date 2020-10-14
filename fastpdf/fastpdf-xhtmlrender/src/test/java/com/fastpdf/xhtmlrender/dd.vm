@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+      <title>Course List</title>
+
+    </head>
+
+    <body>
+
+      <h2>COURSE LIST</h2>
+	<table border="1" style="margin-left: 100px" >
+		<tr>
+		
+			<th class="jobs-time">序号</th>
+			<th class="jobs-title">产品名称</th>
+			<th class="jobs-title">createTime</th>
+			<th class="jobs-title">createUser</th>
+		
+			<th class="jobs-title">操作-------${list.totalPages}</th>
+		</tr>
+	 #foreach($course in ${list.result})
+	
+		<tr>
+			<td width="13%" align="center">
+			  ${course.categroyId}
+			</td>
+		   <td>${course.name}</td>
+
+          <td>${course.createTime}</td>
+
+          <td>${course.createUser}</td>
+		  
+			<td width="20%" align="center">
+			<a href="#" class="btn">详细</a>|<a href="#" class="btn">删除</a>
+			</td>
+		</tr>
+		#end 
+	</table>
+
+	<div class="page_list">
+		<div class="list_info">
+			#if (${list.firstPage} == false)
+		  
+			<a title="首页" href="pageList1.html">首页</a>
+			<a title="上一页" href="pageList${list.prePage}.html">上一页</a>
+			#end
+		#foreach($page in ${list.slider})
+				#if ($page == ${list.pageNo})		     
+		        	<span class="current">
+		          		<em>${page}</em>
+		          </span>
+		        #else 
+		          <a href="pageList${page}.html">${page}</a>     
+		    	#end 
+			#end 
+			#if (${list.lastPage} == false)
+				<a title="下一页" href="pageList${list.nextPage}.html">下一页</a>
+			<a title="最后一页" href="pageList${list.totalPages}.html">最后一页</a>
+			#end
+			<br>
+		
+		
+		</div>
+	</div>
+
+    </body>
+
+</html> 
+

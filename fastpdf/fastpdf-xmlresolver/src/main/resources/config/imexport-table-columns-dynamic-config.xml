@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+	>
+	<description>自动生成的字段转化配置信息</description>
+	
+	<!-- 创新型项目课程学期计划的导入 : Map<String,Map<String,String>>
+	<util:map id="auto_key_list" map-class="java.util.HashMap" >
+		<entry key="xkkh" value-ref="auto_xkkh_map"></entry>
+	</util:map>
+	
+	<util:map id="auto_xkkh_map" map-class="java.util.HashMap" >
+		<entry key="auto_key_text" value="(#xn#-#xq#)-#kcdm#-C#xh#"></entry>
+		<entry key="auto_key_sql" value="select to_char(xh, 'fm00') from (select decode(xh, null, 1, xh) xh
+	          from (select max(to_number(substr(xkkh, -2))) + 1 xh from sj_xmkcxqjhb
+	                 where xkkh like '('||'#xn#'||'-'||'#xq#'||')-'||'#kcdm#'||'-C__'))"></entry>
+	</util:map>
+	 -->
+	<bean id="auto_key_list" class="org.springframework.beans.factory.config.MapFactoryBean">
+		<property name="targetMapClass" value="java.util.HashMap"/>
+		<property name="sourceMap">
+			<map key-type="java.lang.String" value-type="java.util.HashMap">
+				<entry key="xkkh">
+					<map>
+						<entry key="auto_key_text" value="(#xn#-#xq#)-#kcdm#-C#xh#"></entry>
+						<entry key="auto_key_sql" value="select to_char(xh, 'fm00') from (select decode(xh, null, 1, xh) xh
+					          from (select max(to_number(substr(xkkh, -2))) + 1 xh from sj_xmkcxqjhb
+					                 where xkkh like '('||'#xn#'||'-'||'#xq#'||')-'||'#kcdm#'||'-C__'))"></entry>
+					</map>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+</beans>

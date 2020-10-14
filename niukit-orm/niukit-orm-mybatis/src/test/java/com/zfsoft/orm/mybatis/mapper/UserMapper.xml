@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woshidaniu.niukit-orm.mybatis.mapper.UserMapper">
+
+	<select id="selectById" parameterType="java.lang.Long" resultType="User">
+		select * from USER_QW where id=#{id}
+	</select>
+
+	<delete id="deleteByName" parameterType="java.lang.String">
+		delete FROM USER_QW where name=#{name}
+	</delete>
+
+	<select id="list" resultType="User">
+		select * from USER_QW
+	</select>
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.woshidaniu.component.bpm.management.process.definition.dao.daointerface.IProcessDefinitionDao">
+    
+    <select id="getCategoryList" resultType="string">
+    	SELECT DISTINCT category from (SELECT nvl2(category_, category_,'1') as category FROM act_re_procdef )
+    </select>
+    
+    <select id="getPagedList" parameterType="com.woshidaniu.component.bpm.management.process.definition.dao.entities.ProcessDefinitionModel"
+		resultType="com.woshidaniu.component.bpm.management.process.definition.dao.entities.ProcessDefinitionModel">
+		SELECT a.*,b.category_ deploymentCategory FROM(
+		  SELECT t1.ID_ AS ID,
+					   t1.CATEGORY_ AS CATEGORY,
+					   t1.NAME_ AS NAME,
+					   t1.KEY_ AS KEY,
+					   t1.VERSION_ AS VERSION,
+					   t1.DESCRIPTION_ AS DESCRIPTION,
+					   t1.SUSPENSION_STATE_ AS STATE,
+					   t1.DEPLOYMENT_ID_ AS deploymentId,
+					ROW_NUMBER() OVER(PARTITION BY t1.KEY_ ORDER BY t1.version_ desc) AS RN
+				FROM act_re_procdef t1 ) a 
+				LEFT JOIN act_re_deployment b
+				ON a.deploymentId = b.id_ WHERE a.RN = 1
+			<if test="name != null and name !=''">
+				and a.name like '%'||#{name}||'%'
+			</if>
+			<if test="category != null and category !=''">
+				and a.category = #{category}
+			</if>
+			<if test="state != null and state !=''">
+				and a.state = #{state}
+			</if>
+		 ORDER BY a.name
+    </select>
+
+</mapper>

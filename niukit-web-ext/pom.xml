@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.woshidaniu</groupId>
+		<artifactId>niukit-parent</artifactId>
+		<version>1.1.1</version>
+	</parent>
+	
+	<artifactId>niukit-web-ext</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		
+		<!--
+			Druid是阿里巴巴开源平台上的一个项目，整个项目由数据库连接池、插件框架和SQL解析器组成。
+			该项目主要是为了扩展JDBC的一些限制，可以让程序 员实现一些特殊的需求，比如向密钥服务请求凭证、
+			统计SQL信息、SQL性能收集、SQL注入检查、SQL翻译等，程序员可以通过定制来实现自己需要的功 能
+		-->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		     <groupId>net.bull.javamelody</groupId>
+             <artifactId>javamelody-core</artifactId>
+             <scope>provided</scope>
+		</dependency>
+		<!-- SiteMesh 是一个网页布局和修饰的框架，利用它可以将网页的内容和页面结构分离，以达到页面结构共享的目的 -->
+		<dependency>
+			<groupId>org.sitemesh</groupId>
+			<artifactId>sitemesh</artifactId>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/eu.bitwalker/UserAgentUtils -->
+		<dependency>
+		    <groupId>eu.bitwalker</groupId>
+		    <artifactId>UserAgentUtils</artifactId>
+		</dependency>
+		
+		
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>niukit-yuicompressor</artifactId>
+			<scope>provided</scope>
+            <version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>niukit-web</artifactId>
+            <version>${project.version}</version>
+		</dependency>
+		
+	</dependencies>
+	
+</project>

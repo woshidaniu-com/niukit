@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+	<description>毕业生管理管理</description>
+	
+	<!-- 毕业生辅助信息导出视图 -->
+	<util:list id="by_bysfzxxb_list" list-class="java.util.ArrayList">
+		<map><entry key="column_name" value="xsjbxxb_id"></entry><entry key="comments" value="学生基本信息表ID"></entry></map>
+		<map><entry key="column_name" value="xn"></entry><entry key="comments" value="学年"></entry></map>
+		<map><entry key="column_name" value="xq"></entry><entry key="comments" value="学期"></entry></map>
+		<map><entry key="column_name" value="xh"></entry><entry key="comments" value="学号"></entry></map>
+		<map><entry key="column_name" value="xm"></entry><entry key="comments" value="姓名"></entry></map>
+		<map><entry key="column_name" value="nj"></entry><entry key="comments" value="年级"></entry></map>
+		<map><entry key="column_name" value="ssxymc"></entry><entry key="comments" value="学院"></entry></map>
+		<map><entry key="column_name" value="zymc"></entry><entry key="comments" value="专业"></entry></map>
+		<map><entry key="column_name" value="xzbmc"></entry><entry key="comments" value="班级"></entry></map>
+		<map><entry key="column_name" value="bynf"></entry><entry key="comments" value="毕业年份"></entry></map>
+		<map><entry key="column_name" value="bysjtm"></entry><entry key="comments" value="毕业设计题目"></entry></map>
+		<map><entry key="column_name" value="bysjcj"></entry><entry key="comments" value="毕业设计成绩"></entry></map>
+		<map><entry key="column_name" value="jsxm"></entry><entry key="comments" value="毕业设计指导教师"></entry></map>
+	</util:list>
+	
+	<!-- 修习类型替换主表导出视图 -->
+	<util:list id="view_kcxzthb_list" list-class="java.util.ArrayList">
+		<map><entry key="column_name" value="thqkcxzmc"></entry><entry key="comments" value="替换前修习类型名称"></entry></map>
+		<map><entry key="column_name" value="thhkcxzmc"></entry><entry key="comments" value="替换后修习类型名称"></entry></map>
+	</util:list>
+	
+	<!-- 专升本审核条件设置表导入视图 -->
+	<util:list id="by_zsbshtjszb_list" list-class="java.util.ArrayList">
+		<map><entry key="column_name" value="kcxzdmb_id"></entry><entry key="comments" value="修习类型名称"></entry></map>
+		<map><entry key="column_name" value="zydmb_id"></entry><entry key="comments" value="专业名称"></entry></map>
+		<map><entry key="column_name" value="zyfxdmb_id"></entry><entry key="comments" value="专业方向名称"></entry></map>
+		<map><entry key="column_name" value="nj"></entry><entry key="comments" value="年级"></entry></map>
+		<map><entry key="column_name" value="sbxq"></entry><entry key="comments" value="升本学期"></entry></map>
+		<map><entry key="column_name" value="zdbyxf"></entry><entry key="comments" value="最低毕业学分"></entry></map>
+	</util:list>
+	
+	<!-- 专升本学生学期维护表导入视图 -->
+	<util:list id="by_zsbxsxqwhb_list" list-class="java.util.ArrayList">
+		<map><entry key="column_name" value="zydmb_id"></entry><entry key="comments" value="专业名称"></entry></map>
+		<map><entry key="column_name" value="xsjbxxb_id"></entry><entry key="comments" value="学号"></entry></map>
+		<map><entry key="column_name" value="nj"></entry><entry key="comments" value="年级"></entry></map>
+		<map><entry key="column_name" value="sbxq"></entry><entry key="comments" value="升本学期"></entry></map>
+	</util:list>
+	
+	
+</beans>

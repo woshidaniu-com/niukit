@@ -1,0 +1,47 @@
+.head-vertical {
+	border-bottom-width: 1px;
+	background:url(images/hh.gif) no-repeat -10px 20px;}
+	background-position: 
+}
+
+.head-horizontal {
+	border-width-bottom: 1;
+	border-width-left:1;
+	font-style:normal;
+	white-space:nowrap;
+	position:absolute;
+	top:100;
+	left:100;
+	white-space:nowrap;
+	text-align:inherit;
+	
+	
+	text-decoration: underline;
+	text-decoration: line-through;
+}
+
+.last-panel {
+	
+	text-align:left;
+	
+	border-bottom: none;
+	text-rotation："0, 90, 180 and 270.";
+	border-left-width:1;
+	border-top-width:1;
+	border-right-width:1;
+	border-bottom-width:1;
+	border-width:1;
+	text-indent: 1;
+	text-left-indent:1;
+	text-right-indent:1;
+    white-space:nowrap;
+    font-family: ;
+    font-size: ;
+    font-style: ;
+    font-weight: ; 
+    
+	
+	
+}
+
+

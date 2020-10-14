@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+	<description></description>
+	
+	<!-- 导入导出的表或视图对应的字段列表 -->
+	<util:list id="table_alias_column_list" list-class="java.util.ArrayList" scope="session">
+		<map>
+			<entry key="primary_key" value="0"></entry><!-- 是否主键 1|0 ,默认 0 -->
+			<entry key="column_name" value="xn"></entry><!-- 列的数据库列名 -->
+			<entry key="comments" value="学年||第一学年"></entry><!-- 字段描述信息（多个名称时候以||分割，导入会对每个进行匹配，导出则取第一个） -->
+			<entry key="requisite" value="0"></entry> <!-- 是否必填，1是，0不是，默认0 -->
+			<entry key="unique" value="0"></entry> <!-- 是否唯一  1|0 ,默认 0 -->
+			<entry key="type" value="VARCHAR2"></entry> <!-- 字段类型 -->
+			<entry key="minLength" value="100"></entry> <!-- 字段最小长度 -->
+			<entry key="maxLength" value="1000"></entry> <!-- 字段最大长度 -->
+		</map>
+	</util:list>
+	
+	<util:list id="demo_list" list-class="java.util.ArrayList" >
+		<map><entry key="column_name" value="zgh"></entry><entry key="comments" value="职工号"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="sfzh"></entry><entry key="comments" value="身份证号"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="jsxm"></entry><entry key="comments" value="姓名"></entry><entry key="requisite" value="1"></entry></map>
+		<map><entry key="column_name" value="xb"></entry><entry key="comments" value="性别"></entry></map>
+		<map><entry key="column_name" value="csrq"></entry><entry key="comments" value="出生日期"></entry></map>
+	</util:list>
+	
+</beans>

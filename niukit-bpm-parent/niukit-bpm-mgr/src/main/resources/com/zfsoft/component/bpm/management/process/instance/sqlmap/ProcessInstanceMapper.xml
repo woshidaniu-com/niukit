@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.woshidaniu.component.bpm.management.process.instance.dao.IProcessInstanceDao">
+    <resultMap type="map" id="processInstanceCommentResultMap">
+    	<result column="P_ACT_ID" property="P_ACT_ID" javaType="string" jdbcType="VARCHAR" />
+    	<result column="P_ACT_NAME" property="P_ACT_NAME"  javaType="string" jdbcType="VARCHAR" />
+    	<result column="P_ACT_TYPE" property="P_ACT_TYPE" javaType="string" jdbcType="VARCHAR" />
+    	<result column="P_ASSIGNEE" property="P_ASSIGNEE" javaType="string" jdbcType="VARCHAR" />
+    	<result column="P_USER_ID" property="P_USER_ID" javaType="string" jdbcType="VARCHAR" />
+    	<result column="P_DURATION" property="P_DURATION" javaType="string" jdbcType="VARCHAR" />
+    	<result column="P_END_TIME" property="P_END_TIME" javaType="string" jdbcType="VARCHAR" />
+    	<result column="P_START_TIME" property="P_START_TIME" javaType="string" jdbcType="VARCHAR" />
+    	<result column="P_PROC_DEF_ID" property="P_PROC_DEF_ID" javaType="string" jdbcType="VARCHAR" />
+    	<result column="P_PROC_INST_ID" property="P_PROC_INST_ID" javaType="string" jdbcType="VARCHAR" />
+    	<result column="P_TASK_ID" property="P_TASK_ID" javaType="string" jdbcType="VARCHAR" />
+    	<result column="P_TASK_COMMENT" property="P_TASK_COMMENT" javaType="string" jdbcType="VARCHAR" />
+    	<result column="P_TASK_FULL_COMMENT" property="P_TASK_FULL_COMMENT" jdbcType="BLOB" typeHandler="com.woshidaniu.component.bpm.common.BLOBTypeHandler"/>
+    </resultMap>
+    
+    <select id="getProcessInstanceComments" parameterType="string" resultMap="processInstanceCommentResultMap">
+    	SELECT * FROM V_PROCESS_TRACE A WHERE A.P_PROC_INST_ID = #{processInstanceId}
+    </select>
+
+</mapper>

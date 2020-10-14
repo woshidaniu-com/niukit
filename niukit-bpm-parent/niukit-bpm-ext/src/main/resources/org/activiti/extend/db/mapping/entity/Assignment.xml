@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  
+<mapper namespace="org.activiti.engine.extend.persistence.entity.AssignmentEntity">
+  
+  <!-- INFO INSERT -->
+
+  <insert id="insertAssignment" parameterType="org.activiti.engine.extend.persistence.entity.AssignmentEntity">
+    insert into ${prefix}ACT_RE_ASSIGNMENT (ID_, USER_ID_, GROUP_ID_, TYPE_, TASK_DEF_ID_, PROC_DEF_ID_)
+    values (
+      #{id ,jdbcType=VARCHAR},
+      #{userId ,jdbcType=VARCHAR},
+      #{groupId ,jdbcType=VARCHAR},
+      #{type ,jdbcType=VARCHAR},
+      #{taskDefinitionId ,jdbcType=VARCHAR},
+      #{processDefinitionId ,jdbcType=VARCHAR}
+    )
+  </insert>
+
+  <insert id="bulkInsertAssignment" parameterType="java.util.List">
+    insert into ${prefix}ACT_RE_ASSIGNMENT (ID_, USER_ID_, GROUP_ID_, TYPE_, TASK_DEF_ID_, PROC_DEF_ID_)
+    values 
+      <foreach collection="list" item="assignment" index="index" separator=",">
+        (#{assignment.id ,jdbcType=VARCHAR},
+         #{assignment.userId ,jdbcType=VARCHAR},
+         #{assignment.groupId ,jdbcType=VARCHAR},
+         #{assignment.type ,jdbcType=VARCHAR},
+         #{assignment.taskDefinitionId ,jdbcType=VARCHAR},
+         #{assignment.processDefinitionId ,jdbcType=VARCHAR})
+      </foreach>
+  </insert>
+
+  <insert id="bulkInsertAssignment_oracle" parameterType="java.util.List">
+    INSERT ALL 
+      <foreach collection="list" item="assignment" index="index">
+        INTO ${prefix}ACT_RE_ASSIGNMENT (ID_, USER_ID_, GROUP_ID_, TYPE_, TASK_DEF_ID_, PROC_DEF_ID_) VALUES 
+          (#{assignment.id ,jdbcType=VARCHAR},
+           #{assignment.userId ,jdbcType=VARCHAR},
+           #{assignment.groupId ,jdbcType=VARCHAR},
+           #{assignment.type ,jdbcType=VARCHAR},
+           #{assignment.taskDefinitionId ,jdbcType=VARCHAR},
+           #{assignment.processDefinitionId ,jdbcType=VARCHAR})
+      </foreach>
+    SELECT * FROM dual
+  </insert>
+
+   <insert id="insertAssignment_postgres" parameterType="org.activiti.engine.extend.persistence.entity.AssignmentEntity">
+    insert into ${prefix}ACT_RE_ASSIGNMENT (ID_, USER_ID_, GROUP_ID_, TYPE_, TASK_DEF_ID_, PROC_DEF_ID_)
+    values (
+      #{id ,jdbcType=VARCHAR},
+      #{userId ,jdbcType=VARCHAR},
+      #{groupId ,jdbcType=VARCHAR},
+      #{type ,jdbcType=VARCHAR},
+      #{taskDefinitionId ,jdbcType=VARCHAR},
+      #{processDefinitionId ,jdbcType=VARCHAR}
+    )
+  </insert>
+
+  <insert id="bulkInsertAssignment_postgres" parameterType="java.util.List">
+    insert into ${prefix}ACT_RE_ASSIGNMENT (ID_, USER_ID_, GROUP_ID_, TYPE_, TASK_DEF_ID_, PROC_DEF_ID_)
+    values 
+      <foreach collection="list" item="assignment" index="index" separator=",">
+        (#{id ,jdbcType=VARCHAR},
+      #{userId ,jdbcType=VARCHAR},
+      #{groupId ,jdbcType=VARCHAR},
+      #{type ,jdbcType=VARCHAR},
+      #{taskDefinitionId ,jdbcType=VARCHAR},
+      #{processDefinitionId ,jdbcType=VARCHAR})
+      </foreach>
+  </insert>
+  
+  <!-- INFO UPDATE -->
+  <update id="updateAssignment" parameterType="org.activiti.engine.extend.persistence.entity.AssignmentEntity">
+    update ${prefix}ACT_RE_ASSIGNMENT 
+    set USER_ID_ = #{userId ,jdbcType=INTEGER},
+        GROUP_ID_ = #{groupId ,jdbcType=VARCHAR}
+    where ID_ = #{id}
+  </update>
+  
+  <update id="updateAssignment_postgres" parameterType="org.activiti.engine.extend.persistence.entity.AssignmentEntity">
+    update ${prefix}ACT_RE_ASSIGNMENT 
+    set USER_ID_ = #{userId ,jdbcType=INTEGER},
+        GROUP_ID_ = #{groupId ,jdbcType=VARCHAR}
+    where ID_ = #{id}
+  </update>
+  
+  <!-- INFO DELETE -->
+
+  <delete id="deleteAssignment" parameterType="org.activiti.engine.extend.persistence.entity.AssignmentEntity">
+    delete from ${prefix}ACT_RE_ASSIGNMENT 
+    where ID_ = #{id}
+  </delete>
+  
+  <delete id="deleteAssignmentByProcessDefinitionId" parameterType="map">
+    delete from ${prefix}ACT_RE_ASSIGNMENT 
+    where PROC_DEF_ID_ = #{processDefinitionId}
+  </delete>
+  
+  <delete id="deleteAssignmentByTaskDefinitionId" parameterType="map">
+    delete from ${prefix}ACT_RE_ASSIGNMENT 
+    where TASK_DEF_ID_ = #{taskDefinitionId}
+  </delete>
+
+  <!-- INFO RESULTMAP -->
+
+  <resultMap id="assignmentResultMap" type="org.activiti.engine.extend.persistence.entity.AssignmentEntity">
+    <id property="id" column="ID_" jdbcType="VARCHAR" />
+    <result property="userId" column="USER_ID_" jdbcType="VARCHAR" />
+    <result property="groupId" column="GROUP_ID_" jdbcType="VARCHAR" />
+    <result property="type" column="TYPE_" jdbcType="VARCHAR" />
+    <result property="taskDefinitionId" column="TASK_DEF_ID_" jdbcType="VARCHAR" />
+    <result property="processDefinitionId" column="PROC_DEF_ID_" jdbcType="BLOB" />
+  </resultMap>
+  
+  <resultMap id="assignmentResultMap_postgres" type="org.activiti.engine.extend.persistence.entity.AssignmentEntity">
+    <id property="id" column="ID_" jdbcType="VARCHAR" />
+    <result property="userId" column="USER_ID_" jdbcType="VARCHAR" />
+    <result property="groupId" column="GROUP_ID_" jdbcType="VARCHAR" />
+    <result property="type" column="TYPE_" jdbcType="VARCHAR" />
+    <result property="taskDefinitionId" column="TASK_DEF_ID_" jdbcType="VARCHAR" />
+    <result property="processDefinitionId" column="PROC_DEF_ID_" jdbcType="BLOB" />
+  </resultMap>
+  
+  <!-- INFO SELECT -->
+
+  <select id="selectAssignmentById" parameterType="string" resultMap="assignmentResultMap">
+    select * from ${prefix}ACT_RE_ASSIGNMENT where ID_ = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectAssignmentById_postgres" parameterType="string" resultMap="assignmentResultMap_postgres">
+    select * from ${prefix}ACT_RE_ASSIGNMENT where ID_ = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectAssignmentByProcessDefinitionIdAndTaskDefintionId" parameterType="map" resultMap="assignmentResultMap">
+    select * from ${prefix}ACT_RE_ASSIGNMENT 
+    where TASK_DEF_ID_ = #{taskDefinitionId,jdbcType=VARCHAR}
+      and PROC_DEF_ID_ = #{processDefinitionId,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectAssignmentByProcessDefinitionIdAndTaskDefintionId_postgres" parameterType="map" resultMap="assignmentResultMap_postgres">
+    select * from ${prefix}ACT_RE_ASSIGNMENT 
+    where TASK_DEF_ID_ = #{taskDefinitionId,jdbcType=VARCHAR}
+      and PROC_DEF_ID_ = #{processDefinitionId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectAssignmentByProcessDefinitionId" parameterType="map" resultMap="assignmentResultMap">
+    select * from ${prefix}ACT_RE_ASSIGNMENT 
+    where PROC_DEF_ID_ = #{processDefinitionId,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectAssignmentByProcessDefinitionId_postgres" parameterType="map" resultMap="assignmentResultMap_postgres">
+    select * from ${prefix}ACT_RE_ASSIGNMENT 
+    where PROC_DEF_ID_ = #{processDefinitionId,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

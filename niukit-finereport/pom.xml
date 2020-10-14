@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.woshidaniu</groupId>
+		<artifactId>niukit-parent</artifactId>
+		<version>1.1.1</version>
+	</parent>
+	
+	<artifactId>niukit-finereport</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<!-- FineReport报表软件是一款纯Java编写的、集数据展示(报表)和数据录入(表单)功能于一身的企业级web报表工具，
+			它“专业、简捷、灵活”的特点和无码理念，仅需简单的拖拽操作便可以设计复杂的中国式报表，搭建数据决策分析系统。 
+		-->
+		<dependency>
+			<groupId>com.fr</groupId>
+			<artifactId>fr-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fr</groupId>
+			<artifactId>fr-report</artifactId>
+		</dependency>
+		<!--<dependency>
+			<groupId>com.fr</groupId>
+			<artifactId>fr-chart</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fr</groupId>
+			<artifactId>fr-performance</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fr</groupId>
+			<artifactId>fr-platform</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.fr</groupId>
+			<artifactId>fr-third</artifactId>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>niukit-basicutils</artifactId>
+            <version>${project.version}</version>
+		</dependency>
+	</dependencies>
+	
+</project>

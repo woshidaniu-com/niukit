@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Bootstrap网格 - Bootstrap后台管理系统模版Ace下载</title>
+		<meta name="keywords"
+			content="Bootstrap模版,Bootstrap模版下载,Bootstrap教程,Bootstrap中文" />
+		<meta name="description"
+			content="站长素材提供Bootstrap模版,Bootstrap教程,Bootstrap中文翻译等相关Bootstrap插件下载" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		</style>
+
+	</head>
+
+	<body>
+		<div id="message" class="message notice"
+			style="height: 300px; word-break: break-all; OVERFLOW: auto"></div>
+		<input type="button" class="btn" value="运行" onclick="run();" />
+		<iframe id="comet-frame" style="display: none;"
+			src="${base}/common/push"></iframe>
+		<script type="text/javascript">
+	function pushMessage(data) {
+		//$('#message').val($('#content').val() + data + '\n');
+		$('#message').append(data + '__tag_25$37_');
+		var d = document.getElementById('message');
+		message.scrollTop = message.scrollHeight;
+	}
+
+	function run() {
+		$.get('${base}/admin/spider/rule/run?id=${rule.id}', function() {
+		});
+	}
+
+	turnHighLight(815005020);
+	$(document).ready(function() {
+		//斑马线
+			var tables = document.getElementsByTagName("table");
+			var b = false;
+			for ( var j = 0; j < tables.length; j++) {
+				var cells = tables[j].getElementsByTagName("tr");
+				//cells[0].className="color3";
+				b = false;
+				for ( var i = 0; i < cells.length; i++) {
+					if (b) {
+						cells[i].className = "color2";
+						b = false;
+					} else {
+						cells[i].className = "color3";
+						b = true;
+					}
+					;
+				}
+				;
+			}
+</script>
+
+	</body>
+</html>

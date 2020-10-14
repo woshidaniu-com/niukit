@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE itext-config SYSTEM "itext-config.dtd">
+<itext-config namespace="">
+
+	<link href="/css/itext.css"/>
+	<style>
+	.calendar {
+		margin-right: 5px;
+		border: 1px solid #CED3D7;
+	}
+	</style>
+	
+	<description></description>
+	
+	<document documentID="xjk_print" model="html">
+		<css>/css/text.css</css>
+	</document>
+	<document documentID="" pageSize="A4" model="default"></document>
+	<document documentID="jbxx_export" model="default" pageSize="A4" rotate="true" style="">
+		<encrypt user="" password=""/>
+		<watermark text="" image="" >
+			<text>#{xxmc}#{xn}第#{xq}学期学生总成绩单</text>
+			<title>#{xxmc}#{xn}第#{xq}学期学生总成绩单</title>
+		</watermark>
+		<title>#{xxmc}#{xn}第#{xq}学期学生总成绩单</title>
+		<author>#{author}</author>
+		<keywords>#{keywords}</keywords>
+		<subject>#{subject}</subject>
+		<creator>#{creator}</creator>
+		
+		
+		<header numbered="true">
+			<before></before>
+			<after></after>
+		</header>
+		<footer numbered="false">
+			<before></before>
+			<after></after>
+		</footer>
+		
+		
+		
+		<iterator value="list">
+			
+		</iterator>
+		
+		<space height="" percentage=""/>
+		<line height=""  line-height="" percentage=""/>
+		
+		<br/>
+		<a href="" class="" style=""></a>
+		<i class="" dir="ltr" ></i>
+		<span class="" dir="ltr" style="" title=""></span>
+		<font class="" color="" dir="ltr" size="" style="" id="" ></font>
+		
+		<p>{xn}学年</p>
+		<h1 align="left" dir="ltr" class=""></h1>
+		<h2 align="left" dir="ltr" class=""></h2>
+		<h3 align="left" dir="ltr" class=""></h3>
+		<h4 align="left" dir="ltr" class=""></h4>
+		<h5 align="left" dir="ltr" class=""></h5>
+		<h6 align="left" dir="ltr" class=""></h6>
+		
+		<img alt="" src="" image=""  bytes="" border="" align="top" class="" dir="ltr" height="" id="" width="" style="" title="">
+		
+		
+		<table align="left" >
+			<iterator value="table_list">
+				<tbody></tbody>
+				<tr></tr>
+				<iterator value="sss">
+					
+				</iterator>
+			</iterator>
+			
+			<caption style="">{0}年{1}月{2}部门销售业绩统计表</caption>
+			<thead>
+				<tr class="header" style="line-height:50;font-family:dd ;font-size: ;font-weight: ;font-style: ;" >
+					<th rowspan="1">序号</th>
+					<th colspan="2" rowspan="1">时间</th>
+					<th rowspan="2">项目</th>
+					<th rowspan="2">统计</th>
+				</tr>
+				<tr>
+					<th>上班日</th>
+					<th>工作日</th>
+					<iterator value=""></iterator>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					
+					<th>照片</th>
+					<td>
+						<image bytes="${zp}" src=""/>
+					</td>
+				</tr>
+				<tr>
+					<th rowspan="list_info.size()">成绩记录</th>
+					<iterator value="list_info" status="sta">
+						<th>折算成绩</th>
+						<th>总评成绩</th>
+						<th>备注成绩</th>
+					</iterator>
+				</tr>
+				<iterator value="list_info" status="sta">
+					<tr>
+						<td>${zscj} </td>
+						<td>${zpcj}</td>
+						<td>${bzcj}</td>
+					</tr>
+				</iterator>
+			</tbody>
+			<tfoot>
+				
+			</tfoot>
+		</table>
+	</document>
+	
+</itext-config>

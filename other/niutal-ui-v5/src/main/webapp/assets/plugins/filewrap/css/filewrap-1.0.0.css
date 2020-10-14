@@ -1,0 +1,90 @@
+.filewrap {
+	font-family: "Microsoft Yahei", "微软雅黑", Arial, STHeiti, Tahoma,Helvetica;
+	clear: both;
+	height: auto;
+}
+
+.filewrap .placeholder {
+	height: 100%;
+	display: block;
+	border: 3px dashed #e6e6e6;
+}
+
+.filewrap .placeholder .wrap {
+	height: 100%;
+	position: relative;
+}
+
+.filewrap .file-input {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -90px;
+	margin-top: -21px;
+}
+
+.filewrap .file-input label {
+	margin: 0;
+	outline: 0 none;
+	padding: 0 5px;
+	width: 180px;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	border: 0 none;
+	border-radius: 3px;
+	border-color: #357ebd;
+	border-radius: 3px;
+	background: none repeat scroll 0 0 #428bca;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	color: #fff;
+	display: inline-block;
+	font-size: 18px;
+	font-weight:normal !important;
+	vertical-align: baseline;
+	user-select: none;
+	-moz-user-select: none; /* for Firefox */
+	-webkit-user-select: none; /* for Chrome */
+}
+
+.filewrap .file-input:hover label {
+	background: #3071a9;
+	border-color: #285e8e;
+	cursor: pointer;
+}
+
+.filewrap .file-input input {
+	cursor: default;
+	height: 100%;
+	left: 0;
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	display: inline-block;
+}
+
+.filewrap .placeholder .tips {
+	position: absolute;
+	top: 50%;
+	width: 100%;
+	line-height: 2;
+	margin-top: 15px;
+	text-align: center;
+	font-size: 16px;
+	color: #555;
+	font-size: 14px;
+}
+
+.filewrap .placeholder .error {
+	color: #dd5a43 !important;
+}
+
+.filewrap .filelist li .img {
+	height: 176px;
+	text-align: center;
+	overflow: hidden;
+	transform: translateY(0%);
+	transition: transform 0.5s ease-in;
+	-webkit-transition: -webkit-transform .3s ease-out;
+}

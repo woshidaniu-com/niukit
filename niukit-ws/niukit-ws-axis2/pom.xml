@@ -1,0 +1,140 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>niukit-ws-parent</artifactId>
+		<groupId>com.woshidaniu</groupId>
+		<version>1.1.1</version>
+	</parent>
+
+	<artifactId>niukit-ws-axis2</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<!--<dependency> <groupId>javax.activation</groupId> <artifactId>activation</artifactId> 
+			</dependency> <dependency> <groupId>org.apache.ws.commons.axiom</groupId> 
+			<artifactId>axiom-api</artifactId> </dependency> <dependency> <groupId>org.apache.ws.commons.axiom</groupId> 
+			<artifactId>axiom-impl</artifactId> </dependency> <dependency> <groupId>stax</groupId> 
+			<artifactId>stax-api</artifactId> </dependency> <dependency> <groupId>wsdl4j</groupId> 
+			<artifactId>wsdl4j</artifactId> </dependency> -->
+
+		<dependency>
+			<groupId>org.apache.ws.xmlschema</groupId>
+			<artifactId>xmlschema-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-kernel</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>servlet-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jaxen</artifactId>
+					<groupId>jaxen</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>geronimo-ws-metadata_2.0_spec</artifactId>
+					<groupId>org.apache.geronimo.specs</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jsr311-api</artifactId>
+					<groupId>javax.ws.rs</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>geronimo-jta_1.1_spec</artifactId>
+					<groupId>org.apache.geronimo.specs</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>apache-mime4j-core</artifactId>
+					<groupId>org.apache.james</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>geronimo-activation_1.1_spec</artifactId>
+					<groupId>org.apache.geronimo.specs</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>xmlschema-core</artifactId>
+					<groupId>org.apache.ws.xmlschema</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>geronimo-stax-api_1.0_spec</artifactId>
+					<groupId>org.apache.geronimo.specs</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-adb</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>geronimo-activation_1.1_spec</artifactId>
+					<groupId>org.apache.geronimo.specs</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-jaxws</artifactId>
+		    <exclusions>
+		    	<exclusion>
+		    		<artifactId>geronimo-javamail_1.4_spec</artifactId>
+		    		<groupId>org.apache.geronimo.specs</groupId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+		<!-- <dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-adb-codegen</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-cli</artifactId>
+					<groupId>commons-cli</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>xmlschema-core</artifactId>
+					<groupId>org.apache.ws.xmlschema</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency> -->
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-codegen</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>jaxws-tools</artifactId>
+					<groupId>com.sun.xml.ws</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-java2wsdl</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.ant</groupId>
+					<artifactId>ant</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun</groupId>
+					<artifactId>tools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.geronimo.specs</groupId>
+					<artifactId>geronimo-javamail_1.4_spec</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.httpcomponents</groupId>
+					<artifactId>httpclient</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.ws.xmlschema</groupId>
+					<artifactId>xmlschema-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+</project>

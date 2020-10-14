@@ -1,0 +1,848 @@
+第一章 创建一个Document
+利用iText五步创建一个PDF文件：helloword。
+第一步，创建一个 iTextSharp.text.Document对象的实例：
+Document document = new Document();
+第二步，为该Document创建一个Writer实例：
+PdfWriter.getInstance(document, new FileStream("Chap0101.pdf", FileMode.Create));
+第三步，打开当前Document
+document.Open();
+第四步，为当前Document添加内容：
+document.Add(new Paragraph("Hello World"));
+第五步，关闭Document
+document.Close();
+
+
+完整的代码见示例代码0101。
+在例中，不难看出，制作一个PDF文件是非常简单的。
+注：如果你将例中“document.Add(new Paragraph("Hello World"));”中的字符串“Hello Word”换成中文，如“这是我的第一个PDF文件”，产生的结果一定让你大失所望，因为生成的PDF文件中并没有将中文显示出来，不要担心，在第9章中 要专门讲解字体问题，中文显示也就迎刃而解了，如果不能正确显示中文，也就没有必要翻译本文了。
+下面对这几步做详细介绍。
+第一步 创建一个Document实例：
+iTextSharp.text.Document-object共有三个构造函数：
+public Document();
+public Document(Rectangle pageSize);
+public Document(Rectangle pageSize,
+int marginLeft,
+int marginRight,
+int marginTop,
+int marginBottom);
+第一个构造函数以A4页面作为参数调用第二个构造函数，第二个构造函数以每边36磅页边距为参数调用第三个构造函数 页面尺寸：
+你可以通过指定的颜色和大小创建你自己的页面，示例代码0102创建一个细长的浅黄色背景的页面：
+Rectangle pageSize = new Rectangle(144, 720);
+pageSize.BackgroundColor = new Color(0xFF, 0xFF, 0xDE);
+Document document = new Document(pageSize);
+通常，你不必创建这样的页面，而可以从下面页面尺寸中选择：
+A0-A10, LEGAL, LETTER, HALFLETTER, _11x17, LEDGER, NOTE, B0-B5, ARCH_A-ARCH_E, FLSA 和 FLSE
+大多数情况下使用纵向页面，如果希望使用横向页面，你只须使用rotate()函数：
+Document document = new Document(PageSize.A4.rotate());
+详细代码见示例代码0103。
+u       页边距：
+当创建一个文件时，你还可以定义上、下、左、右页边距：
+Document document = new Document(PageSize.A5, 36, 72, 108, 180);
+在示例代码0104中你可以看到该文档有一个0.5英寸的左边距和1英寸的右边距，上边距为1.5英寸，下边距为2.5英寸。
+说明：
+当创建一个矩形或设置边距时，你可能希望知道该用什么度量单位：厘米、英寸或象素，事实上，默认的度量系统以排版单位磅为基础得出其他单位的近似值，如1英寸=72磅，如果你想在A4页面的PDF中创建一个矩形，你需要计算以下数据：
+21 厘米 / 2.54 = 8.2677 英寸
+8.2677英寸* 72 = 595 磅
+29.7 厘米 / 2.54 = 11.6929 英寸
+11.6929英寸* 72 = 842 磅
+默认边距为36磅即半英寸。
+如果你修改了页面尺寸，仅仅影响到下一页，如果你修改了页边距，则影响到全部，故慎用。
+关于页面的初始值，请参考第三步。
+第二步 创建Writer实例
+一旦创建了document，我们可以创建该文档的多个Writer的实例，所有这些Writer实例均继承自抽象类“iTextSharp.text.DocWriter”。
+同时还有另外一种情况，你可以用iTextSharp.text.pdf.PdfWriter产生文档PDF文件，如果你想创建一个TeX文档，你可以使用iTextSharp.text.TeX.TeXWriter包。
+Writer类的构造函数是私有的，你只能通过下面的方法创建一个实例：
+public static xxxWriter getInstance(Document document, Stream os);(xxx 是 Pdf 或 Xml)
+你可以通过下面的方法创建一个实例：
+PdfWriter writer = PdfWriter.getInstance(document, new FileStream("Chap01xx.pdf"));
+但是你几乎永远不会用到Writer实例（除非你想创建高级PDF或者希望用一些非常特殊的函数，如ViewerPreferences 或 Encryption）。所以通过下面的办法得到实例已经足够了： PdfWriter.getInstance(document, new FileStream("Chap01xx.pdf"));
+在第一步中创建一个文档时，第一个参数意义不大，第二个参数可以是任何一种流，到目前为止我们一直使用System.IO.FileStream将Document写入文件中，示例代码0105用到了System.IO.MemoryStream（这不是一个独立的例子，你必须在Servlet Engine中测试这些代码。
+第三步 打开Document
+u       摘要
+在你写入任何实际数据之前，你可能希望通过以下几种方法写入一些关于本文档的摘要：
+public boolean addTitle(String title)
+public boolean addSubject(String subject)
+public boolean addKeywords(String keywords)
+public boolean addAuthor(String author)
+public boolean addCreator(String creator)
+public boolean addProducer()
+public boolean addCreationDate()
+public boolean addHeader(String name, String content)
+你可以选择自己的标题、主题、关键字、作者、创建程序，但以下产品信息将始终被添加：iTextSharp (或者iTextSharp的引用)和创建时间（实际上这两种方法是自动调用的）。
+你还可以将自定义的名称添加为“报头信息”，但是这对于PdfWriter没有任何作用，如果看看实例代码0101产生的pdf文件的“文档属性”，我们可以看到仅仅有PDF创建程序和产品日期，而示例代码0106的“文档属性”框中有更多的信息。
+ 
+打开document前要做的事：
+你只能在Open方法调用之前添加摘要，这是iText开发工具提供的一个选择。
+在HTML中，报头信息被放在文档前面报头标识中间，调用Open方法将导致报头信息写入流，因而在Document被打开后无法更改这些数据。
+PDF报头信息不包括摘要，看起来有类似于：
+%PDF-1.2
+该行显示生成的文档是一个版本为1.2的PDF格式的文件，在PDF中，摘要保存在PdfInfo对象中，当文档关闭时已经写入PdfWriter中了，因此，没有关于为什么不能修改库来满足任何时候添加或更改摘要的技术原因
+u       页面初始化
+Open方法在不同的Witer中同时会产生初始化事件，举例来说，如果你需要一个水印或者页眉页角对象出现在文档第一页的开始处，你需要在打开文档前添加这些，同样的用于设置该文档其他页水印、页眉、页角、页数和尺寸。
+当调用下列方法：
+public bool setPageSize(Rectangle pageSize)
+public bool Add(Watermark watermark)
+public void removeWatermark()
+setting Header property
+public void resetHeader()
+setting Footer property
+public void resetFooter()
+public void resetPageCount()
+setting PageCount property
+产生的结果只能在下一个新页中看到（当在本页调用初始化方法时），代码见示例代码0107，你必须要准备一张名为watermark.jpg的图片，如下图：
+ 
+u       阅读器参数：
+你可以通过下面的办法为PDF文件指定一些阅读器 (如Adobe Reader) 参数：
+public void setViewerPreferences(int preferences)
+在示例代码0108中，指定了下面一些参数：
+writerA.setViewerPreferences(PdfWriter.PageLayoutTwoColumnLeft);
+writerB.setViewerPreferences(PdfWriter.HideMenubar | PdfWriter.HideToolbar);
+writerC.setViewerPreferences(PdfWriter.PageLayoutTwoColumnLeft | PdfWriter.PageModeFullScreen | PdfWriter.NonFullScreenPageModeUseThumbs);
+正如你所看到的，参数可以使用以下一些常量：
+l         文件被打开时，页面布局用到下面的其中一个 ：
+PdfWriter.PageLayoutSinglePage – 同时只显示一个页面 
+PdfWriter.PageLayoutOneColumn –单列显示 
+PdfWriter.PageLayoutTwoColumnLeft –双列显示,奇数页在左 
+PdfWriter.PageLayoutTwoColumnRight -双列显示,奇数页在右 
+l         文件打开时，页面模式用到下面其中之一：
+PdfWriter.PageModeUseNone – 既不显示大钢也不显示缩略图 
+PdfWriter.PageModeUseOutlines – 显示大纲 
+PdfWriter.PageModeUseThumbs – 显示缩略图 
+PdfWriter.PageModeFullScreen – 全屏模式，没有菜单、windows控件或者其他任何windows可见控件 
+l         PdfWriter.HideToolbar – 当文档激活时，是否隐藏阅读程序（如Adobe Reader）的工具条
+l         PdfWriter.HideMenubar -当文档激活时，是否隐藏阅读程序的菜单.
+l         PdfWriter.HideWindowUI -当文档激活时，是否隐藏阅读程序的界面元素，如滚动条、导航条等，而仅仅保留文档显示
+l         PdfWriter.FitWindow – 是否调整文档窗口尺寸以适合显示第一页。
+l         PdfWriter.CenterWindow – 是否将文档窗口放到屏幕中央
+l         在全屏模式下，指定如何显示界面元素（选择一个）
+PdfWriter.NonFullScreenPageModeUseNone -既不显示大钢也不显示缩略图 
+PdfWriter.NonFullScreenPageModeUseOutlines – 显示大钢 
+PdfWriter.NonFullScreenPageModeUseThumbs – 显示缩略图 
+说明:你只能在类PdfWriter中调用这些方法。
+
+
+u       加密
+打开文档之前还要做的一件事情就是加密（如果你希望该文档加密），要达到这个目的，你可以使用下面的方法：
+public void setEncryption(boolean strength, String userPassword, String ownerPassword, int permissions);
+strength 是下面两个常量之一： 
+PdfWriter.STRENGTH40BITS: 40 位 
+PdfWriter.STRENGTH128BITS: 128位 (Acrobat Reader 5.0及以上版本支持) 
+UserPassword和ownerPassword 可以为空或零长度， 这种情况下， ownerPassword 将被随机的字符串代替 
+Permissions 为下列常量之一： 
+PdfWriter.AllowPrinting 
+PdfWriter.AllowModifyContents 
+PdfWriter.AllowCopy 
+PdfWriter.AllowModifyAnnotations 
+PdfWriter.AllowFillIn 
+PdfWriter.AllowScreenReaders 
+PdfWriter.AllowAssembly 
+PdfWriter.AllowDegradedPrinting 
+该功能参见示例代码0109和示例代码0110。
+writer.setEncryption(PdfWriter.STRENGTH40BITS, null, null, PdfWriter.AllowCopy);
+示例代码0109产生的文件能够被打开而无须密码，但用户不能打印、修改本文档。
+writer.setEncryption(PdfWriter.STRENGTH128BITS, "userpass", "ownerpass", PdfWriter.AllowCopy | PdfWriter.AllowPrinting);
+打你试图打开示例代码0110产生的文件时，将要求输入密码（'userpass'），因为添加了AllowPrinting参数,你可以打印该文档而不会发生任何问题。
+
+
+
+第四步 添加内容
+在解释第一步到第三步的不同示例中，你可能已经遇到了一些对象如Phrase, Paragraph等 在接下来的几章中，所有这些问题都将得到详细解释。
+有时你可能想一个writer故意忽略document产生的行为，如示例代码0111：
+当我们创建了两个writer： writerA 和 writerB：
+PdfWriter writerA = PdfWriter.getInstance(document, new FileStream("Chap0111a.pdf", FileMode.Create));
+PdfWriter writerB = PdfWriter.getInstance(document, new FileStream("Chap0111b.pdf", FileMode.Create));
+
+
+
+我们可以创建两个有细微差别的文档：
+writerA.Pause();
+document.add(new Paragraph("This paragraph will only be added to Chap0111b.pdf, not to Chap0111a.pdf"));
+writerA.resume();
+你可以比较文件: Chap0111a.pdf和Chap0111b.pdf的区别
+第五步，关闭 document
+关闭 document 非常重要, 因为它将关闭正在运行的Writer并将内容写入文件，该方法在最后被调用，你应该总是要关闭文档。
+高级话题：阅读PDF文件
+该部分内容介绍了iText只能产生PDF格式的文件而不能解析PDF格式文件，不再翻译。
+
+
+第二章 块、短句和段落
+块
+块(Chunk)是能被添加到文档的文本的最小单位，块可以用于构建其他基础元素如短句、段落、锚点等，块是一个有确定字体的字符串，要添加块到文档中时，其他所有布局变量均要被定义。下面一行中，我们创建了一个内容为“hello World”、红色、斜体、COURIER字体、尺寸20的一个块：
+Chunk chunk = new Chunk("Hello world", FontFactory.getFont(FontFactory.COURIER, 20, Font.ITALIC, new Color(255, 0, 0)));
+u       典型字体1：
+在本指南中，除了第九章外（你可以在这里学会使用其他字体），我们将始终使用典型字体1，这些是不同的典型字体1：
+·         Courier (该字体定宽)
+·         Helvetica
+·         Times Roman
+·         Symbol
+·         ZapfDingbats
+ 
+u       下划线/删除线
+如果你希望一些块有下划线或删除线，你可以通过改变字体风格简单做到：
+Chunk chunk1 = new Chunk("This text is underlined", FontFactory.getFont(FontFactory.HELVETICA, 12, Font.UNDERLINE));
+Chunk chunk2 = new Chunk("This font is of type ITALIC | STRIKETHRU", FontFactory.getFont(FontFactory.HELVETICA, 12, Font.ITALIC | Font.STRIKETHRU));
+u       上标/下标
+在块中有几个方法可以调用，其中大部分将在接下来的章节中介绍，本章中只介绍一个方法 setTextRise(float f). 你可以使用该方法在上标或下标中写块。
+u       块的背景
+如果你想改变块的背景，你可以使用方法setBackground(Color color). 这将在块文本的下面添加一个彩色矩形：
+ck.setBackground(new Color(0xFF, 0xFF, 0x00));
+在示例代码0101中，你可以概览典型字体1和一个使用setTextRise, setBackground等方法的的例子。
+短句
+短句（Phrases）是一系列以特定间距（两行之间的距离）作为参数的块，一个短句有一个主字体，但短句中的一些块具有不同于主字体的字体，你有更多的选择去创建短句，一些具体使用参见代码0202。
+ 
+u       古希腊语
+因为古希腊语经常使用，在类Phrase的构造函数中有一个特征：将一个字符串作为参数（如果你想避免这种情况，你只能使用块工作而不能使用字符串），正如你在示例代码0203中看到的，这个特征自动地将913至937（除903）和945至969（古希腊的ASCII值）范围内的所有字体改为希腊符号。
+u       非主要性
+与其说这是一个特征，不如说是一个缺陷，但无论如何，这使创建一个非主要性的短句或段落成为可能，这将产生一个由下向上书写的临时作用（参见示例代码0204）。如果你想在一页中将一些位置移动到上面时可能有用。
+说明，当你穿越上边届时无法检查，也没有办法让你回到前一页。
+段落
+段落是一系列块和（或）短句。同短句一样，段落有确定的间距。用户还可以指定缩排；在边和（或）右边保留一定空白，段落可以左对齐、右对齐和居中对齐。添加到文档中的每一个段落将自动另起一行。有几种办法建立一个段落，如：
+Paragraph p1 = new Paragraph(new Chunk("This is my first paragraph.", FontFactory.getFont(FontFactory.HELVETICA, 12)));
+Paragraph p2 = new Paragraph(new Phrase("This is my second paragraph.", FontFactory.getFont(FontFactory.HELVETICA, 12)));
+Paragraph p3 = new Paragraph("This is my third paragraph.", FontFactory.getFont(FontFactory.HELVETICA, 12));
+所有有些对象将被添加到段落中：
+p1.add("you can add strings, "); p1.add(new Chunk("you can add chunks ")); p1.add(new Phrase("or you can add phrases."));
+说明：一个段落有一个且仅有一个间距，如果你添加了一个不同字体的短句或块，原来的间距仍然有效，你可以通过SetLeading来改变间距，但是段落中所有内容将使用新的中的间距。见示例代码0205。
+u       保持段落的整体性
+在示例代码0206中，我们使用了setKeepTogether(true)方法来试图将一个段落放在同一页中，该方法并不是始终有效，举个例子，第一段不能刚好在一页中，于是被分成了两部分。第二段被放置在第二页，但第三段顺沿到了第三页上。
+字体的延续
+你应该掌握字体延续的一些规则，这些规则的应用见示例代码0207，当我们将一些内容用指定的字体（非默认字体）创建一个短句或者段落后再添加更多内容时，初始对象的字体风格将被延续，请看“Hello 1!”和“Hello 2”：
+Phrase myPhrase = new Phrase("Hello 2! ", new Font(Font.TIMES_NEW_ROMAN, 8, Font.BOLD));
+myPhrase.Add(new Phrase("some other font ", new Font(Font.HELVETICA, 8, Font.ITALIC)));
+myPhrase.Add(new Phrase("This is the end of the sentence.\n", new Font(Font.TIMES_NEW_ROMAN, 8, Font.ITALIC)));
+document.Add(myPhrase);
+我们由Times New Roman 粗体字开始，添加一些文本使用Helvetica字体而不指定风格，我们发现文本被改变成了粗体，当我们再加一些文本使用Times New Roman字体和斜体风格，结果变成了粗斜体。
+如果我们使用FontFactory来创建字体，字体风格不会被延续，因为FontFactory使用了另外的技术构建一个字体：
+myPhrase = new Phrase("Hello 1bis! ", FontFactory.getFont(FontFactory.TIMES_NEW_ROMAN, 8, Font.BOLD));
+myPhrase.Add(new Phrase("some other font ", FontFactory.getFont(FontFactory.HELVETICA, 8, Font.ITALIC)));
+myPhrase.Add(new Phrase("This is the end of the sentence.\n", FontFactory.getFont(FontFactory.TIMES_NEW_ROMAN, 8, Font.ITALIC)));
+document.Add(myPhrase);
+在上面的代码中，使用Helvetica字体的文本风字体没有指定（既不是粗体也不是斜体）。采用Times New Roman的额外文本仅仅显示为斜体。
+你也看到我们添加了一个段落，添加该段落就如同一个短句。
+Paragraph myParagraph = new Paragraph("Hello 1! ", new Font(Font.TIMES_NEW_ROMAN, 8, Font.BOLD));
+myParagraph.Add(new Paragraph("This is the end of the sentence.",FontFactory.getFont(new Font.TIMES_NEW_ROMAN, 8)));
+document.Add(myParagraph);
+你可以不这样做，但将失去字体风格的延续，首先不用任何字体创建段落（例中我们仅仅给字体出间距为1.5倍），然后添加内容的不同部分。
+ 
+myParagraph = new Paragraph(12);
+myParagraph.Add(new Paragraph("Hello 3! ", new Font(Font.TIMES_NEW_ROMAN, 8, Font.BOLD)));
+myParagraph.Add(new Paragraph("This is the end of the sentence.", new Font(Font.TIMES_NEW_ROMAN, 8, Font.ITALIC)));
+document.Add(myParagraph);
+如果你使用了Phrase对象，你同样会失去字体风格的延续：
+myPhrase = new Phrase(12);
+myPhrase.Add(new Phrase("Hello 4! ", new Font(Font.TIMES_NEW_ROMAN, 8, Font.BOLD)));
+myPhrase.Add(new Phrase("This is the end of the sentence.", newFont(Font.TIMES_NEW_ROMAN, 8, Font.ITALIC)));
+document.Add(myPhrase);
+u       更改分割符
+通常，当文本不能放在一行时，文本将被分割成不同的部分，iText首先会查找分割符，如果没有找到，文本将在行尾被截断。有一些预定的分割符如“ ”空格和“-”连字符，但是你可以使用setSplitCharacter方法来覆盖这些默认值。在示例代码0208中，你可以看到当到达行尾时一个块是如何被分割的。然后分隔符被改成点“.”，该行在该字符处被分割。
+第三章 锚点、列表和注释
+锚点
+我们都知道HTML中的超文本链接，当我们点击某些语句，你能够跳转到网上的其他页。在PDF中也可以实现这种功能。事实上，在第十一章整个章节中有关于PDF链接的介绍，但这是iText的更高级的应用，本章中我们处理简单的iText。
+如果你想在文档中添加一个外部链接（例如使用URL链接到WEB上的其他文档），你可以简单地使用Anchor对象，它派生于Phrase对象，使用方法相同。只有两种额外方法定义两种额外变量：setName和 setReference。
+外部链接示例：
+Anchor anchor = new Anchor("website", FontFactory.getFont(FontFactory.HELVETICA, 12, Font.UNDERLINE, new Color(0, 0, 255)));
+anchor.Reference = "http://itextsharp.sourceforge.net";
+anchor.Name = "website";
+如果你想添加内部链接，你需要选择该链接不同的名称，就象你相位在HTML中利用名称作为锚点一样。为达到该目的，你需要添加一个“#”。
+内部链接示例：
+Anchor anchor1 = new Anchor("This is an internal link");
+anchor1.Name = "link1";
+Anchor anchor2 = new Anchor("Click here to jump to the internal link");
+anchor.Reference = "#link1";
+这两个链接的例子请见示例代码0301。
+列表
+通过类List 和ListItem，你可以添加列表到PDF文件中，对于列表你还可以选择是否排序。
+排序列表示例：
+List list = new List(true, 20);
+list.Add(new ListItem("First line"));
+list.Add(new ListItem("The second line is longer to see what happens once the end of the line is reached. Will it start on a new line?"));
+list.Add(new ListItem("Third line"));
+结果如下：
+First line 
+The second line is longer to see what happens once the end of the line is reached. Will it start on a new line? 
+Third line 
+不排序示例如下：
+List overview = new List(false, 10);
+overview.Add(new ListItem("This is an item"));
+overview.Add("This is another item");
+结果如下：
+This is an item 
+This is another item 
+你可以通过setListSymbol方法更改列表符号：
+// 用字符串作为列表符号
+list1.ListSymbol = "*";
+// 用Chunk 作为列表符号（包含“•”字符）
+list2.ListSymbol = new Chunk("\u2022", FontFactory.getFont(FontFactory.HELVETICA, 20));
+//用图片作为列表符号
+list3.ListSymbol = new Chunk(Image.getInstance("myBullet.gif"), 0, 0);
+还可以使用setIndentationLeft和setIndentationRight方法设置缩排，列表符号的缩排在构造函数中设置。更多的例子请参见示例代码0302。
+注释
+iText支持不同风格的注释。
+u       文本注释：
+你可以添加一小段文本到你的文档中，但它并非文档内容的一部分，注释有标题和内容：
+Annotation a = new Annotation(
+"authors",
+"Maybe it's because I wanted to be an author myself that I wrote iText.");
+u       外部链接注释：
+你需要指定一个可点击的矩形和一个字符串（URL描述）或URL对象：
+Annotation annot = new Annotation(100f, 700f, 200f, 800f, new URL("http://www.lowagie.com"));
+Annotation annot = new Annotation(100f, 700f, 200f, 800f, "http://www.lowagie.com");
+u       外部PDF文件链接注释：
+你需要指定一个可点击的矩形和一个字符串（文件名称）和目的文件或页码。
+Annotation annot = new Annotation(100f, 700f, 200f, 800f, "other.pdf", "mark");
+Annotation annot = new Annotation(100f, 700f, 200f, 800f, "other.pdf", 2);
+u       指定行为链接注释
+你需要指定一个可点击的矩形和一个指定的行为：
+Annotation annot = new Annotation(100f, 700f, 200f, 800f, PdfAction.FIRSTPAGE);
+u       应用程序链接注释：
+你需要指定一个可点击的矩形和一个应用程序：
+Annotation annot = new Annotation(300f, 700f, 400f, 800f, "C://winnt/notepad.exe", null, null, null);
+我们无须在页面上指定一个位置，iText会内部处理。你能够看到iText添加文本注释在页面上当前位置下面，第一个在段后第一行下面，第二个在短句结束处的下面。
+所有其他注释需要指定想匹配的矩形区域，在示例代码0304中，我们画了一些我是大牛形（使用的函数将在第十章中介绍），为每个我是大牛形添加了一些链接注释。
+第四章 页眉页脚、章节、区域和绘图对象
+使用在第三至第五章中描述的大量简单iText对象可以避免更多的高级话题（第九至十二章），紧记这些简单对象限制的功能，大量复杂的功能在第三部分。
+页眉页脚
+HeaderFooter对象可以于为文档每页添加页眉和页脚。这样一个页眉或页脚包含一个标准的短句（如果需要）和当前页码，如果你需要更多复杂的页眉和页脚（使用表格或者第几页共几页），请阅读第十二章。
+在示例代码0401中，你可以看到我们首先添加了一个包含页码没有任何边框的页脚。
+HeaderFooter footer = new HeaderFooter(new Phrase("This is page: "), true);
+footer.Border = Rectangle.NO_BORDER;
+document.Footer = footer
+我们还可以使用下面的构造函数：
+HeaderFooter footer = new HeaderFooter(new Phrase("This is page "), new Phrase("."));
+构造函数知道你希望添加一个页码和将其放置在两个短句间，如果你只是设置一个HeaderFooter而不改变边框，页眉或页脚的文本上下各有一条直线。
+HeaderFooter header = new HeaderFooter(new Phrase("This is a header without a page number"), false);
+document.Header = header;
+章节和区域
+在第十一章中将描述如何构建一个树的外观，如果你只需要一个简单的章节和（子）区域，你可以用Chapter对象和Section对象自动构建一个树：
+Paragraph cTitle = new Paragraph("This is chapter 1", chapterFont);
+Chapter chapter = new Chapter(cTitle, 1);
+Paragraph sTitle = new Paragraph("This is section 1 in chapter 1", sectionFont);
+Section section = chapter.addSection(sTitle, 1);
+在示例代码0402中，我们添加了一系列的章节和子区域，你可以看到完整的树形，树形结构默认打开，如果你希望部分节点关闭，你必须使用用BookmarkOpen属性其值为false，详见示例代码0403。
+图形
+如果你想添加图形，如直线、圆、几何窗体，你应该阅读读十章，但如果你只需要一些有限的功能，你可以使用Graphic对象
+Graphic grx = new Graphic();
+//添加一个矩形
+grx.rectangle(100, 700, 100, 100);
+// 添加一条斜线
+grx.moveTo(100, 700);
+grx.lineTo(200, 800);
+// 将图形显示出来
+grx.stroke();
+document.Add(grx);
+完整的代码请见示例代码0404，如果想看到全部的方法，请参见PdfContentByte对象API。
+当你想给页面加一个边框或者在文本当前位置画一条水平线时，图形对象非常有用。下面的方法用指定的宽度、间距（如果需要）和颜色画一个边框。
+public void setBorder(float linewidth, float extraSpace);
+public void setBorder(float linewidth, float extraSpace, Color color);
+下面的方法用指定的宽度（如果需要）和颜色画一条水平线，线的长度是指定两边缘间可用面积的的百分比。
+public void setHorizontalLine(float linewidth, float percentage)
+public void setHorizontalLine(float linewidth, float percentage, Color color)
+示例代码5中，有一个离边界5磅，线宽3磅的边框，还有两条水平线，一条为黑色，5磅宽，可用空间的100％，另外一条为红色，线宽3磅，可用空间的80％。
+第五章 表格
+重点：如果你仅仅生成PDF文件（没有XML、HTML、RTF……），使用类pdfPTable代替类Table更好。
+一些简单的表格
+一个表格是包含单元格排列成矩阵的矩形区域。表格的距阵并不要求是m×n的，它可以有空洞或者单元格比单个的要大。
+创建一个表格最通用的办法是预先知道有几行几列：
+public Table(int columns, int rows);
+在示例代码0501中，我们构建了一个简单的表：
+Table aTable = new Table(2,2);
+aTable.addCell("0.0");
+aTable.addCell("0.1");
+aTable.addCell("1.0");
+aTable.addCell("1.1");
+该表格有两行两列，单元格被自动添加，从第一行第一列开始，然后是第二列，当一行满后，下一单元格自动添加到下一行的第一列中。
+也可以将单元格添加到表中指定的位置，如示例代码0502，别了要添加System.Drawing.dll引用，以获得Point对象，我们创建了一个4行4列的表格然后添加一些单元格到随机的位置上：
+Table aTable = new Table(4,4);
+aTable.AutoFillEmptyCells = true;
+aTable.addCell("2.2", new Point(2,2));
+aTable.addCell("3.3", new Point(3,3));
+aTable.addCell("2.1", new Point(2,1));
+aTable.addCell("1.3", new Point(1,3));
+你可以看到我们将AutoFillEmptyCells属性设置为true，这将自动、默认的单元格布局填充空的单元格，如果我们忘记了这样做（就象本例中第二个表格），将没有额外的单元格添加，不包含任何单格的行也将被忽略，在本例中，第一行将不显示，因为该行是空行。
+经常用数据库查询结果来填充表格，大多数情况下，你预先并不知道到底需要多少行，这就是为什么还有第二个构造函数的原因：
+public Table(int columns);
+iText根据需要自动添加行，在示例代码0503中，初始化了4行4列，当我们添加第6行和第7行的单元格时，iText自动增加行数到7。
+增加列数也是可能的，但是有点麻烦，它不能自动生成，你必须使用addColumns方法并设置列宽，详见示例代码0504。
+一些表格参数
+前面例子中的表格并不美观，我们可以设置大量的参数来改变表格外观。类Table和类Cell派生于类Rectangle，我们可以用大量典型的Rectangle方法，让我们来看看示例代码0505。
+Table table = new Table(3);
+table.BorderWidth = 1;
+table.BorderColor = new Color(0, 0, 255);
+table.Cellpadding = 5;
+5.   table.Cellspacing = 5;
+Cell cell = new Cell("header");
+cell.Header = true;
+cell.Colspan = 3;
+table.addCell(cell);
+10.        cell = new Cell("example cell with colspan 1 and rowspan 2");
+cell.Rowspan = 2;
+cell.BorderColor = new Color(255, 0, 0);
+table.addCell(cell);
+table.addCell("1.1");
+15.        table.addCell("2.1");
+table.addCell("1.2");
+table.addCell("2.2");
+table.addCell("cell test1");
+cell = new Cell("big cell");
+20.        cell.Rowspan = 2;
+cell.Colspan = 2;
+cell.BackgroundColor = new Color(0xC0, 0xC0, 0xC0);
+table.addCell(cell);
+table.addCell("cell test2");
+25.        document.Add(table);
+ 
+u       单元格间距和填距
+在第4行中，我们设置了表格的填距，就是单元格边界和内容间一定数量的空间，在前面的示例中，我们看到文本紧贴边界，通过使用用特定的填距，就可以避免。
+在第5行中，我们设置了表格的间距，就是单元格和表格边界间的一定数量的空间，不同的单元格间使用了半数空间，具体代码见示例代码0506。
+u       对齐方式
+在示例代码0506中，我们也改变了单元格“big cell”的对齐方式：
+cell.HorizontalAlignment = Element.ALIGN_CENTER;
+cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+注：不能总是相信垂直对齐方式。
+u       边框
+如果我们象在第14行中那样添加了一个单元格，将使用默认的单元格布局（默认的布局可以SetDefalut方法改变），如果我们使用了Cell对象，我们可以控制每一个单元格的布局。
+在第2和第三中，我们设置整个表格的边框宽度和边框颜色，我们在单元格上可以使用的方法，在12行中，每个单元格用“box”作为边界绘制（就象在HTML中），但是示例代码0507显示，我们在PDF中有大量更多可能。
+u       颜色
+在第22行中，你也能定义单元格的背景色，在示例代码0507中，我们不使用颜色只是用一定灰度填充。
+u       行跨和列跨
+最后，你也能设置单元格的行跨（11/20行）和列跨（8/21列）。通过这种方法可以将几个单元格合并成一个大的单元格。
+u       备注
+第7行在PDF中没有意义，用于生成HTML，在HTML中并不是总能产生同样的布局，PDF表格有点象：
+ 
+header 
+ 
+example cell with colspan 1 and rowspan 2 
+ 1.1 
+ 2.1 
+ 
+1.2 
+ 2.2 
+ 
+cell test1 
+ big cell 
+ 
+cell test2 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+u       表格分割
+如果一个表格不能放在一页中，将自动被分割，示例代码0508显示了当一个表格到达页边时发生的情况，这将在下一节中解释。
+大表格
+跨越几页的表格将自动被分割成不同的部分。示例代码0509显示了一个跨越多页的报表。该报表有一个表头，如果你希望这个表头在每页都出现，你可以用endHeaders()方法标记表头区域的结束点，见示例代码0510。
+为做这样的报表，建议设置单元格间距为0和仅使用指定的填距。
+你可能已经注意到了，当一个表格被分割时，一些边界好象丢失了。这是因为单元格在前一页被完整地绘制了而不会传递给下一页。
+u       强行将一个表格或单元格布置到一页上
+有有些情况下，你可能希望避免单元格或者整个表被拆分成两个部分，示例代码0511差不多和示例代码0508完全一样，但我们设置了参数TableHasToFit为true，看看示例代码0508和示例代码0511结果区别。在示例代码0512中我们修改了示例代码0510的CellsHaveToFit属性为true，比较两个示例产生结果的区别。
+内存管理
+当我们添加一个对象到文档时，该对象一有可能就写入了输出流，但当创建一个表格时，该Table对象一直保存着，对于真正的大表格，这将成为一个问题。
+同样，当你正写一个HttpServletResponse对象到输出流时，浏览器也可能超时。这就是为什么你自己用fitsPage()方法控制表分割是有用的，示例代码0513告诉你如何做。
+嵌套表格
+有两种方法嵌套表格，第一种是利用insertTable方法明确地将一个表格插入到另外一个表格，示例代码0514显示了通过插入到其他表格的办法创建的5个 表格。正如你看到的在前面两个表中，所有空的单元格自动得到分割，因为改变了原来的表格。如果一个单元格不空，列跨度和（或）行跨度将自动调整到新的位 置，页面上第三个表格显示所有原表中列的相关宽度都得到了保护，第四个表格显示我们可以在插入了表格后添加其他单元格：该单元格自由地添加到下一个单元格 中。最后是一个深度嵌套的表格。
+当你使用insertTable方法时，插入表的宽度百分比不会被考虑，如果你希望插入表仅占单元格的80％（这是默认的宽度百分比），你不得不在单元格中绕排，见示例代码0515，这也是让一个表结合其他数据存放在同一个单元格中的唯一办法，见示例代码0516。
+备注：你只能将一个表格插入到列跨度和行跨度均为1的单元格中。
+表格偏移
+当一个表格被添加到文档之前，以当前间距为准的新行将被添加（如前一个插入对象的间距）。有时因为前一个插入对象和当前表格间的间距过大或过小你并不希望这样做，如果你想改变这个空间，你不得不设置表格偏移，如示例代码0517。
+表格的绝对位置
+iTextSharp.text.Table是一个通过标准方法创建表格的相当简单的类，但有时你希望表格有一些特殊的行为，这种情况下你将使用更复杂的类com.lowagie.text.pdf.PdfPTable，示例代码0518是一个非常简单的例子，在第十章和十二章中将有一些更复杂的例子。
+第六章 图片
+Image对象
+如果你学习过API，你可能已经注意到可以通过几种构造函数来创建图片，本手册中，我们将仅仅告诉你最简单的解决方案，如访问通过文件名或URL确定的图片生成的Image对象。
+public static Image getInstance(Uri url)
+public static Image getInstance(string filename)
+Image是一个抽象类，故得到实例的方法将判断给出的图片的类别（GIF、Jpeg、PNG……）并返回对象的类别Gif、Jpeg、Png……，一些图片会被忽略，如果你想知道哪些图片会被忽略，请查阅FAQ（http://www.lowagie.com/iText/faq.html#images）。
+u       通过URL得到图片实例
+这是添加一个图片最简单的办法，见示例代码0601，我们添加了一个WMF、一个Gif、一个Jpeg和一个PNG图片到文档中，使用4个URL得到：
+Image wmf = Image.getInstance(new URL("../examples/harbour.wmf"));
+Image gif = Image.getInstance(new URL("../examples/vonnegut.gif"));
+Image jpeg = Image.getInstance(new URL("../examples/myKids.jpg"));
+Image png = Image.getInstance(new URL("../examples/hitchcock.png"));
+备注：许多PDF库在插入一个图片前都将其解压缩并转换成位图格式，下面是几个我为什么不这样做的原因：
+这将导致PDF文件增大，这样产生的PDF文件尺寸是不同图片文件尺寸总和的数十倍。 
+面临一个法律问题：LZW算法受专利保护，所以不允许使用这种算法来解压缩GIF等文件。 
+u       通过文件名得到图片实例
+通过简单地改变图片引用路径将示例代码0601改成示例代码0602：
+Image gif = Image.getInstance("vonnegut.gif");
+Image jpeg = Image.getInstance("myKids.jpg");
+Image png = Image.getInstance("hitchcock.png");
+同示例代码0601的区别只是该图象从本地获取而已，另外一个例子见示例代码0603。
+图片的位置
+u       对齐方式
+通过下面方法设置图片的对齐方式：
+Alignment = Image.RIGHT
+Alignment = Image.MIDDLE
+Alignment = Image.LEFT
+参见示例代码0604。
+我们将Vonnegut的图片放在右边，小孩的图片放在中间，hitchcock的图片放在左边。
+u       图片和文本
+另外，你还可以指定文本相对图片的环绕方式：
+Alignment = Image.RIGHT | Image.TEXTWRAP
+Alignment = Image.MIDDLE
+Alignment = Image.LEFT | Image.UNDERLYING
+见示例代码0506，文字在Vonnegut图片的左侧，并不在我小孩的图处环绕，且排在Hitchcock图片的上面。
+说明：该功能尚有一些BUG。
+u       绝对位置
+当制作PDF文件时，你可能用到该方法：
+public void setAbsolutePosition(int absoluteX, int absoluteY)
+将一个图片放要页面上一个绝对位置的代码见示例代码0606，我们在不同的坐标处添加了两幅图片，这里使用给定的坐标将图片放在了左下角，通过将图片的宽度和高度作为X和Y坐标将设置第一个图片，坐标的2倍设置第二个图片。
+缩放和旋转图片
+u       缩放
+有几种办法可以缩放图片：
+public void scaleAbsolute(int newWidth, int newHeight)
+public void scalePercent(int percent)
+public void scalePercent(int percentX, int percentY)
+public void scaleToFit(int fitWidth, int fitHeight)
+小孩的图片大小为194×202象素，如果你想让图片小一些，你可以通过scaleAbsolute(97, 101)进行缩放，使用scalePercent(50)也能到达同样的效果。
+还可以通过scaleAbsolute(194, 101)来减小，所以这些例子都放在了示例代码0607中。
+u       对分辨率的影响
+如果一个图片不经任何缩放，其分辨率（resolution）为72，如果该图片缩放比例为50％，则分辨率为144，如果有更低的缩放比，则分辨率将更大，因为象素相同但尺寸变得更小了。使用72/300=24％的比例放置一个300dpi的图片，例：你用300dpi扫描了一个5×5英寸的图片，图片结果为1500×1500象素（5×300），当你用24％（72/300=0.24）的比例将该图片放置到PDF文件中时，PDF中的图片将为5×5英寸1500X1500象素300dpi，该图片将始终为1500X1500象素而不管尺寸如何。
+u       旋转
+可以通过下面的方法旋转图片
+public void setRotation(double r)
+详见示例代码0608。
+原始图片数据
+到目前为止，所有例子中使用的图片均来自地本地磁盘或者某个网站，但也可能使用包含图片信息的数组来得到图片的实例：
+public static Image getInstance(byte[] img)
+该方法同前面方法的效果相同，返回一个新的Gif,Jpeg或者Png类别的Image对象。
+在示例代码0609中，我们添加一个从一个Jpeg文件中读入到字节数组中的图片，很明显，使用其他getInstance方法得到实例更优越，但这仅仅是一个例子，该getInstance方法在动态创建那些根本不存在的图片时非常有用。
+该例子也演示了如何创建和使用一个原始图片。
+public static Image getInstance(int width, int height, int components, int bpc, byte data[])
+本例中创建了一个100×100象素的图片，因为每个象素用RGB描述，所以图片大小为100×100×3字节。
+System.Drawing.Bitmap
+示例代码0610是一个比较高级的话题，理由如下：
+首次使用到了System.Drawing.Bitmap类。该类在.net框架中，可以使用更多类型的图片，如TIFF、GIF，而这些图片在iText中均不支持，你可以检查一下.net框架看看你需要的图片格式是否得到支持。 
+前面的例子中，还有一些事情要注意：当添加一个图片时不会出现什么问题，文字始终浮于图片上面，本例中，我们希望图片浮在文字上面。这也是为什么我们将使用iTextSharp.text.pdf.PdfContentByte类的原因（见第十章）。
+你将发现使用的图片为透明的gif格式，你可以到http://itextsharp.sourceforge.net/examples/h.gif下载得到。 
+TIFF和CCITT
+示例代码0611也是一个比较高级的话题，例中转换一个TIFF文件到PDF文件。
+u       图片遮罩
+示例代码0613在，我们创建了一个用作遮罩的图片
+ 
+    
+     
+     
+     
+     
+     
+     
+     
+ 3C
+ 
+ 
+  
+  
+  
+  
+  
+  
+  
+ 7E
+ 
+ 
+  
+  
+  
+  
+  
+  
+  
+ E7
+ 
+ 
+  
+  
+  
+  
+  
+  
+  
+ C3
+ 
+ 
+  
+  
+  
+  
+  
+  
+  
+ C3
+ 
+ 
+  
+  
+  
+  
+  
+  
+  
+ E7
+ 
+ 
+  
+  
+  
+  
+  
+  
+  
+ 7E
+ 
+ 
+  
+  
+  
+  
+  
+  
+  
+ 3C
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+该图片尺寸为8×8象素，每组一个字节，使用makeMask()方法可以转换成遮罩。
+byte maskr[] = {(byte)0x3c, (byte)0x7e, (byte)0xe7, (byte)0xc3, (byte)0xc3, (byte)0xe7, (byte)0x7e, (byte)0x3c};
+Image mask = Image.getInstance(8, 8, 1, 1, maskr);
+mask.makeMask();
+mask.setInvertMask(true);
+我们可以用该遮罩直接遮住其他图片的一部分。
+PdfContentByte cb = writer.DirectContent;
+Image image = Image.getInstance("vonnegut.gif");
+image.ImageMask = mask;
+或者我们将该遮罩用于模板遮罪中。
+PdfContentByte cb = writer.DirectContent;
+cb.setRGBColorFill(255, 0, 0);
+cb.addImage(mask, mask.scaledWidth() * 8, 0, 0, mask.scaledHeight() * 8, 100, 400);
+关于ContentByte对象更多信息请参见第十章。
+图片和其他对象
+u       图片在块中
+有时，可以方便地将图片置于块中，通过一定偏移将一个图片置于块中：
+Chunk ck = new Chunk(img, 0, -5);
+具体代码见示例代码0614，我们可以添加该特殊图片块到短句、表格等，本例中的图片请到http://itextsharp.sourceforge.net/examples/pngnow.png下载。
+u       图片在表格中
+你可以将图片添加到单元格中，但有两个副作用：
+l       表格的宽度是确定，当图片超出单元格的宽度时，将自动缩小。
+l       你不能进行文字绕排和为图片添加下划线。
+参见示例代码0615。
+u       图片链接注释
+如果你希望得到一个可点击的图片，或者想添加链接注释到图片上，你需要创建一个Annotation对象，并添加到图片上，你不需要指定位置（你可以使用0,0,0,0），该位置会内部更新以适合该图片。
+gif.Annotation = new Annotation(0, 0, 0, 0, "Chap1102b.pdf", 3);
+jpeg.Annotation = new Annotation("picture", "These are my children", 0, 0, 0, 0);
+参加示例代码0616。
+第二部分 其他文档格式
+第七章 XML和 (X)HTML
+本章主要介绍了如何利用iText控件生成XLM文档和（X）HTML文档，但我们对这些并不感兴趣，故只介绍本章中提到的将XML转为PDF。
+在第一章中，我们通过5步生产一个PDF文件，为了将一个XML文件转换为PDF文件，只需重写第3和第4步，第5步由解析器自动处理。
+//第3步：创建一个解析器并设置文档句柄：
+iTextHandler h = new iTextHandler(document);
+//第4步，转换该文档：
+h.Parse("Chap0701.xml");
+示例代码见示例代码0702
+第八章 RTF文件
+RTF包
+RTF包是基于iText包扩展出来的，允许iText除生成PDF文件外还可以输出RTF文件，除了一些在RTF包中不支持的特性外，大多数PDF文件特性都可以使用。
+创建一个RTF文档
+创建一个RTF文档和创建一个PDF文档方法是一样的，都是这基本的5步，唯一的区别是第2步中用RtfWriter代替了PdfWriter，见示例代码0801。
+第1步 创建一个the iTextSharp.text.Document对象的实例：
+Document document = new Document();
+第2步 创建一个document的RtfWriter将document写入你选择的输出流：
+RtfWriter.getInstance(document, new FileStream("Chap0801.rtf"), FileMode.Create);
+第3步 打开document:
+document.Open();
+第4步 添加内容到document
+document.Add(new Paragraph("Hello World"));
+第5步 关闭document
+document.Close();
+关于如何创建其他对象并添加到document中，请参见其他章节的内容。
+不支持的特性
+水印 
+阅读器参数 
+加密 
+内嵌字体 
+块间距 
+段落右缩排 
+列表右缩排 
+无圆点符号列表 
+嵌套表格 
+除JPEG和PNG的其他图片 
+RTF中扩展的页眉和页脚
+写入RTF时无法在开始新页前通过setHeader方法改变文档的页眉或页脚，这里有两个办法来解决这个问题。
+利用“Chapters”，添加一个新“chapter”到文档前，使用setHeader或setFooter，你可以在不同的“Chapters”中使用不同的页眉或页脚，见示例代码0802。 
+使用RtfHeaderFooters类。该类允许你设置4个页眉或页脚，并指定在哪页出现。你当然可以结合Chapter创建4个不同的页眉或页脚，见示例代码0803。 
+u       使用RtfHeaderFooters类
+第1步创建一个RtfHeaderFooters类：
+RtfHeaderFooters headers = new RtfHeaderFooters();
+第2步添加HeaderFooter对象
+headers.Add(RtfHeaderFooters.LEFT_PAGES, new HeaderFooter(new Phrase("This header is only on left hand pages")));
+headers.Add(RtfHeaderFooters.RIGHT_PAGES, new HeaderFooter(new Phrase("This header is only on right hand pages")));
+第3步如同使用页眉页脚一样使用RtfHeaderFooters
+document.Header = headers;
+使用RtfHeaderFooters.add(...)的常量：
+FIRST_PAGE: 在你文档的第一页使用该页眉或页脚。你将使用rtfWriter.HasTitlePage = true来完成 
+LEFT_PAGES: 所有左边页均使用该页眉或页脚 
+RIGHT_PAGES: 所有右边页均使用该页眉或页脚 
+ALL_PAGES: 所有页均使用该页眉或页脚，只有和FIRST_PAGE 结合使用才有意义。 
+有一件事非常重要：如果你使用LEFT_PAGES或者RIGHT_PAGES来设置页眉或页脚，再使用ALL_PAGES，页眉和页脚均不会起作用。
+表格效果见示例代码0804。
+第三部分 iText的高级应用
+第九章 字体
+本章原文讲了许多字体的使用技巧，但就是没有讲如何使用中文，因此，意义不大，再说，如果不支持中文，前面的也就白翻译了，因此，根据原文讲到的一些知识，我摸索出汉字的使用方法，自己写了本章内容，应该算是“原创”了吧^_^(哎呀！谁拿鸡蛋扔我……)。
+Windows中一般都是使用TrueType字体，每个中文版Windows操作系统均默认安装了宋体、仿宋、黑体和楷体四种字体，你还可以安装其他第三方字体，如安装了Office 2000后，会自动安装华文行楷等字体，比较奇怪的是，在PDF文件中插入了一种本计算机才有的字体，在打开PDF文件的计算机上虽然没有该字体，但仍然能正常显示！这有别于Word文件，Word文件将当前计算机中没有的字体一律用宋体代替，这大概是意外收获吧。
+字体文件一般保存在windir\Fonts目录中，扩展名为TTF，还有扩展名为TTC的字体文件，也是TrueType字体，不过是一个集合，也就是里面有多种字体。下面列出windows2000简体中文版四种标准字体的文件名称：
+SIMSUN.TTC：宋体和新宋体
+SIMKAI.TTF：楷体
+SIMHEI.TTF：黑体
+SIMFANG.TTF：仿宋体
+TrueType字体应用
+按下面的方法写入黑体字文字，大小为32磅：
+BaseFont bfHei = BaseFont.createFont(@"c:\winnt\fonts\SIMHEI.TTF", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+Font font = new Font(bfHei, 32);
+String text = "这是黑体字测试！";
+document.Add(new Paragraph(text, font));
+不要管BaseFont.createFont方法第二、三个参数的意思，依葫芦画瓢就行了，第一个参数显示就是字体文件存放的位置。
+后面的代码都非常好理解，不再赘述。
+TruType字体集合的应用
+字体集合的使用同上面差不多，只是在在createFont方中要指定使用哪种字体。如：
+BaseFont bfSun=BaseFont.createFont(@"c:\winnt\fonts\SIMSUN.TTC,1", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+font = new Font(bfSun, 16);
+text = "这是字体集合中的新宋体测试！";
+document.Add(new Paragraph(text, font));
+不难看出，在使用BaseFont.createFont方法时，第一个参数@"c:\winnt\fonts\SIMSUN.TTC,1"中多了一个“,1”，表示使用序号为1字体，序号为0的字体为宋体。
+毕竟我们不是做排版软件，有了上面的办法就基本上够用了，真正很复杂的PDF文件制作，不妨做成XML文件（最简单的办法就是用Word排版，然后另存为web页了），然后按第七章的办法转换。
+代码见示例代码0901。
+第十章 图象和文本的绝对位置
+pdfContentByte
+到目前为止，我们已经使用了简单的iText，我们已经添加了文本、图片、段落、章节、列表、表格等，没有涉及到布局问题。Itext分割文本到每页中，并将每个单词、句子、段落布置到页面上，但有时我们并不需要这种自动格式，有时我们希望将一些图象或者文本放置在某页的指定位置，为实现该功能，我们将使用PdfContentByte类。
+为代替第一章，仅用PdfWriter类的getInstance方法是不够的，你必须真实地拥有一个PdfWriter对象，你可以通过在使用Writer对象中使用getDirectContent()方来得到该对象。例：
+PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("test.pdf"));
+PdfContentByte cb = writer.DirectContent;
+说明：当你添加高级对象（如表格）时，两个PdfContentByte对象将被内部使用：一个用于文本，一个用用于图象（如边界或单元格背景）。文本绘制浮于图象的上面。
+当你通过getDirectContent()方法直接使用PdfContentByte对象时，你所添加的所有对象都将浮于文本和图象。如果你想避免这种情况和希望添加内容在图象或文本的背后，你需要使用用getDirectContentUnder()方。
+一句话，当一页完成时，4层的重叠遵照如下顺序：
+1、  通过getDirectContentUnder()得到的PdfContentByte
+2、  包含图象或高级对象的内部PdfContentByte
+3、  病文本或高级对象的内部PdfContentByte
+4、  通过getDirectContent()得到的PdfContentByte
+简单图形
+在示例代码1001中，绘制了一些简单图形，我们使用了诸如moveTo和lineTo方法来在移动到页面上当前位置然后画一条直线到其他位置。我们使用了诸如setLineWidth和setLineDash方法来改变直线的外观，如：
+cb.LineWidth = 10f;
+cb.moveTo(100, 700);
+cb.lineTo(200, 800);
+cb.stroke();
+说明：当你改变诸如颜色、线宽等属性时，只有你在调用stroke方法时才起作用。在例中绘制三角形时，我们设置颜色为绿色，在使用stroke方法前我们改变颜色为红色，则绘制三角形的结果为为红色而不是绿色，该例中还有矩形、圆等使用方法。
+文本
+当你想将文本写入ContentByte中时，你必须使用方法beginText()和endText，你也必须设置字体和尺寸。就象图形示例中一样，还有许多方法用于写入和放置文本，但你最需要的是方法showTextAligned和方法showText配合setTextMatrix。
+例1：
+BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);  cb.beginText();
+cb.setFontAndSize(bf, 12);
+cb.showTextAligned(PdfContentByte.ALIGN_CENTER, text + "This text is centered", 250, 700, 0);
+cb.endText();
+例2：
+BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+cb.beginText();
+cb.setFontAndSize(bf, 12);
+cb.setTextMatrix(100, 400);
+cb.showText("Text at position 100,400.");
+cb.endText();
+请参见示例代码1002。
+模板（Form xObjects）
+当我们在第四章讨论页眉和页脚时，我们定义了一小块添加到每一页的信息，实际上，该小块信息写到了文件的每一个新页上。这并不是最经济的解决方案，更好的办法是将该信息作为一个Form Xobject仅在文档中添加一次，在其可见位置重复出现。我达到该目的，我们将使用模板。
+u       创建一个PdfTemplate
+u       创建PdfTemplate的最好方法是调用PdfContentByte对象中的createTemplate方法：
+PdfContentByte-object:
+PdfTemplate template = cb.createTemplate(500, 200);
+这样，该模板的宽度为500，高度为200。
+通过该模板我们可以做象PdfContentByte同样的事情
+template.moveTo(0, 200);
+template.lineTo(500, 0);
+template.stroke();
+template.beginText();
+BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+template.setFontAndSize(bf, 12);
+template.setTextMatrix(100, 100);
+template.showText("Text at the position 100,100 (relative to the template!)");
+template.endText();
+u       添加一个模板到文档
+通过象下面一样在绝对位置添加一个模板：
+cb.addTemplate(template, 0, 400);
+你还可以做一些有趣的事情，如缩放或旋转他们：
+//将模板旋转90度
+cb.addTemplate(template, 0, 1, -1, 0, 500, 200);
+// 缩放模板为50％
+cb.addTemplate(template, .5f, 0, 0, .5f, 100, 400);
+//缩放模板为200％
+cb.addTemplate(template, 2, 0, 0, 2, -200, 400);
+具体演示见示例代码1003。
+u       第几页共几页
+在一些情况下，你希望插入一些你在写本页时外壳无法知道的信息到文本中去，如：在一篇文档的第一页，你并不知道该文档共有几页。只能在完成了整个文档时才知道总的页数。当使用模板时，该问题就不存在了。在示例代码0103中，我们在添加模板到ContentByte前添加了一些信息到模板中，这是没有必要的。我们可以在任何时候添加信息到模板，因为iText添加Form Xobject是在PDF结束的地方（当通过close方法关闭该文档时调用）。示例代码1004显示了首先创建4页然后添加总到页数，该例非常简单和有用。
+分栏
+在本章以前，你已经掌握了如何将文本放在一个绝对位置，这种情况下，我们要确定文本的开始坐标。如果我们想知道文本的结束位置，我们得做一些计算工作。
+现在我们要加一些文本到一个矩形框的内部，希望文本到达右边界时自动换行。超出矩形部分将不显示，可以通过ColumnText类实现。
+举个例子：
+为显示一个指定的短句在坐标(100, 300)和(200, 500)间的矩形内居中，我们使用下面的代码：
+PdfContentByte cb = writer.DirectContent;
+ColumnText ct = new ColumnText(cb);
+ct.setSimpleColumn(phrase, 60, 300, 100, 500, 15, Element.ALIGN_CENTER);
+ct.go();
+通过查看示例代码1005，你会立即发现通过该方法可以可以画一些复杂的表格而无须Table对象。
+另一个例子：
+没有必要一次性将文本全部添加进去，你可以先定义一个矩形，然后添加一些文本，最后用go方法显示分栏。
+PdfContentByte cb = writer.DirectContent;
+ColumnText ct = new ColumnText(cb);
+ct.setSim7pleColumn(60, 300, 100, 500, 15, Element.ALIGN_CENTER);
+ct.addText(phrase1);
+ct.addText(phrase2);
+ct.addText(phrase3);
+ct.go();
+详见示例代码1006。
+多栏
+当然，如果文本超出了矩形范围，我们并不想丢失这些多出的文本，或许我们想将这些文本显示到其他栏中。这就是为什么我们要查看go方法返回值的原因。如果返回标识为“NO_MORE_COLUMN”，表示该栏中没有足够的空间存放该文本，如果所有的文本均显示出来，标识将为“NO_MORE_TEXT”。
+请参见示例代码1007。
+不规则栏
+定义一个非矩形的区域来显示栏也是可能的,通过使用setColumns方法,我们为文本定义了一个左右边界。
+float[] left = {70,790, 70,60};
+float[] right = {300,790, 300,700, 240,700, 240,590, 300,590, 300,106, 270,60};
+ct.setColumns(left, right);
+左边界是一条直线，而右边界是不规则的。该函数的结果可以导致一些非常有意思的布局，见示例代码1008，本例中你将用到一个名为caesar_coin.jpg的图片：
+
+PdfTable
+在第5章中，我们简要地讲述了PdfPTable对象，现在我们将讨论该对象更多的的特性。
+你可以用3种不同的方法创建PdfTable：
+PdfPTable(float[] relativeWidths);
+PdfPTable(int numColumns);
+PdfPTable(PdfPTable table);
+你可以给该表设置更多的参数，如表宽度、列宽度、水平对齐方式等，你可以通过下面的办法添加单元格：
+public void addCell(PdfPCell cell);
+public void addCell(PdfPTable table);
+public void addCell(Phrase phrase);
+public void addCell(String text);
+除了单元格填距和和间距，这些方法同Table对象非常类似。这些参数对每个单元格个体进行了设置，当然，你可以设置单元格的默认值，为改变单元格的默认值，使用getDefaultCell()和调用一个或更多的类PdfPCell的方法（你可以设置对齐方式、间距、边框、颜色甚至最低高度）。
+注：通过PdfPTable，你能改变一个单元格的列跨度，但不能改变行跨度！在PdfPTable内部是一些独立的行，要让它支持行跨度更改需要对PdfPTable对象进行很大的调整，不要期望在近期内实现，你可以用嵌套表来解决这些问题。
+你可以象第5章一样将一个PdfPTable添加到当前文档中，但你也可以添加一个表在当前页中的绝对位置：
+public float writeSelectedRows(int rowStart, int rowEnd, float xPos, float yPos, PdfContentByte canvas);
+参数rowStart是你想开始的行的数目，参数rowEnd是你想显示的最后的行（如果你想显示所有的行，用-1），xPos和yPos是表格的坐标，canvas是一个PdfContentByte对象。在示例代码1009中，我们添加了一个表在(100,600)处：
+table.writeSelectedRows(0, -1, 100, 600, writer.DirectContent);
+使用PdfPTable，你不能设置行跨度和（或）来跨度（怎么和上面的有点矛盾？）你可以使用嵌套表来解决，见示例代码1010。
+最后，示例代码1011和示例代码1012展示了PdfTable可以和templates 和 columns一起使用，在示例代码1012中将用到cover.png图片如下：
+
+颜色（SpotColors）和图案(Patterns)
+颜色（spotcolors）的使用见示例代码1013，示例代码1014和示例代码1015演示了图案(patterns)的使用方法。
+第十一章 本地和异地转向、目标和概要
+本地转向
+有时你需要一个允许读者从文档的一个地方跳转到另外一个地方的链接，你可以通过类Chunk的setLocalGoto 和setLocalDestination两个方法实现，例：
+Chunk localgoto = new Chunk("this word", FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL, new Color(0, 0, 255))).setLocalGoto("test");
+Chunk destination = new Chunk("local destination", FontFactory.getFont(FontFactory.HELVETICA, 12,

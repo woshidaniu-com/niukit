@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+.area-selection{
+    position: absolute;
+    display: none;
+    background-color: #fff;
+    padding: 10px;
+    border:1px solid #ddd;
+    /*max-width: 600px;*/
+    min-width: 320px;
+    font-weight: normal;
+    border-radius: 4px;
+    z-index: 1200;
+}
+.area-selection .badge{
+    margin-left: 3px;
+    background-color: #428bca;
+}
+
+

@@ -1,0 +1,99 @@
+
+/*=====================µÇÂ¼Ò³Ãæ========================*/
+
+.logo_1 {
+	font: normal 24px/45px "microsoft YaHei";
+	color: #1069a4;
+	padding: 0;
+}
+
+.logo_1 img {
+	padding-right: 5px
+}
+
+.sl_log_top {
+	margin: 25px 0px 45px;
+}
+
+.sl_log_top a {
+	line-height: 50px;
+	padding-left: 10px;
+	color: #666;
+}
+
+.sl_log_bor4 {
+	border: 4px solid #ededed;
+	border-radius: 4px;
+	background: #f5f5f5;
+	margin: 0px;
+}
+
+.sl_log_lf {
+	padding: 0px;
+}
+
+.sl_log_lf .img-responsive {
+	width: auto;
+}
+
+.sl_log_rt {
+	padding: 0px;
+}
+
+.sl_log_rt .sl_danger {
+	border: 1px solid #f4a2a2;
+	line-height: 24px;
+	padding: 0px 10px;
+	margin-bottom: 10px;
+	font-size: 12px
+}
+
+.sl_log_rt .sl_danger .glyphicon {
+	color: red;
+	margin-right: 5px;
+}
+
+.sl_log_rt .sl_warning {
+	border: 1px solid #f3e6a1;
+	line-height: 24px;
+	padding: 0px 10px;
+	margin-bottom: 10px;
+	font-size: 12px
+}
+
+.sl_log_rt .sl_warning .glyphicon {
+	color: #f9d408;
+	margin-right: 5px;
+}
+
+.sl_log_rt form {
+	background-color: rgba(255, 255, 255, .7);
+	padding: 15px;
+}
+
+.sl_log_rt .form-group {
+	margin: 0px 0px 15px;
+}
+
+.sl_log_rt .input-group-addon {
+	background: #fff;
+}
+
+.sl_log_rt h5 {
+	font: bold 15px/30px microsoft YaHei, SimSun, Arial;
+	margin-bottom: 20px;
+}
+
+.sl_log_ewm {
+	padding: 20px;
+}
+
+.sl_log_ewm span {
+	display: inline-block;
+}
+
+.sl_notice {
+	margin: 20px 0px 0px;
+	border-bottom: 1px solid #cccccc;
+	padding-bottom: 20px;
+}

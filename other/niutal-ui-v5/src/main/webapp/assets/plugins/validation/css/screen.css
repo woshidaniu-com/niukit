@@ -1,0 +1,26 @@
+
+em.error {
+	text-align: left;
+	color: #a94442;
+	background: url("../images/unchecked.gif") no-repeat 0px 3px;
+	padding-left: 16px;
+	margin-left: 5px;
+	word-wrap: break-word;
+	word-break: normal;
+	white-space:nowrap;
+	line-height: 22px;
+	display: inline;
+}
+
+em.success {
+	text-align: left;
+	color: #3c763d;
+	background: url("../images/checked.gif") no-repeat 0px 3px;
+	padding-left: 16px;
+	margin-left: 5px;
+	word-wrap: break-word;
+	word-break: normal;
+	white-space:nowrap;
+	line-height: 22px;
+	display: inline;
+}
